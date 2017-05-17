@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<title>Riley Lahd</title>
+<head>
+<link rel="stylesheet" type="text/css" href="ss.css">
+</head>
+
+<body>
+<ul>
+  <li><a id=homelink onclick="return makeActive('homelink');" class="active" href="#home">Home</a></li>
+  <li><a id=aboutlink onclick="return makeActive('aboutlink');" href="#about">About</a></li>
+  <li><a id=worklink onclick="return makeActive('worklink');" href="#work">Work</a></li>
+  <li><a id=contactlink onclick="return makeActive('contactlink');" href="#contact">Contact</a></li>
+</ul>
+<div id=container>
+	<div style="margin-left:20%;padding:1px 16px;height:1000px;">
+
+	<h1 id=home>Riley Lahd</h1>
+	<h3>A Computer Science Graduate from the University of Calgary</h3>
+
+	<h2 id=about>#About</h2>
+		<div class=bordered>
+		<img src="self-pic.jpg" alt="Me on a hike!" style="width:70%;margin-top:10px">
+		<p>Bio and resume link</p>
+		</div>
+
+	<h2 id=work>#Work</h2>
+		<div class=bordered>
+		<p>Selected github repos - embed something?</p>
+		</div>
+
+
+	<h2 id=contact>#Contact</h2>
+		<div class=bordered>
+		<p>Contact info: email, twitter,</p>
+		</div>
+
+	</div>
+</div>
+<script type="text/javascript">
+function makeActive(id) { 
+	document.getElementById("homelink").className = document.getElementById("homelink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
+	document.getElementById("aboutlink").className = document.getElementById("aboutlink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
+	document.getElementById("worklink").className = document.getElementById("worklink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
+	document.getElementById("contactlink").className = document.getElementById("contactlink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
+    document.getElementById(id).className = "active";
+    return true;
+}
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* global React */
+/* global React, Dock */
 /* exported Site */
 class Site extends React.Component {
 	constructor(props) {
@@ -12,6 +12,7 @@ class Site extends React.Component {
 		return (
 			<div>
 				Placeholder
+				<Dock />
 			</div>
 		)
 	}

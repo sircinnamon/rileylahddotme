@@ -1,0 +1,29 @@
+{
+  "name": "rileylahddotme-build",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint react/**",
+    "build": "babel react -d babel && uglifyjs babel/* -o webroot/js/rileylahddotme-react.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sircinnamon/rileylahddotme.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sircinnamon/rileylahddotme/issues"
+  },
+  "homepage": "https://github.com/sircinnamon/rileylahddotme#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.10.3",
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "eslint": "^7.3.1",
+    "eslint-plugin-react": "^7.20.0",
+    "uglify-js": "^3.10.0"
+  }
+}

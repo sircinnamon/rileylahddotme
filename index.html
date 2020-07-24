@@ -1,51 +1,31 @@
-<!DOCTYPE html>
-<html>
-<title>Riley Lahd</title>
+<html lang="en">
+
 <head>
-<link rel="stylesheet" type="text/css" href="ss.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<meta charset="UTF-8">
+	<noscript>
+		<h1>Sorry, this site requires JavaScript to run :(</h1>
+	</noscript>
+
+	<title>Riley Lahd</title>
+	<script crossorigin src="https://unpkg.com/react@16.13.1/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16.13.1/umd/react-dom.development.js"></script>
+	<script crossorigin src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./js/main.js"></script>
+	<script language="JavaScript" type="text/javascript" src="./js/rileylahddotme-react.min.js"></script>
+
+
 </head>
 
-<body>
-<ul>
-  <li><a id=homelink onclick="return makeActive('homelink');" class="active" href="#home">Home</a></li>
-  <li><a id=aboutlink onclick="return makeActive('aboutlink');" href="#about">About</a></li>
-  <li><a id=worklink onclick="return makeActive('worklink');" href="#work">Work</a></li>
-  <li><a id=contactlink onclick="return makeActive('contactlink');" href="#contact">Contact</a></li>
-</ul>
-<div id=container>
-	<div style="margin-left:20%;padding:1px 16px;height:1000px;">
-
-	<h1 id=home>Riley Lahd</h1>
-	<h3>A Computer Science Graduate from the University of Calgary</h3>
-
-	<h2 id=about>#About</h2>
-		<div class=bordered>
-		<img src="self-pic.jpg" alt="Me on a hike!" style="width:70%;margin-top:10px">
-		<p>Bio and resume link</p>
-		</div>
-
-	<h2 id=work>#Work</h2>
-		<div class=bordered>
-		<p>Selected github repos - embed something?</p>
-		</div>
-
-
-	<h2 id=contact>#Contact</h2>
-		<div class=bordered>
-		<p>Contact info: email, twitter,</p>
-		</div>
-
-	</div>
-</div>
-<script type="text/javascript">
-function makeActive(id) { 
-	document.getElementById("homelink").className = document.getElementById("homelink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
-	document.getElementById("aboutlink").className = document.getElementById("aboutlink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
-	document.getElementById("worklink").className = document.getElementById("worklink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
-	document.getElementById("contactlink").className = document.getElementById("contactlink").className.replace( /(?:^|\s)active(?!\S)/g , '' )
-    document.getElementById(id).className = "active";
-    return true;
-}
-</script>
+<body style="background: #2C2F33; font-family: arial;">
+	<main id="reactapp">
+	</main>
 </body>
+<script type="text/javascript">
+	let forceColourChange = function(){console.log("init")};
+	let props = {};
+	// console.log(props);
+	let domContainer = document.querySelector("#reactapp");
+	page = ReactDOM.render(React.createElement(Site, props), domContainer);
+</script>
 </html>

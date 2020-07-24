@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint react/**",
-    "build": "babel react -d babel && uglifyjs babel/* -o webroot/js/rileylahddotme-react.min.js"
+    "build": "babel react -d babel && uglifyjs babel/* -o js/rileylahddotme-react.min.js"
   },
   "repository": {
     "type": "git",

@@ -10,8 +10,8 @@ class Window extends React.Component {
 			minWidth: "40px",
 			minHeight: "20px",
 			position: "absolute",
-			top: Math.max(this.props.topPos, 0) || 0,
-			left: Math.max(this.props.leftPos, 0) || 0,
+			top: Math.min(Math.max(this.props.topPos, 0), window.innerHeight-20) || 0,
+			left: Math.min(Math.max(this.props.leftPos, 0), window.innerWidth-40) || 0,
 			zIndex: this.props.layer + 100
 		};
 		let headerStyle = {
@@ -19,7 +19,8 @@ class Window extends React.Component {
 			userSelect: "none",
 			color: "rgb(75,75,75)",
 			padding: "4px 4px 0px",
-			borderRadius: "5px 5px 0px 0px"
+			borderRadius: "5px 5px 0px 0px",
+			height: "20px"
 		};
 		if (this.props.isHeld) {
 			headerStyle.backgroundColor = "rgba(255,0,0,0.7)";

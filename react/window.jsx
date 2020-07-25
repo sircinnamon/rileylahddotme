@@ -38,7 +38,7 @@ class Window extends React.Component {
 			overflow: this.props.isFolded ? "hidden" : ""
 		};
 		return (
-			<div style={windowStyle} onMouseDown={this.props.makeActive}>
+			<div style={windowStyle} onMouseDown={this.props.makeActive} onKeyDown={this.props.onKeyDown}>
 				<div style={headerStyle} onMouseDown={this.props.grabWindow}>
 					{this.props.title}
 					<WindowHeaderBtn style={closeButtonStyle} onMouseDown={this.props.close} />
@@ -79,11 +79,36 @@ class WindowHeaderBtn extends React.Component {
 class TerminalWindow extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = {
+			input: ""
+		};
+		
+		this.keyPress = function(ev){
+			if (ev.which == 13 || ev.keyCode == 13) {
+        		this.submitInput()
+			}
+   		}
+		this.submitInput = function(){
+			let input = this.state.input
+			if(this.props.updateBody){
+				let newBody = this.props.bodyChunks
+				newBody.push({ string: " $ ", bold: true, color: 0 })
+				newBody.push({ string: this.state.input+"\n" })
+				this.props.updateBody(newBody)
+			}
+			this.setState({input: ""})
+		}
+	}
+	
+	componentDidUpdate(prevProps) {
+		if(this.props.isActive && document.activeElement !== this.termInput){
+			this.termInput.focus({preventScroll: true})
+		}
 	}
 
 	render() {
 		let colors = ["#20872b", "#205c87"];
+		let prompt = " $ "
 		let body = [];
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
 			let s = {};
@@ -101,6 +126,22 @@ class TerminalWindow extends React.Component {
 			color: "rgb(200,200,200)",
 			margin: 0
 		};
+		let promptStyle = {
+			color: colors[0],
+			fontWeight: "bold"
+		}
+		let inputStyle = {
+			fontFamily: "monospace",
+			color: "rgb(200,200,200)",
+		}
+		let textboxStyle = {
+			display: "block",
+			position: "absolute",
+			top: 0,
+			left: 0,
+			opacity: 0,
+			pointerEvents: "none"
+		}
 		return (
 			<Window
 				title={this.props.title}
@@ -116,7 +157,19 @@ class TerminalWindow extends React.Component {
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
 			>
-				<pre style={preStyle}>{body}</pre>
+				<pre style={preStyle}>
+					{body}
+					<span style={promptStyle}>{prompt}</span>
+					<span style={inputStyle}>{this.state.input}</span>
+					<input
+						type="text"
+						value={this.state.input}
+						onChange={(ev)=>{this.setState({input: ev.target.value})}}
+						style={textboxStyle}
+						ref={(input) => { this.termInput = input; }}
+						onKeyPress={this.keyPress.bind(this)}
+					/>
+				</pre>
 			</Window>
 		);
 	}

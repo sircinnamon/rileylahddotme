@@ -149,6 +149,7 @@ class Site extends React.Component {
 				makeActive: (ev) => {
 					this.makeWindowActive(ev, w[1].id);
 				},
+				isActive: w[1].id === this.state.activeWindow,
 				layer: this.state.windowZOrder.indexOf(w[1].id),
 				close: (ev) => {
 					this.deleteWindow(ev, w[1].id);

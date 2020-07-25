@@ -18,7 +18,7 @@ class Site extends React.Component {
 			let newWindow = {
 				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
-				title: counter % 2 == 0 ? "Terminal "+id:id,
+				title: counter % 2 == 0 ? "Terminal " + id : id,
 				folded: false,
 				hidden: false,
 				type: counter % 2 == 0 ? "terminal" : "default"
@@ -198,9 +198,13 @@ class Site extends React.Component {
 		return (
 			<div>
 				<div>
-					<button onClick={this.newWindow.bind(this)}>+</button>
 					<br />
 					{windows}
+					<Dock>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<h2 style={{lineHeight: "60px", margin: "0px", color: "grey", padding: "0px 20px", userSelect: "none"}}>{"+"}</h2>
+						</DockButton>
+					</Dock>
 				</div>
 			</div>
 		);

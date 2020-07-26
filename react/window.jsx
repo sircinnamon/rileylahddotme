@@ -113,7 +113,7 @@ class TerminalWindow extends React.Component {
 	}
 
 	render() {
-		let colors = ["#20872b", "#205c87"];
+		let colors = ["#20872b", "#205c87", "#555"];
 		let prompt = " $ ";
 		let body = [];
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
@@ -130,7 +130,8 @@ class TerminalWindow extends React.Component {
 		let preStyle = {
 			backgroundColor: "rgba(0,0,0,0.7)",
 			color: "rgb(200,200,200)",
-			margin: 0
+			margin: 0,
+			padding: "0 .5em"
 		};
 		let promptStyle = {
 			color: colors[0],

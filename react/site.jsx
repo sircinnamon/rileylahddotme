@@ -23,6 +23,55 @@ class Site extends React.Component {
 				hidden: false,
 				type: counter % 2 == 0 ? "terminal" : "default"
 			};
+			if(counter==1){newWindow.type = "edu"}
+			console.log(newWindow.type)
+			if(newWindow.type === "terminal"){
+				newWindow.bodyChunks = [
+					{ string: "pi@thor", bold: true, color: 0 },
+					{ string: ":" },
+					{ string: "~/rileylahddotme ", bold: true, color: 1 },
+					{ string: "python3 -m http.server\n" },
+					{
+						string: "Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n"
+					},
+					{
+						string: '10.0.0.117 - - [24/Jul/2020 15:12:40] "GET / HTTP/1.1" 200 -\n'
+					},
+					{
+						string:
+							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/main.js HTTP/1.1" 200 -\n'
+					},
+					{
+						string:
+							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/rileylahddotme-react.min.js HTTP/1.1" 200 -\n'
+					},
+					{
+						string:
+							"10.0.0.117 - - [24/Jul/2020 15:12:40] code 404, message File not found\n"
+					},
+					{
+						string:
+							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /favicon.ico HTTP/1.1" 404 -\n'
+					}
+				]
+			}
+			if(newWindow.type === "edu"){
+				newWindow.bodyChunks = [
+					{ string: "EDUCATION\n\n", bold: true, color: 0 },
+					{ string: "University of Calgary ", bold: true, color: 1 },
+					{ string: "[2013-2017]\n", bold: false, color: 2 },
+					{ string: "\t[Calgary, AB]\n", bold: false, color: 2 },
+					{ string: "\tGraduated 2017\n", bold: false, color: undefined },
+					{ string: "\tBachelor of Science ", bold: true, color: 0 },
+					{ string: "--", bold: false, color: undefined },
+					{ string: " Computer Science\n\n", bold: true, color: 1 },
+					{ string: "Lindsay Thurber Comprehensive High School ", bold: true, color: 1 },
+					{ string: "[2008-2012]\n", bold: false, color: 2 },
+					{ string: "\t[Red Deer, AB]\n", bold: false, color: 2 },
+					{ string: "\tGraduated 2012\n", bold: false, color: undefined },
+					{ string: "\tHonor Roll\n\n", bold: true, color: 0 }
+				]
+			}
 			newWindow.children = (
 				<div
 					style={{
@@ -161,36 +210,8 @@ class Site extends React.Component {
 					this.hideWindow(ev, w[1].id);
 				}
 			};
-			if (w[1].type === "terminal") {
-				let bodyChunks = [
-					{ string: "pi@thor", bold: true, color: 0 },
-					{ string: ":" },
-					{ string: "~/rileylahddotme ", bold: true, color: 1 },
-					{ string: "python3 -m http.server\n" },
-					{
-						string: "Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n"
-					},
-					{
-						string: '10.0.0.117 - - [24/Jul/2020 15:12:40] "GET / HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/main.js HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/rileylahddotme-react.min.js HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							"10.0.0.117 - - [24/Jul/2020 15:12:40] code 404, message File not found\n"
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /favicon.ico HTTP/1.1" 404 -\n'
-					}
-				];
-				return <TerminalWindow bodyChunks={bodyChunks} {...globalProps} />;
+			if (w[1].type === "terminal" || w[1].type === "edu") {
+				return <TerminalWindow bodyChunks={w[1].bodyChunks} {...globalProps} />;
 			} else {
 				return <Window {...globalProps}>{w[1].children}</Window>;
 			}

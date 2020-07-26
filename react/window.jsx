@@ -5,13 +5,14 @@ class Window extends React.Component {
 	}
 
 	render() {
+		// console.log(window.innerHeight, window.innerWidth)
 		let windowStyle = {
 			display: this.props.isHidden ? "none" : "inline-block",
 			minWidth: "40px",
 			minHeight: "20px",
 			position: "absolute",
-			top: Math.min(Math.max(this.props.topPos, 0), window.innerHeight-20) || 0,
-			left: Math.min(Math.max(this.props.leftPos, 0), window.innerWidth-40) || 0,
+			top: Math.min(Math.max(this.props.topPos, 0), window.innerHeight - 20) || 0,
+			left: Math.min(Math.max(this.props.leftPos, 0), window.innerWidth - 40) || 0,
 			zIndex: this.props.layer + 100
 		};
 		let headerStyle = {
@@ -39,7 +40,11 @@ class Window extends React.Component {
 			overflow: this.props.isFolded ? "hidden" : ""
 		};
 		return (
-			<div style={windowStyle} onMouseDown={this.props.makeActive} onKeyDown={this.props.onKeyDown}>
+			<div
+				style={windowStyle}
+				onMouseDown={this.props.makeActive}
+				onKeyDown={this.props.onKeyDown}
+			>
 				<div style={headerStyle} onMouseDown={this.props.grabWindow}>
 					{this.props.title}
 					<WindowHeaderBtn style={closeButtonStyle} onMouseDown={this.props.close} />
@@ -83,33 +88,33 @@ class TerminalWindow extends React.Component {
 		this.state = {
 			input: ""
 		};
-		
-		this.keyPress = function(ev){
+
+		this.keyPress = function (ev) {
 			if (ev.which == 13 || ev.keyCode == 13) {
-        		this.submitInput()
+				this.submitInput();
 			}
-   		}
-		this.submitInput = function(){
-			let input = this.state.input
-			if(this.props.updateBody){
-				let newBody = this.props.bodyChunks
-				newBody.push({ string: " $ ", bold: true, color: 0 })
-				newBody.push({ string: this.state.input+"\n" })
-				this.props.updateBody(newBody)
+		};
+		this.submitInput = function () {
+			let input = this.state.input;
+			if (this.props.updateBody) {
+				let newBody = this.props.bodyChunks;
+				newBody.push({ string: " $ ", bold: true, color: 0 });
+				newBody.push({ string: this.state.input + "\n" });
+				this.props.updateBody(newBody);
 			}
-			this.setState({input: ""})
-		}
+			this.setState({ input: "" });
+		};
 	}
-	
+
 	componentDidUpdate(prevProps) {
-		if(this.props.isActive && document.activeElement !== this.termInput){
-			this.termInput.focus({preventScroll: true})
+		if (this.props.isActive && document.activeElement !== this.termInput) {
+			this.termInput.focus({ preventScroll: true });
 		}
 	}
 
 	render() {
 		let colors = ["#20872b", "#205c87"];
-		let prompt = " $ "
+		let prompt = " $ ";
 		let body = [];
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
 			let s = {};
@@ -130,11 +135,11 @@ class TerminalWindow extends React.Component {
 		let promptStyle = {
 			color: colors[0],
 			fontWeight: "bold"
-		}
+		};
 		let inputStyle = {
 			fontFamily: "monospace",
-			color: "rgb(200,200,200)",
-		}
+			color: "rgb(200,200,200)"
+		};
 		let textboxStyle = {
 			display: "block",
 			position: "absolute",
@@ -142,7 +147,7 @@ class TerminalWindow extends React.Component {
 			left: 0,
 			opacity: 0,
 			pointerEvents: "none"
-		}
+		};
 		return (
 			<Window
 				title={this.props.title}
@@ -165,9 +170,13 @@ class TerminalWindow extends React.Component {
 					<input
 						type="text"
 						value={this.state.input}
-						onChange={(ev)=>{this.setState({input: ev.target.value})}}
+						onChange={(ev) => {
+							this.setState({ input: ev.target.value });
+						}}
 						style={textboxStyle}
-						ref={(input) => { this.termInput = input; }}
+						ref={(input) => {
+							this.termInput = input;
+						}}
 						onKeyPress={this.keyPress.bind(this)}
 					/>
 				</pre>

@@ -200,9 +200,20 @@ class Site extends React.Component {
 				<div>
 					<br />
 					{windows}
+					<Desktop />
 					<Dock>
 						<DockButton onClick={this.newWindow.bind(this)}>
-							<h2 style={{lineHeight: "60px", margin: "0px", color: "grey", padding: "0px 20px", userSelect: "none"}}>{"+"}</h2>
+							<h2
+								style={{
+									lineHeight: "60px",
+									margin: "0px",
+									color: "grey",
+									padding: "0px 20px",
+									userSelect: "none"
+								}}
+							>
+								{"+"}
+							</h2>
 						</DockButton>
 					</Dock>
 				</div>

@@ -74,7 +74,8 @@ class DesktopShortcut extends React.Component {
 			width: "60px",
 			objectFit: "contain",
 			margin: "auto",
-			display: "block"
+			display: "block",
+			userSelect: "none"
 		};
 		let nameStyle = {
 			color: "rgb(200,200,200)",

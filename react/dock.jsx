@@ -19,7 +19,9 @@ class Dock extends React.Component {
 			height: "100%",
 			minWidth: "200px",
 			maxWidth: "500px",
-			background: "rgba(20, 20, 20, 0.5)"
+			background: "rgba(20, 20, 20, 0.5)",
+			display: "flex",
+			justifyContent: "space-evenly"
 		};
 		return (
 			<div style={containerStyle}>

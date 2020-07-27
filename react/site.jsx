@@ -247,7 +247,7 @@ class Site extends React.Component {
 					<Desktop>
 						<DesktopShortcut
 							name="Education"
-							imgUrl="https://s0.2mdn.net/simgad/15677679681844356947"
+							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 							isSelected={this.state.selectedShortcut === "EducationShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "EducationShortcut" });
@@ -257,17 +257,60 @@ class Site extends React.Component {
 					</Desktop>
 					<Dock>
 						<DockButton onClick={this.newWindow.bind(this)}>
-							<h2
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 								style={{
-									lineHeight: "60px",
-									margin: "0px",
-									color: "grey",
-									padding: "0px 20px",
-									userSelect: "none"
+									height: "55px"
 								}}
-							>
-								{"+"}
-							</h2>
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton onClick={this.newWindow.bind(this)}>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
 						</DockButton>
 					</Dock>
 				</div>

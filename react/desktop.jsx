@@ -35,28 +35,20 @@ class Desktop extends React.Component {
 			width: "100%",
 			overflow: "hidden",
 			objectFit: "cover"
-		}
-		let wpUrl = this.props.wallpaper || "http://thor.sircinnamon.ca/img/wallhaven-ymojgd.jpg"
+		};
+		let wpUrl =
+			this.props.wallpaper ||
+			"http://thor.sircinnamon.ca/img/wallhaven-ymojgd.jpg";
 		return (
 			<div style={containerStyle}>
-				<div style={shortcutContainerStyle}>
-					<DesktopShortcut
-						name="Test"
-						imgUrl="https://s0.2mdn.net/simgad/15677679681844356947"
-						isSelected={this.state.selectedShortcut === "Test"}
-						setSelected={() => {
-							this.setState({ selectedShortcut: "Test" });
-						}}
-						onDoubleClick={()=>(alert("paypal"))}
-					/>
-				</div>
+				<div style={shortcutContainerStyle}>{this.props.children}</div>
 				<div
 					style={wallpaperStyle}
 					onClick={() => {
 						this.setState({ selectedShortcut: undefined });
 					}}
 				>
-					<img style={wallpaperImgStyle} src={wpUrl}/>
+					<img style={wallpaperImgStyle} src={wpUrl} />
 				</div>
 			</div>
 		);
@@ -73,7 +65,6 @@ class DesktopShortcut extends React.Component {
 
 	render() {
 		let containerStyle = {
-			width: "80px",
 			padding: "5px"
 		};
 		let imgStyle = {

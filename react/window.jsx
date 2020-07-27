@@ -114,7 +114,7 @@ class TerminalWindow extends React.Component {
 
 	render() {
 		let colors = ["#20872b", "#205c87", "#555"];
-		let prompt = " $ ";
+		let prompt = ">>> $ ";
 		let body = [];
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
 			let s = {};
@@ -128,7 +128,7 @@ class TerminalWindow extends React.Component {
 			body.push(<span style={s}>{c.string}</span>);
 		}
 		let preStyle = {
-			backgroundColor: "rgba(0,0,0,0.7)",
+			backgroundColor: "rgba(0,0,0,0.8)",
 			color: "rgb(200,200,200)",
 			margin: 0,
 			padding: "0 .5em"

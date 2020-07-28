@@ -21,10 +21,11 @@ class Site extends React.Component {
 				title: counter % 2 == 0 ? "Terminal " + id : id,
 				folded: false,
 				hidden: false,
-				type: counter % 2 == 0 ? "terminal" : "default"
+				type: counter % 2 == 0 ? "terminal" : "default",
+				props: {}
 			};
 			if (newWindow.type === "terminal") {
-				newWindow.bodyChunks = [
+				newWindow.props.bodyChunks = [
 					{ string: "pi@thor", bold: true, color: 0 },
 					{ string: ":" },
 					{ string: "~/rileylahddotme ", bold: true, color: 1 },
@@ -86,9 +87,10 @@ class Site extends React.Component {
 				title: "",
 				folded: false,
 				hidden: false,
-				type: "terminal"
+				type: "terminal",
+				props: {}
 			};
-			newWindow.bodyChunks = [
+			newWindow.props.bodyChunks = [
 				{ string: "EDUCATION\n\n", bold: true, color: 0 },
 				{ string: "University of Calgary ", bold: true, color: 1 },
 				{ string: "[2013-2017]\n", bold: false, color: 2 },
@@ -107,6 +109,59 @@ class Site extends React.Component {
 				{ string: "\tGraduated 2012\n", bold: false, color: undefined },
 				{ string: "\tHonor Roll\n\n", bold: true, color: 0 }
 			];
+			winSet[id] = newWindow;
+			this.setState({ windows: winSet });
+		};
+
+		this.ideWindow = function () {
+			let winSet = this.state.windows;
+			let counter = this.state.windowCounter;
+			let id = "ide";
+			if (winSet[id]) {
+				winSet[id].folded = false;
+				winSet[id].hidden = false;
+				this.setState({ windows: winSet });
+				this.makeWindowActive(new Event("dummy"), id);
+				return;
+			}
+			let newWindow = {
+				pos: { x: Math.random() * 200, y: Math.random() * 200 },
+				id: id,
+				title: "",
+				folded: false,
+				hidden: false,
+				type: "ide",
+				props: {}
+			};
+			newWindow.props.windowHeight = "500px";
+			newWindow.props.windowWidth = "700px";
+			newWindow.props.defaultCurrentTab = "edu.md";
+			newWindow.props.files = {
+				"edu.md": {
+					bodyChunks: [
+						{ string: "EDUCATION\n\n", bold: true, color: 0 },
+						{ string: "University of Calgary ", bold: true, color: 1 },
+						{ string: "[2013-2017]\n", bold: false, color: 2 },
+						{ string: "\t[Calgary, AB]\n", bold: false, color: 2 },
+						{ string: "\tGraduated 2017\n", bold: false, color: undefined },
+						{ string: "\tBachelor of Science ", bold: true, color: 0 },
+						{ string: "--", bold: false, color: undefined },
+						{ string: " Computer Science\n\n", bold: true, color: 1 },
+						{
+							string: "Lindsay Thurber Comprehensive High School ",
+							bold: true,
+							color: 1
+						},
+						{ string: "[2008-2012]\n", bold: false, color: 2 },
+						{ string: "\t[Red Deer, AB]\n", bold: false, color: 2 },
+						{ string: "\tGraduated 2012\n", bold: false, color: undefined },
+						{ string: "\tHonor Roll\n\n", bold: true, color: 0 }
+					]
+				},
+				"other.txt": {
+					bodyChunks: [{ string: "EDUCATION\n\n", bold: true, color: 0 }]
+				}
+			};
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet });
 		};
@@ -234,7 +289,9 @@ class Site extends React.Component {
 				}
 			};
 			if (w[1].type === "terminal") {
-				return <TerminalWindow bodyChunks={w[1].bodyChunks} {...globalProps} />;
+				return <TerminalWindow {...globalProps} {...w[1].props} />;
+			} else if (w[1].type === "ide") {
+				return <IDEWindow {...globalProps} {...w[1].props} />;
 			} else {
 				return <Window {...globalProps}>{w[1].children}</Window>;
 			}
@@ -253,6 +310,15 @@ class Site extends React.Component {
 								this.setState({ selectedShortcut: "EducationShortcut" });
 							}}
 							onDoubleClick={this.eduWindow.bind(this)}
+						/>
+						<DesktopShortcut
+							name="IDE"
+							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							isSelected={this.state.selectedShortcut === "IDEShortcut"}
+							setSelected={() => {
+								this.setState({ selectedShortcut: "IDEShortcut" });
+							}}
+							onDoubleClick={this.ideWindow.bind(this)}
 						/>
 					</Desktop>
 					<Dock>

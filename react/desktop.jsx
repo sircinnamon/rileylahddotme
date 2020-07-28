@@ -13,7 +13,8 @@ class Desktop extends React.Component {
 			position: "absolute",
 			top: 0,
 			left: 0,
-			zIndex: -2
+			zIndex: -2,
+			userSelect: "none"
 		};
 		let shortcutContainerStyle = {
 			marginTop: "15px",
@@ -42,12 +43,7 @@ class Desktop extends React.Component {
 		return (
 			<div style={containerStyle}>
 				<div style={shortcutContainerStyle}>{this.props.children}</div>
-				<div
-					style={wallpaperStyle}
-					onClick={() => {
-						this.setState({ selectedShortcut: undefined });
-					}}
-				>
+				<div style={wallpaperStyle} onClick={this.props.clearSelected}>
 					<img style={wallpaperImgStyle} src={wpUrl} />
 				</div>
 			</div>

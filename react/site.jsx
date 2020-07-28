@@ -166,6 +166,37 @@ class Site extends React.Component {
 			this.setState({ windows: winSet });
 		};
 
+		this.browserWindow = function () {
+			let winSet = this.state.windows;
+			let counter = this.state.windowCounter;
+			let id = "browser";
+			if (winSet[id]) {
+				winSet[id].folded = false;
+				winSet[id].hidden = false;
+				this.setState({ windows: winSet });
+				this.makeWindowActive(new Event("dummy"), id);
+				return;
+			}
+			let newWindow = {
+				pos: { x: Math.random() * 200, y: Math.random() * 200 },
+				id: id,
+				title: "",
+				folded: false,
+				hidden: false,
+				type: "browser",
+				props: {
+					startUrl: "helloworld.com"
+				},
+				children: (
+					<div style={{ height: "500px", width: "500px", background: "white" }}>
+						Hello world
+					</div>
+				)
+			};
+			winSet[id] = newWindow;
+			this.setState({ windows: winSet });
+		};
+
 		this.grabWindow = function (ev, id) {
 			this.setState({
 				heldWindow: id,
@@ -292,6 +323,12 @@ class Site extends React.Component {
 				return <TerminalWindow {...globalProps} {...w[1].props} />;
 			} else if (w[1].type === "ide") {
 				return <IDEWindow {...globalProps} {...w[1].props} />;
+			} else if (w[1].type === "browser") {
+				return (
+					<BrowserWindow {...globalProps} {...w[1].props}>
+						{w[1].children}
+					</BrowserWindow>
+				);
 			} else {
 				return <Window {...globalProps}>{w[1].children}</Window>;
 			}
@@ -301,7 +338,11 @@ class Site extends React.Component {
 				<div>
 					<br />
 					{windows}
-					<Desktop>
+					<Desktop
+						clearSelected={() => {
+							this.setState({ selectedShortcut: undefined });
+						}}
+					>
 						<DesktopShortcut
 							name="Education"
 							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
@@ -319,6 +360,15 @@ class Site extends React.Component {
 								this.setState({ selectedShortcut: "IDEShortcut" });
 							}}
 							onDoubleClick={this.ideWindow.bind(this)}
+						/>
+						<DesktopShortcut
+							name="Browser"
+							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							isSelected={this.state.selectedShortcut === "BrowserShortcut"}
+							setSelected={() => {
+								this.setState({ selectedShortcut: "BrowserShortcut" });
+							}}
+							onDoubleClick={this.browserWindow.bind(this)}
 						/>
 					</Desktop>
 					<Dock>

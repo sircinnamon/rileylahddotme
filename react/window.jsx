@@ -25,6 +25,7 @@ class Window extends React.Component {
 		};
 		if (this.props.isHeld) {
 			headerStyle.backgroundColor = "rgba(255,0,0,0.7)";
+			headerStyle.cursor = "grabbing";
 		}
 		let closeButtonStyle = {
 			background: "rgba(200, 30, 30, 0.5)"
@@ -76,6 +77,7 @@ class WindowHeaderBtn extends React.Component {
 			margin: "2px",
 			borderRadius: "10px",
 			background: "rgba(200, 30, 30, 0.7)",
+			cursor: "pointer",
 			...this.props.style
 		};
 		return <div style={style} onMouseDown={this.props.onMouseDown} />;
@@ -336,14 +338,28 @@ class IDEWindowSidebar extends React.Component {
 			overflow: "hidden",
 			fontSize: "12px"
 		};
+		let headStyle = {
+			margin: "0.5em",
+			fontSize: "14px",
+			fontWeight: "bold",
+			color: "#333"
+		};
 		let list = [];
 		let fileList = Object.keys(this.props.files);
 		for (let i = 0; i < fileList.length; i++) {
 			let liStyle = {
 				backgroundColor:
 					fileList[i] === this.props.currentTab ? "rgba(255,255,255,0.5)" : "",
-				padding: "3px"
+				padding: "3px",
+				userSelect: "none",
+				cursor: "pointer"
 			};
+			let iconStyle = {
+				height: "1em",
+				verticalAlign: "middle"
+			};
+			let icon =
+				"https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
 			list.push(
 				<li
 					style={liStyle}
@@ -351,7 +367,10 @@ class IDEWindowSidebar extends React.Component {
 						this.props.openTab(fileList[i]);
 					}}
 				>
-					{fileList[i]}
+					<span>
+						<img style={iconStyle} src={icon} />
+					</span>
+					<span>{fileList[i]}</span>
 				</li>
 			);
 		}
@@ -362,6 +381,7 @@ class IDEWindowSidebar extends React.Component {
 		};
 		return (
 			<div style={containerStyle}>
+				<h1 style={headStyle}>FILES</h1>
 				<ul style={listStyle}>{list}</ul>
 			</div>
 		);
@@ -415,14 +435,14 @@ class IDEWindowTab extends React.Component {
 			backgroundColor: "#444",
 			padding: "7px",
 			flex: 1,
-			maxWidth: "100px"
+			maxWidth: "100px",
+			cursor: "pointer"
 		};
 		if (this.props.isActive) {
 			s.backgroundColor = "#333";
 		}
 		let closeStyle = {
 			background: this.state.xHovered ? "rgba(255,255,255,0.2)" : "",
-			cursor: "pointer",
 			borderRadius: "10px"
 		};
 		return (
@@ -443,6 +463,170 @@ class IDEWindowTab extends React.Component {
 				>
 					×
 				</span>
+			</div>
+		);
+	}
+}
+
+class BrowserWindow extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentUrl: this.props.startUrl,
+			history: [this.props.startUrl]
+		};
+	}
+
+	render() {
+		return (
+			<Window
+				title={this.props.title}
+				topPos={this.props.topPos}
+				leftPos={this.props.leftPos}
+				grabWindow={this.props.grabWindow}
+				isHeld={this.props.isHeld}
+				isHidden={this.props.isHidden}
+				isFolded={this.props.isFolded}
+				makeActive={this.props.makeActive}
+				layer={this.props.layer}
+				close={this.props.close}
+				toggleFold={this.props.toggleFold}
+				hide={this.props.hide}
+			>
+				<BrowserWindowHeader
+					currentUrl={this.state.currentUrl}
+					updateUrl={(v) => {
+						this.setState({ currentUrl: v });
+					}}
+				/>
+				{this.props.children}
+			</Window>
+		);
+	}
+}
+
+class BrowserWindowHeader extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			backArrowHovered: false,
+			forwardArrowHovered: false,
+			refreshArrowHovered: false,
+			homeArrowHovered: false
+		};
+	}
+
+	render() {
+		let containerStyle = {
+			backgroundColor: "#eee",
+			display: "flex"
+		};
+		let headerBtnStyle = {
+			transition: "background-color 0.75s",
+			display: "inline-block",
+			borderRadius: "50%",
+			cursor: "pointer",
+			width: "20px",
+			height: "20px",
+			padding: "2px",
+			marginRight: "2px",
+			color: "#666"
+		};
+		let backArrowStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.backArrowHovered ? "#ccc" : "",
+			padding: "1px 2px 3px 2px"
+		};
+		let forwardArrowStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.forwardArrowHovered ? "#ccc" : "",
+			padding: "1px 2px 3px 2px"
+		};
+		let refreshStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.refreshArrowHovered ? "#ccc" : "",
+			fontSize: "19px",
+			padding: "2px 1px 2px 3px",
+			lineHeight: "19px"
+		};
+		let homeStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.homeArrowHovered ? "#ccc" : "",
+			fontSize: "23px",
+			padding: "0px 0px 4px 4px",
+			lineHeight: "23px"
+		};
+		let urlBarDivStyle = {
+			display: "block",
+			background: "#ccc",
+			height: "20px",
+			flex: "1 1 10%",
+			borderRadius: "10px",
+			paddingLeft: "20px",
+			marginTop: "2px",
+			marginRight: "3px"
+		};
+		let urlBarStyle = {
+			background: "none",
+			border: "none",
+			width: "90%",
+			outline: "none"
+		};
+		return (
+			<div style={containerStyle}>
+				<div
+					style={backArrowStyle}
+					onMouseEnter={() => {
+						this.setState({ backArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ backArrowHovered: false });
+					}}
+				>
+					{"🡠"}
+				</div>
+				<div
+					style={forwardArrowStyle}
+					onMouseEnter={() => {
+						this.setState({ forwardArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ forwardArrowHovered: false });
+					}}
+				>
+					{"🡢"}
+				</div>
+				<div
+					style={refreshStyle}
+					onMouseEnter={() => {
+						this.setState({ refreshArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ refreshArrowHovered: false });
+					}}
+				>
+					{"↻"}
+				</div>
+				<div
+					style={homeStyle}
+					onMouseEnter={() => {
+						this.setState({ homeArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ homeArrowHovered: false });
+					}}
+				>
+					{"⌂"}
+				</div>
+				<div style={urlBarDivStyle}>
+					<input
+						style={urlBarStyle}
+						value={this.props.currentUrl}
+						onChange={(ev) => {
+							this.props.updateUrl(ev.target.value);
+						}}
+					/>
+				</div>
 			</div>
 		);
 	}

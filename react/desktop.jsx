@@ -104,6 +104,7 @@ class DesktopShortcut extends React.Component {
 					this.props.setSelected();
 				}}
 				onDoubleClick={this.props.onDoubleClick}
+				onTouchStart={this.props.onDoubleClick}
 			>
 				<div>
 					<img style={imgStyle} src={this.props.imgUrl} draggable="false" />

@@ -44,9 +44,14 @@ class Window extends React.Component {
 			<div
 				style={windowStyle}
 				onMouseDown={this.props.makeActive}
+				onTouchStart={this.props.makeActive}
 				onKeyDown={this.props.onKeyDown}
 			>
-				<div style={headerStyle} onMouseDown={this.props.grabWindow}>
+				<div
+					style={headerStyle}
+					onMouseDown={this.props.grabWindow}
+					onTouchStart={this.props.grabWindow}
+				>
 					{this.props.title}
 					<WindowHeaderBtn style={closeButtonStyle} onMouseDown={this.props.close} />
 					<WindowHeaderBtn
@@ -80,7 +85,13 @@ class WindowHeaderBtn extends React.Component {
 			cursor: "pointer",
 			...this.props.style
 		};
-		return <div style={style} onMouseDown={this.props.onMouseDown} />;
+		return (
+			<div
+				style={style}
+				onMouseDown={this.props.onMouseDown}
+				onTouchStart={this.props.onMouseDown}
+			/>
+		);
 	}
 }
 

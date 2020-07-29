@@ -198,11 +198,16 @@ class Site extends React.Component {
 		};
 
 		this.grabWindow = function (ev, id) {
+			ev.preventDefault();
+			this.makeWindowActive(ev, id);
+			if (ev.targetTouches) {
+				ev = ev.targetTouches[0];
+			}
+			console.log("GRAB", { x: ev.pageX, y: ev.pageY });
 			this.setState({
 				heldWindow: id,
-				windowPickupPos: { x: ev.pageX, y: ev.pageX }
+				windowPickupPos: { x: ev.pageX, y: ev.pageY }
 			});
-			this.makeWindowActive(ev, id);
 		};
 
 		this.releaseWindow = function () {
@@ -216,12 +221,19 @@ class Site extends React.Component {
 				return;
 			}
 			let oldPos = this.state.windows[this.state.heldWindow].pos;
+			if (ev.targetTouches) {
+				ev = ev.changedTouches[0];
+				console.log("MOVE", { x: ev.pageX, y: ev.pageX });
+				ev.movementX = ev.pageX - this.state.windowPickupPos.x;
+				ev.movementY = ev.pageY - this.state.windowPickupPos.y;
+			}
+			console.log(ev);
 			let newPos = { x: oldPos.x + ev.movementX, y: oldPos.y + ev.movementY };
 			let newWindows = { ...this.state.windows };
 			newWindows[this.state.heldWindow].pos = newPos;
 			this.setState({
 				windows: newWindows,
-				windowPickupPos: { x: ev.screenX, y: ev.screenY }
+				windowPickupPos: { x: ev.pageX, y: ev.pageY }
 			});
 		};
 
@@ -282,14 +294,18 @@ class Site extends React.Component {
 	}
 
 	componentDidMount() {
-		window.addEventListener("mouseup", () => {
+		let releaseWindow = function () {
 			this.releaseWindow();
-		});
-		window.addEventListener("mousemove", (ev) => {
+		}.bind(this);
+		window.addEventListener("mouseup", releaseWindow);
+		window.addEventListener("touchend", releaseWindow);
+		let mvWindow = function (ev) {
 			if (this.state.heldWindow !== undefined) {
 				this.moveWindow(ev);
 			}
-		});
+		}.bind(this);
+		window.addEventListener("mousemove", mvWindow);
+		window.addEventListener("touchmove", mvWindow);
 	}
 
 	render() {

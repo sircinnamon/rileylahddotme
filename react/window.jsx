@@ -642,3 +642,337 @@ class BrowserWindowHeader extends React.Component {
 		);
 	}
 }
+
+class FileExplorerWindow extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			currentPath: this.props.startPath,
+			barText: this.props.startPath,
+			selectedFile: undefined
+		};
+
+		this.getCurrentFiles = function (path, fileTree) {
+			let keys = path.split("/");
+			let finalPath = "";
+			if (path === "/") {
+				return fileTree;
+			}
+			while (keys.length >= 2) {
+				finalPath = finalPath + "/" + keys.shift();
+				if (fileTree[keys[0]]) {
+					fileTree = fileTree[keys[0]];
+				} else {
+					this.setState({ currentPath: finalPath.replace(/\/+/g, "/") });
+					return fileTree;
+				}
+			}
+			return fileTree;
+		};
+	}
+
+	render() {
+		let bodyStyle = {
+			display: "flex",
+			background: "#111",
+			flexWrap: "wrap",
+			maxWidth: "500px"
+		};
+		let currentFiles = this.getCurrentFiles(
+			this.state.currentPath,
+			this.props.fileTree
+		);
+		let files = [];
+		for (let i = 0; i < Object.keys(currentFiles).length; i++) {
+			let k = Object.keys(currentFiles)[i];
+			let f = currentFiles[k];
+			files.push(
+				<FileExplorerWindowFile
+					key={k}
+					name={k}
+					file={f}
+					isSelected={this.state.selectedFile === k}
+					setSelected={() => {
+						this.setState({ selectedFile: k });
+					}}
+					enterFolder={(np) => {
+						this.setState({
+							selectedFile: undefined,
+							currentPath: this.state.currentPath + "/" + np,
+							barText: this.state.currentPath + "/" + np
+						});
+					}}
+				/>
+			);
+		}
+		return (
+			<Window
+				title={this.props.title}
+				topPos={this.props.topPos}
+				leftPos={this.props.leftPos}
+				grabWindow={this.props.grabWindow}
+				isHeld={this.props.isHeld}
+				isHidden={this.props.isHidden}
+				isFolded={this.props.isFolded}
+				makeActive={this.props.makeActive}
+				layer={this.props.layer}
+				close={this.props.close}
+				toggleFold={this.props.toggleFold}
+				hide={this.props.hide}
+			>
+				<FileExplorerWindowHeader
+					currentUrl={this.state.currentPath}
+					updateUrl={(v) => {
+						this.setState({ currentPath: v, barText: v });
+					}}
+					updateBarText={(v) => {
+						this.setState({ barText: v });
+					}}
+					barText={this.state.barText}
+				/>
+				<div style={bodyStyle}>{files}</div>
+			</Window>
+		);
+	}
+}
+
+class FileExplorerWindowHeader extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			backArrowHovered: false,
+			forwardArrowHovered: false,
+			upArrowHovered: false,
+			searchHovered: false
+		};
+
+		this.keyPress = function (ev) {
+			console.log(ev);
+			if (ev.which == 13 || ev.keyCode == 13) {
+				this.props.updateUrl(ev.target.value);
+			}
+		};
+	}
+
+	render() {
+		let containerStyle = {
+			backgroundColor: "#222",
+			display: "flex"
+		};
+		let headerBtnStyle = {
+			transition: "background-color 0.75s",
+			display: "inline-block",
+			borderRadius: "15%",
+			cursor: "pointer",
+			width: "20px",
+			height: "20px",
+			padding: "2px",
+			marginRight: "2px",
+			marginTop: "2px",
+			marginBottom: "2px",
+			color: "#999",
+			border: "1px solid #555"
+		};
+		let backArrowStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.backArrowHovered ? "#333" : "#111",
+			padding: "1px 2px 3px 2px",
+			marginRight: "0px",
+			borderTopRightRadius: "0px",
+			borderBottomRightRadius: "0px",
+			borderRight: "0px",
+			marginLeft: "3px"
+		};
+		let forwardArrowStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.forwardArrowHovered ? "#333" : "#111",
+			padding: "1px 2px 3px 2px",
+			borderRadius: "0px",
+			marginRight: "0px"
+		};
+		let upArrowStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.upArrowHovered ? "#333" : "#111",
+			fontSize: "19px",
+			padding: "2px 1px 2px 3px",
+			lineHeight: "19px",
+			borderTopLeftRadius: "0px",
+			borderBottomLeftRadius: "0px",
+			borderLeft: "0px"
+		};
+		let urlBarDivStyle = {
+			display: "block",
+			background: "#333",
+			height: "20px",
+			flex: "1 1 10%",
+			borderRadius: "5px",
+			paddingLeft: "5px",
+			marginTop: "4px",
+			marginTop: "4px",
+			marginRight: "3px",
+			color: "#999",
+			border: "1px solid #555"
+		};
+		let urlBarStyle = {
+			background: "none",
+			border: "none",
+			width: "90%",
+			outline: "none",
+			color: "#999"
+		};
+		let searchStyle = {
+			...headerBtnStyle,
+			backgroundColor: this.state.searchHovered ? "#333" : "#111",
+			fontSize: "15px",
+			padding: "4px 2px 0px 2px",
+			lineHeight: "15px"
+		};
+		return (
+			<div style={containerStyle}>
+				<div
+					style={backArrowStyle}
+					onMouseEnter={() => {
+						this.setState({ backArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ backArrowHovered: false });
+					}}
+				>
+					{"🡠"}
+				</div>
+				<div
+					style={forwardArrowStyle}
+					onMouseEnter={() => {
+						this.setState({ forwardArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ forwardArrowHovered: false });
+					}}
+				>
+					{"🡢"}
+				</div>
+				<div
+					style={upArrowStyle}
+					onMouseEnter={() => {
+						this.setState({ upArrowHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ upArrowHovered: false });
+					}}
+					onClick={() => {
+						console.log(this.props.currentUrl);
+						console.log(this.props.currentUrl.replace(/\/[^/]$/, ""));
+						this.props.updateUrl(this.props.currentUrl.replace(/\/[^/]$/, ""));
+					}}
+				>
+					{"🡡"}
+				</div>
+				<div style={urlBarDivStyle}>
+					<input
+						style={urlBarStyle}
+						value={this.props.barText}
+						onChange={(ev) => {
+							this.props.updateBarText(ev.target.value);
+						}}
+						onKeyDown={this.keyPress.bind(this)}
+					/>
+				</div>
+				<div
+					style={searchStyle}
+					onMouseEnter={() => {
+						this.setState({ searchHovered: true });
+					}}
+					onMouseLeave={() => {
+						this.setState({ searchHovered: false });
+					}}
+				>
+					{"🔍"}
+				</div>
+			</div>
+		);
+	}
+}
+
+class FileExplorerWindowFile extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+
+		this.onDoubleClick = function (ev) {
+			if (this.props.file.onDoubleClick) {
+				this.props.file.onDoubleClick(ev);
+			} else if (
+				this.props.file.type === "folder" ||
+				this.props.file.type === undefined
+			) {
+				this.props.enterFolder(this.props.name);
+			}
+		};
+	}
+
+	render() {
+		let isFolder =
+			this.props.file.type === "folder" || this.props.file.type === undefined;
+		let containerStyle = {
+			padding: "5px",
+			flex: "1"
+		};
+		let imgUrl = isFolder
+			? "https://static.vecteezy.com/system/resources/thumbnails/000/439/792/small/Basic_Ui__28178_29.jpg"
+			: "https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
+		if (this.props.imgUrl) {
+			imgUrl = this.props.imgUrl;
+		}
+		let imgStyle = {
+			maxWidth: "60px",
+			maxHeight: "60px",
+			height: "60px",
+			width: "60px",
+			objectFit: "contain",
+			margin: "auto",
+			display: "block",
+			userSelect: "none"
+		};
+		let nameStyle = {
+			color: "rgb(200,200,200)",
+			background: "rgba(10,10,10,0.5)",
+			padding: "4px 12px",
+			display: "inline-block",
+			marginTop: "4px",
+			userSelect: "none"
+		};
+		if (this.state.isHovered) {
+			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)";
+			containerStyle.background = "rgba(100, 126, 140, 0.3)";
+			containerStyle.padding = "4px";
+		}
+		if (this.props.isSelected) {
+			containerStyle.border = "1px solid rgba(166, 203, 255, 0.9)";
+			containerStyle.background = "rgba(166, 224, 255, 0.3)";
+			containerStyle.padding = "4px";
+		}
+		return (
+			<div
+				style={containerStyle}
+				onMouseEnter={() => {
+					this.setState({ isHovered: true });
+				}}
+				onMouseLeave={() => {
+					this.setState({ isHovered: false });
+				}}
+				onClick={() => {
+					this.props.setSelected();
+				}}
+				onDoubleClick={this.onDoubleClick.bind(this)}
+				onTouchStart={this.onDoubleClick.bind(this)}
+			>
+				<div>
+					<img style={imgStyle} src={imgUrl} draggable="false" />
+				</div>
+				<div style={{ textAlign: "center" }}>
+					<span style={nameStyle}>{this.props.name}</span>
+				</div>
+			</div>
+		);
+	}
+}

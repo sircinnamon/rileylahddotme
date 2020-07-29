@@ -197,13 +197,56 @@ class Site extends React.Component {
 			this.setState({ windows: winSet });
 		};
 
+		this.fileExplorerWindow = function () {
+			let winSet = this.state.windows;
+			let counter = this.state.windowCounter;
+			let id = "fileexplorer";
+			if (winSet[id]) {
+				winSet[id].folded = false;
+				winSet[id].hidden = false;
+				this.setState({ windows: winSet });
+				this.makeWindowActive(new Event("dummy"), id);
+				return;
+			}
+			let newWindow = {
+				pos: { x: Math.random() * 200, y: Math.random() * 200 },
+				id: id,
+				title: "",
+				folded: false,
+				hidden: false,
+				type: "fileexplorer",
+				props: {
+					startPath: "/home/rlahd",
+					fileTree: {
+						home: {
+							rlahd: {
+								Hobbies: {
+									"3D Printing": {
+										type: "file",
+										onDoubleClick: () => {
+											console.log("YEAH");
+										},
+										metadata: {
+											created: "2019"
+										}
+									}
+								},
+								"Personal Dev": {}
+							}
+						}
+					}
+				}
+			};
+			winSet[id] = newWindow;
+			this.setState({ windows: winSet });
+		};
+
 		this.grabWindow = function (ev, id) {
 			ev.preventDefault();
 			this.makeWindowActive(ev, id);
 			if (ev.targetTouches) {
 				ev = ev.targetTouches[0];
 			}
-			console.log("GRAB", { x: ev.pageX, y: ev.pageY });
 			this.setState({
 				heldWindow: id,
 				windowPickupPos: { x: ev.pageX, y: ev.pageY }
@@ -227,7 +270,6 @@ class Site extends React.Component {
 				ev.movementX = ev.pageX - this.state.windowPickupPos.x;
 				ev.movementY = ev.pageY - this.state.windowPickupPos.y;
 			}
-			console.log(ev);
 			let newPos = { x: oldPos.x + ev.movementX, y: oldPos.y + ev.movementY };
 			let newWindows = { ...this.state.windows };
 			newWindows[this.state.heldWindow].pos = newPos;
@@ -345,6 +387,10 @@ class Site extends React.Component {
 						{w[1].children}
 					</BrowserWindow>
 				);
+			} else if (w[1].type === "fileexplorer") {
+				return (
+					<FileExplorerWindow {...globalProps} {...w[1].props}></FileExplorerWindow>
+				);
 			} else {
 				return <Window {...globalProps}>{w[1].children}</Window>;
 			}
@@ -385,6 +431,15 @@ class Site extends React.Component {
 								this.setState({ selectedShortcut: "BrowserShortcut" });
 							}}
 							onDoubleClick={this.browserWindow.bind(this)}
+						/>
+						<DesktopShortcut
+							name="Files"
+							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							isSelected={this.state.selectedShortcut === "FileShortcut"}
+							setSelected={() => {
+								this.setState({ selectedShortcut: "FileShortcut" });
+							}}
+							onDoubleClick={this.fileExplorerWindow.bind(this)}
 						/>
 					</Desktop>
 					<Dock>

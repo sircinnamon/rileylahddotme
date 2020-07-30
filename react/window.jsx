@@ -38,7 +38,9 @@ class Window extends React.Component {
 		};
 		let bodyStyle = {
 			maxHeight: this.props.isFolded ? "0px" : "",
-			overflow: this.props.isFolded ? "hidden" : ""
+			overflow: this.props.isFolded ? "hidden" : "",
+			height: this.props.height || "",
+			width: this.props.width || ""
 		};
 		return (
 			<div
@@ -653,17 +655,22 @@ class FileExplorerWindow extends React.Component {
 		};
 
 		this.getCurrentFiles = function (path, fileTree) {
-			let keys = path.split("/");
+			let keys = path.split("/").filter((x) => x !== "");
 			let finalPath = "";
-			if (path === "/") {
-				return fileTree;
+			if (path === "") {
+				this.setState({ currentPath: "/", barText: "/" });
 			}
-			while (keys.length >= 2) {
-				finalPath = finalPath + "/" + keys.shift();
-				if (fileTree[keys[0]]) {
-					fileTree = fileTree[keys[0]];
+			while (keys.length >= 1) {
+				let k = keys.shift();
+				finalPath = finalPath + "/" + k;
+				if (fileTree[k]) {
+					fileTree = fileTree[k];
 				} else {
-					this.setState({ currentPath: finalPath.replace(/\/+/g, "/") });
+					if (finalPath === "") {
+						finalPath = "/";
+					}
+					finalPath = finalPath.replace(/\/+/g, "/");
+					this.setState({ currentPath: finalPath, barText: finalPath });
 					return fileTree;
 				}
 			}
@@ -676,7 +683,7 @@ class FileExplorerWindow extends React.Component {
 			display: "flex",
 			background: "#111",
 			flexWrap: "wrap",
-			maxWidth: "500px"
+			flex: "1"
 		};
 		let currentFiles = this.getCurrentFiles(
 			this.state.currentPath,
@@ -698,8 +705,8 @@ class FileExplorerWindow extends React.Component {
 					enterFolder={(np) => {
 						this.setState({
 							selectedFile: undefined,
-							currentPath: this.state.currentPath + "/" + np,
-							barText: this.state.currentPath + "/" + np
+							currentPath: (this.state.currentPath + "/" + np).replace(/\/+/g, "/"),
+							barText: (this.state.currentPath + "/" + np).replace(/\/+/g, "/")
 						});
 					}}
 				/>
@@ -719,6 +726,8 @@ class FileExplorerWindow extends React.Component {
 				close={this.props.close}
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
+				height={this.props.height || "400px"}
+				width={this.props.width || "600px"}
 			>
 				<FileExplorerWindowHeader
 					currentUrl={this.state.currentPath}
@@ -730,7 +739,12 @@ class FileExplorerWindow extends React.Component {
 					}}
 					barText={this.state.barText}
 				/>
-				<div style={bodyStyle}>{files}</div>
+				<div style={{height: "100%", display: "flex"}}>
+					<div style={bodyStyle}>{files}</div>
+					<FileExplorerWindowSidebar
+						file={currentFiles[this.state.selectedFile]}
+					/>
+				</div>
 			</Window>
 		);
 	}
@@ -747,7 +761,6 @@ class FileExplorerWindowHeader extends React.Component {
 		};
 
 		this.keyPress = function (ev) {
-			console.log(ev);
 			if (ev.which == 13 || ev.keyCode == 13) {
 				this.props.updateUrl(ev.target.value);
 			}
@@ -860,9 +873,7 @@ class FileExplorerWindowHeader extends React.Component {
 						this.setState({ upArrowHovered: false });
 					}}
 					onClick={() => {
-						console.log(this.props.currentUrl);
-						console.log(this.props.currentUrl.replace(/\/[^/]$/, ""));
-						this.props.updateUrl(this.props.currentUrl.replace(/\/[^/]$/, ""));
+						this.props.updateUrl(this.props.currentUrl.replace(/\/[^/]*$/, ""));
 					}}
 				>
 					{"🡡"}
@@ -915,7 +926,9 @@ class FileExplorerWindowFile extends React.Component {
 			this.props.file.type === "folder" || this.props.file.type === undefined;
 		let containerStyle = {
 			padding: "5px",
-			flex: "1"
+			flex: "1",
+			maxWidth: "100px",
+			maxHeight: "110px"
 		};
 		let imgUrl = isFolder
 			? "https://static.vecteezy.com/system/resources/thumbnails/000/439/792/small/Basic_Ui__28178_29.jpg"
@@ -974,5 +987,56 @@ class FileExplorerWindowFile extends React.Component {
 				</div>
 			</div>
 		);
+	}
+}
+
+class FileExplorerWindowSidebar extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {};
+	}
+	
+	render() {
+		if(!this.props.file || !(this.props.file.type === "file")){return "";}
+		let containerStyle={
+			minWidth: "150px",
+			height: "100%",
+			float: "right",
+			background: "#333"
+		}
+		let tableStyle = {
+			width: "100%",
+			borderCollapse: "collapse",
+			marginTop: "10px",
+		}
+		let trStyle = {
+			borderBottom: "1px solid #111",
+			color: "#999",
+			textAlign: "end"
+		}
+		let r1Style = {
+			fontWeight: "bold"
+		}
+		let r2Style = {
+		}
+		let rows = []
+		let metadata = Object.entries({...this.props.file.metadata})
+		for(let i = 0; i<metadata.length; i++){
+			rows.push((
+				<tr style={{...trStyle, background: (i%2===0)?"#222":"#111"}}>
+					<td style={r1Style}>{metadata[i][0]}:</td>
+					<td style={r2Style}>{metadata[i][1]}</td>
+				</tr>
+			))
+		}
+		return (
+			<div style={containerStyle}>
+				<table style={tableStyle}>
+				 	<tbody>
+						{rows}
+					</tbody>
+				</table>
+			</div>
+		)
 	}
 }

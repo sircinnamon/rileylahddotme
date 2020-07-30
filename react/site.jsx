@@ -227,7 +227,10 @@ class Site extends React.Component {
 											console.log("YEAH");
 										},
 										metadata: {
-											created: "2019"
+											Created: "2019",
+											Printer: "Ender 3",
+											Fun: "High",
+											Price: "High :("
 										}
 									}
 								},

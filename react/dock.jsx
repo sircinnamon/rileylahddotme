@@ -11,13 +11,14 @@ class Dock extends React.Component {
 			position: "fixed",
 			bottom: 0,
 			width: "100%",
-			height: this.props.height || "60px"
+			height: this.props.height || "60px",
+			zIndex: -1
 		};
 		let frameStyle = {
 			margin: "auto",
-			width: "30vw",
 			height: "100%",
 			minWidth: "200px",
+			width: "fit-content",
 			maxWidth: "500px",
 			background: "rgba(20, 20, 20, 0.5)",
 			display: "flex",
@@ -43,6 +44,7 @@ class DockButton extends React.Component {
 		let buttonStyle = {
 			height: "100%",
 			padding: "5px",
+			paddingBottom: this.props.isOpen ? "0px" : "5px",
 			display: "inline-block"
 		};
 		if (this.state.isHovered) {
@@ -59,11 +61,24 @@ class DockButton extends React.Component {
 				}}
 				onClick={this.props.onClick}
 			>
-				<div style={{ margin: "auto" }}>{this.props.children}</div>
+				<div
+					style={{
+						backgroundColor: this.props.isOpen ? "white" : "",
+						opacity: "0.7",
+						height: "10px",
+						width: "10px",
+						margin: "auto",
+						borderRadius: "10px",
+						position: "relative",
+						top: "45px"
+					}}
+				/>
+				<div style={{ margin: "auto", marginTop: "-10px" }}>
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
 }
-
 Dock.propTypes = {
 }

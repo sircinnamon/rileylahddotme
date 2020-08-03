@@ -798,7 +798,8 @@ class FileExplorerWindowHeader extends React.Component {
 			marginTop: "2px",
 			marginBottom: "2px",
 			color: "#999",
-			border: "1px solid #555"
+			border: "1px solid #555",
+			userSelect: "none"
 		};
 		let backArrowStyle = {
 			...headerBtnStyle,

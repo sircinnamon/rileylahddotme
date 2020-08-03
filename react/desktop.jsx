@@ -13,14 +13,15 @@ class Desktop extends React.Component {
 			position: "absolute",
 			top: 0,
 			left: 0,
-			zIndex: -2,
-			userSelect: "none"
+			userSelect: "none",
+			pointerEvents: "none"
 		};
 		let shortcutContainerStyle = {
 			marginTop: "15px",
 			marginLeft: "15px",
-			zIndex: 1,
-			display: "inline-block"
+			zIndex: 2,
+			display: "inline-block",
+			pointerEvents: "all"
 		};
 		let wallpaperStyle = {
 			width: "100%",
@@ -28,8 +29,9 @@ class Desktop extends React.Component {
 			position: "absolute",
 			top: 0,
 			left: 0,
-			zIndex: -1,
-			overflow: "hidden"
+			zIndex: -5,
+			overflow: "hidden",
+			pointerEvents: "all"
 		};
 		let wallpaperImgStyle = {
 			height: "100%",

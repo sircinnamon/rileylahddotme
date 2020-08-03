@@ -454,7 +454,10 @@ class Site extends React.Component {
 								}}
 							/>
 						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
+						<DockButton
+							onClick={this.eduWindow.bind(this)}
+							isOpen={this.state.windows.edu}
+						>
 							<img
 								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 								style={{
@@ -462,7 +465,10 @@ class Site extends React.Component {
 								}}
 							/>
 						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
+						<DockButton
+							onClick={this.ideWindow.bind(this)}
+							isOpen={this.state.windows.ide}
+						>
 							<img
 								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 								style={{
@@ -470,7 +476,10 @@ class Site extends React.Component {
 								}}
 							/>
 						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
+						<DockButton
+							onClick={this.browserWindow.bind(this)}
+							isOpen={this.state.windows.browser}
+						>
 							<img
 								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 								style={{
@@ -478,23 +487,10 @@ class Site extends React.Component {
 								}}
 							/>
 						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
-							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
-								style={{
-									height: "55px"
-								}}
-							/>
-						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
-							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
-								style={{
-									height: "55px"
-								}}
-							/>
-						</DockButton>
-						<DockButton onClick={this.newWindow.bind(this)}>
+						<DockButton
+							onClick={this.fileExplorerWindow.bind(this)}
+							isOpen={this.state.windows.fileexplorer}
+						>
 							<img
 								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
 								style={{

@@ -21,7 +21,8 @@ class Window extends React.Component {
 			color: "rgb(75,75,75)",
 			padding: "4px 4px 0px",
 			borderRadius: "5px 5px 0px 0px",
-			height: "20px"
+			height: "20px",
+			...SANS_FONT
 		};
 		if (this.props.isHeld) {
 			headerStyle.backgroundColor = "rgba(255,0,0,0.7)";
@@ -146,15 +147,17 @@ class TerminalWindow extends React.Component {
 			backgroundColor: "rgba(0,0,0,0.8)",
 			color: "rgb(200,200,200)",
 			margin: 0,
-			padding: "0 .5em"
+			padding: "0 .5em",
+			fontSize: "13px",
+			...MONO_FONT
 		};
 		let promptStyle = {
 			color: colors[0],
 			fontWeight: "bold"
 		};
 		let inputStyle = {
-			fontFamily: "monospace",
-			color: "rgb(200,200,200)"
+			color: "rgb(200,200,200)",
+			...MONO_FONT
 		};
 		let textboxStyle = {
 			display: "block",
@@ -277,7 +280,8 @@ class IDEWindow extends React.Component {
 			height: "35px",
 			position: "relative",
 			color: "#ddd",
-			fontSize: "12px"
+			fontSize: "12px",
+			...SANS_FONT
 		};
 		let bodyStyle = {
 			backgroundColor: "#333",
@@ -325,7 +329,15 @@ class IDEWindow extends React.Component {
 							/>
 						</div>
 						<div style={bodyStyle}>
-							<pre style={{ margin: "0px", float: "left", display: "inline-block" }}>
+							<pre
+								style={{
+									margin: "0px",
+									float: "left",
+									display: "inline-block",
+									fontSize: "13px",
+									...MONO_FONT
+								}}
+							>
 								{body}
 							</pre>
 						</div>
@@ -349,7 +361,8 @@ class IDEWindowSidebar extends React.Component {
 			maxWidth: "130px",
 			flex: "1 0 40px",
 			overflow: "hidden",
-			fontSize: "12px"
+			fontSize: "12px",
+			...SANS_FONT
 		};
 		let headStyle = {
 			margin: "0.5em",
@@ -369,7 +382,8 @@ class IDEWindowSidebar extends React.Component {
 			};
 			let iconStyle = {
 				height: "1em",
-				verticalAlign: "middle"
+				verticalAlign: "middle",
+				marginRight: "2px"
 			};
 			let icon =
 				"https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
@@ -583,7 +597,8 @@ class BrowserWindowHeader extends React.Component {
 			background: "none",
 			border: "none",
 			width: "90%",
-			outline: "none"
+			outline: "none",
+			...SANS_FONT
 		};
 		return (
 			<div style={containerStyle}>
@@ -683,7 +698,8 @@ class FileExplorerWindow extends React.Component {
 			display: "flex",
 			background: "#111",
 			flexWrap: "wrap",
-			flex: "1"
+			flex: "1",
+			padding: "5px"
 		};
 		let currentFiles = this.getCurrentFiles(
 			this.state.currentPath,
@@ -739,11 +755,9 @@ class FileExplorerWindow extends React.Component {
 					}}
 					barText={this.state.barText}
 				/>
-				<div style={{height: "100%", display: "flex"}}>
+				<div style={{ height: "100%", display: "flex" }}>
 					<div style={bodyStyle}>{files}</div>
-					<FileExplorerWindowSidebar
-						file={currentFiles[this.state.selectedFile]}
-					/>
+					<FileExplorerWindowSidebar file={currentFiles[this.state.selectedFile]} />
 				</div>
 			</Window>
 		);
@@ -831,7 +845,8 @@ class FileExplorerWindowHeader extends React.Component {
 			border: "none",
 			width: "90%",
 			outline: "none",
-			color: "#999"
+			color: "#999",
+			...SANS_FONT
 		};
 		let searchStyle = {
 			...headerBtnStyle,
@@ -952,7 +967,9 @@ class FileExplorerWindowFile extends React.Component {
 			padding: "4px 12px",
 			display: "inline-block",
 			marginTop: "4px",
-			userSelect: "none"
+			userSelect: "none",
+			fontSize: "14px",
+			...SANS_FONT
 		};
 		if (this.state.isHovered) {
 			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)";
@@ -995,48 +1012,49 @@ class FileExplorerWindowSidebar extends React.Component {
 		super(props);
 		this.state = {};
 	}
-	
+
 	render() {
-		if(!this.props.file || !(this.props.file.type === "file")){return "";}
-		let containerStyle={
+		if (!this.props.file || !(this.props.file.type === "file")) {
+			return "";
+		}
+		let containerStyle = {
 			minWidth: "150px",
 			height: "100%",
 			float: "right",
 			background: "#333"
-		}
+		};
 		let tableStyle = {
 			width: "100%",
 			borderCollapse: "collapse",
-			marginTop: "10px",
-		}
+			marginTop: "10px"
+		};
 		let trStyle = {
 			borderBottom: "1px solid #111",
 			color: "#999",
 			textAlign: "end"
-		}
+		};
 		let r1Style = {
 			fontWeight: "bold"
-		}
+		};
 		let r2Style = {
-		}
-		let rows = []
-		let metadata = Object.entries({...this.props.file.metadata})
-		for(let i = 0; i<metadata.length; i++){
-			rows.push((
-				<tr style={{...trStyle, background: (i%2===0)?"#222":"#111"}}>
+			paddingRight: "3px"
+		};
+		let rows = [];
+		let metadata = Object.entries({ ...this.props.file.metadata });
+		for (let i = 0; i < metadata.length; i++) {
+			rows.push(
+				<tr style={{ ...trStyle, background: i % 2 === 0 ? "#222" : "#111" }}>
 					<td style={r1Style}>{metadata[i][0]}:</td>
 					<td style={r2Style}>{metadata[i][1]}</td>
 				</tr>
-			))
+			);
 		}
 		return (
 			<div style={containerStyle}>
 				<table style={tableStyle}>
-				 	<tbody>
-						{rows}
-					</tbody>
+					<tbody>{rows}</tbody>
 				</table>
 			</div>
-		)
+		);
 	}
 }

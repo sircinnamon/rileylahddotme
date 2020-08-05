@@ -68,6 +68,7 @@ class Site extends React.Component {
 			);
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet, windowCounter: counter + 1 });
+			makeWindowActive(new Event("dummy"), id)
 		};
 
 		this.eduWindow = function () {

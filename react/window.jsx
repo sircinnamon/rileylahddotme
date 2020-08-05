@@ -253,7 +253,7 @@ class IDEWindow extends React.Component {
 	}
 
 	render() {
-		let colors = ["#20872b", "#205c87", "#555"];
+		let colors = [...MONOKAI_COLOURS];
 		let body = [];
 		if (this.state.currentTab) {
 			let openFile = this.props.files[this.state.currentTab];
@@ -276,7 +276,7 @@ class IDEWindow extends React.Component {
 			minWidth: "500px"
 		};
 		let tabBarStyle = {
-			backgroundColor: "#555",
+			backgroundColor: "#6d6e6a",
 			height: "35px",
 			position: "relative",
 			color: "#ddd",
@@ -284,11 +284,11 @@ class IDEWindow extends React.Component {
 			...SANS_FONT
 		};
 		let bodyStyle = {
-			backgroundColor: "#333",
+			backgroundColor: "#282923",
 			minHeight: "30px",
 			height: "calc(100% - 39px)",
 			minWidth: "fit-content",
-			padding: "2px",
+			padding: "2px 1em",
 			color: "#999"
 		};
 
@@ -356,7 +356,7 @@ class IDEWindowSidebar extends React.Component {
 
 	render() {
 		let containerStyle = {
-			backgroundColor: "#999",
+			backgroundColor: "#ebedef",
 			minWidth: "fit-content",
 			maxWidth: "130px",
 			flex: "1 0 40px",
@@ -459,14 +459,16 @@ class IDEWindowTab extends React.Component {
 	render() {
 		let s = {
 			borderRadius: "5px 5px 0px 0px",
-			backgroundColor: "#444",
+			backgroundColor: "#42433e",
 			padding: "7px",
 			flex: 1,
 			maxWidth: "100px",
-			cursor: "pointer"
+			cursor: "pointer",
+			color: "#989898"
 		};
 		if (this.props.isActive) {
-			s.backgroundColor = "#333";
+			s.backgroundColor = "#282923";
+			s.color = "#FFFFFF"
 		}
 		let closeStyle = {
 			background: this.state.xHovered ? "rgba(255,255,255,0.2)" : "",

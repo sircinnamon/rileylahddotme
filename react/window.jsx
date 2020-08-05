@@ -114,7 +114,7 @@ class TerminalWindow extends React.Component {
 			let input = this.state.input;
 			if (this.props.updateBody) {
 				let newBody = this.props.bodyChunks;
-				newBody.push({ string: " $ ", bold: true, color: 0 });
+				newBody.push({ string: " $ ", bold: true, color: 2 });
 				newBody.push({ string: this.state.input + "\n" });
 				this.props.updateBody(newBody);
 			}
@@ -129,7 +129,7 @@ class TerminalWindow extends React.Component {
 	}
 
 	render() {
-		let colors = ["#20872b", "#205c87", "#555"];
+		let colors = [...TERMINAL_COLOURS];
 		let prompt = ">>> $ ";
 		let body = [];
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
@@ -152,7 +152,7 @@ class TerminalWindow extends React.Component {
 			...MONO_FONT
 		};
 		let promptStyle = {
-			color: colors[0],
+			color: colors[2],
 			fontWeight: "bold"
 		};
 		let inputStyle = {

@@ -92,23 +92,23 @@ class Site extends React.Component {
 				props: {}
 			};
 			newWindow.props.bodyChunks = [
-				{ string: "EDUCATION\n\n", bold: true, color: 0 },
-				{ string: "University of Calgary ", bold: true, color: 1 },
-				{ string: "[2013-2017]\n", bold: false, color: 2 },
-				{ string: "\t[Calgary, AB]\n", bold: false, color: 2 },
-				{ string: "\tGraduated 2017\n", bold: false, color: undefined },
-				{ string: "\tBachelor of Science ", bold: true, color: 0 },
-				{ string: "--", bold: false, color: undefined },
-				{ string: " Computer Science\n\n", bold: true, color: 1 },
+				{ string: "EDUCATION\n\n", bold: true, color: 2 },
+				{ string: "University of Calgary ", bold: true, color: 4 },
+				{ string: "[2013-2017]\n", bold: false, color: undefined },
+				{ string: "\t[Calgary, AB]\n", bold: false, color: undefined },
+				{ string: "\tGraduated 2017\n", bold: false, color: 6 },
+				{ string: "\tBachelor of Science ", bold: true, color: 7 },
+				{ string: "--", bold: false, color: 6 },
+				{ string: " Computer Science\n\n", bold: true, color: 4 },
 				{
 					string: "Lindsay Thurber Comprehensive High School ",
 					bold: true,
-					color: 1
+					color: 4
 				},
-				{ string: "[2008-2012]\n", bold: false, color: 2 },
-				{ string: "\t[Red Deer, AB]\n", bold: false, color: 2 },
-				{ string: "\tGraduated 2012\n", bold: false, color: undefined },
-				{ string: "\tHonor Roll\n\n", bold: true, color: 0 }
+				{ string: "[2008-2012]\n", bold: false, color: undefined },
+				{ string: "\t[Red Deer, AB]\n", bold: false, color: undefined },
+				{ string: "\tGraduated 2012\n", bold: false, color: 6 },
+				{ string: "\tHonor Roll\n\n", bold: true, color: 7 }
 			];
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet });

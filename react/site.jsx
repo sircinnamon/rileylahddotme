@@ -188,11 +188,41 @@ class Site extends React.Component {
 					startUrl: "helloworld.com"
 				},
 				children: (
-					<div style={{ height: "500px", width: "500px", background: "white" }}>
-						Hello world
+					<div style={{ height: "300px", width: "600px", background: "green" }}>
+						<div style={{display: "flex", height: "100%", flexDirection: "column", justifyContent: "center"}}>
+							<div
+								style={{
+									margin:"0px auto",
+									fontSize:"30px",
+									fontWeight: "bold",
+									color: "white",
+									letterSpacing: ".5em",
+									paddingLeft: ".5em",
+									...TITLE_FONT
+								}}
+							>
+								RILEY LAHD
+							</div>
+							<div
+								style={{
+									margin:"0px auto",
+									display: "flex",
+									flexDirection: "row",
+									justifyContent: "space-evenly",
+									minWidth: "50%"
+								}}
+							>
+								<span style={{}}>A</span>
+								<span style={{}}>B</span>
+								<span style={{}}>C</span>
+								<span style={{}}>D</span>
+								<span style={{}}>E</span>
+							</div>
+						</div>
 					</div>
 				)
 			};
+			// links: github, linkedin, codepen, email, keybase
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet });
 		};

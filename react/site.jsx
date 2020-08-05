@@ -16,7 +16,7 @@ class Site extends React.Component {
 			let counter = this.state.windowCounter;
 			let id = "" + (counter + 1);
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
+				pos: { x: Math.random() * (window.innerWidth * 0.9), y: (Math.random() * (window.innerHeight - 200)) },
 				id: id,
 				title: counter % 2 == 0 ? "Terminal " + id : id,
 				folded: false,
@@ -399,7 +399,7 @@ class Site extends React.Component {
 			}
 		});
 		return (
-			<div>
+			<div style={{width: "100vw", height: "100vh", overflow: "hidden", position: "absolute", top: 0, left: 0, zIndex: 0}}>
 				<div>
 					<br />
 					{windows}

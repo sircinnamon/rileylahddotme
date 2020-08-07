@@ -16,7 +16,10 @@ class Site extends React.Component {
 			let counter = this.state.windowCounter;
 			let id = "" + (counter + 1);
 			let newWindow = {
-				pos: { x: Math.random() * (window.innerWidth * 0.9), y: (Math.random() * (window.innerHeight - 200)) },
+				pos: {
+					x: Math.random() * (window.innerWidth * 0.9),
+					y: Math.random() * (window.innerHeight - 200)
+				},
 				id: id,
 				title: counter % 2 == 0 ? "Terminal " + id : id,
 				folded: false,
@@ -68,7 +71,7 @@ class Site extends React.Component {
 			);
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet, windowCounter: counter + 1 });
-			makeWindowActive(new Event("dummy"), id)
+			makeWindowActive(new Event("dummy"), id);
 		};
 
 		this.eduWindow = function () {
@@ -190,11 +193,18 @@ class Site extends React.Component {
 				},
 				children: (
 					<div style={{ height: "300px", width: "600px", background: "green" }}>
-						<div style={{display: "flex", height: "100%", flexDirection: "column", justifyContent: "center"}}>
+						<div
+							style={{
+								display: "flex",
+								height: "100%",
+								flexDirection: "column",
+								justifyContent: "center"
+							}}
+						>
 							<div
 								style={{
-									margin:"0px auto",
-									fontSize:"30px",
+									margin: "0px auto",
+									fontSize: "30px",
 									fontWeight: "bold",
 									color: "white",
 									letterSpacing: ".5em",
@@ -206,18 +216,28 @@ class Site extends React.Component {
 							</div>
 							<div
 								style={{
-									margin:"0px auto",
+									margin: "0px auto",
 									display: "flex",
 									flexDirection: "row",
 									justifyContent: "space-evenly",
 									minWidth: "50%"
 								}}
 							>
-								<span style={{}}>A</span>
-								<span style={{}}>B</span>
-								<span style={{}}>C</span>
-								<span style={{}}>D</span>
-								<span style={{}}>E</span>
+								<a href="https://github.com/sircinnamon" style={{}}>
+									A
+								</a>
+								<a href="https://www.linkedin.com/in/riley-lahd/" style={{}}>
+									B
+								</a>
+								<a href="https://codepen.io/sircinnamon" style={{}}>
+									C
+								</a>
+								<a href="mailto:rileylahd@gmail.com" style={{}}>
+									D
+								</a>
+								<a href="https://keybase.io/sircinnamon" style={{}}>
+									E
+								</a>
 							</div>
 						</div>
 					</div>
@@ -430,7 +450,17 @@ class Site extends React.Component {
 			}
 		});
 		return (
-			<div style={{width: "100vw", height: "100vh", overflow: "hidden", position: "absolute", top: 0, left: 0, zIndex: 0}}>
+			<div
+				style={{
+					width: "100vw",
+					height: "100vh",
+					overflow: "hidden",
+					position: "absolute",
+					top: 0,
+					left: 0,
+					zIndex: 0
+				}}
+			>
 				<div>
 					<br />
 					{windows}

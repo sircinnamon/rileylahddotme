@@ -346,6 +346,23 @@ class Site extends React.Component {
 			});
 		};
 
+		this.startDeleteWindow = function (ev, id) {
+			ev.stopPropagation();
+			let winSet = this.state.windows;
+			winSet[id].closing = true;
+			this.setState({
+				windows: winSet
+			});
+			setTimeout(
+				(ev, id) => {
+					this.deleteWindow(ev, id);
+				},
+				200,
+				ev,
+				id
+			);
+		};
+
 		this.deleteWindow = function (ev, id) {
 			ev.stopPropagation();
 			let winSet = this.state.windows;
@@ -421,8 +438,9 @@ class Site extends React.Component {
 				},
 				isActive: w[1].id === this.state.activeWindow,
 				layer: this.state.windowZOrder.indexOf(w[1].id),
+				closing: w[1].closing,
 				close: (ev) => {
-					this.deleteWindow(ev, w[1].id);
+					this.startDeleteWindow(ev, w[1].id);
 				},
 				toggleFold: (ev) => {
 					this.toggleFoldWindow(ev, w[1].id);

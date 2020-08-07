@@ -13,7 +13,10 @@ class Window extends React.Component {
 			position: "absolute",
 			top: Math.min(Math.max(this.props.topPos, 0), window.innerHeight - 20) || 0,
 			left: Math.min(Math.max(this.props.leftPos, 0), window.innerWidth - 40) || 0,
-			zIndex: this.props.layer + 100
+			zIndex: this.props.layer + 100,
+			transition: "transform .2s linear, opacity .2s linear",
+			transform: `scale(${this.props.closing ? "0.3" : "1"})`,
+			opacity: `${this.props.closing ? "0" : "1"}`
 		};
 		let headerStyle = {
 			backgroundColor: "rgba(0,0,0,0.9)",
@@ -179,6 +182,7 @@ class TerminalWindow extends React.Component {
 				makeActive={this.props.makeActive}
 				layer={this.props.layer}
 				close={this.props.close}
+				closing={this.props.closing}
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
 			>
@@ -304,6 +308,7 @@ class IDEWindow extends React.Component {
 				makeActive={this.props.makeActive}
 				layer={this.props.layer}
 				close={this.props.close}
+				closing={this.props.closing}
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
 			>
@@ -468,7 +473,7 @@ class IDEWindowTab extends React.Component {
 		};
 		if (this.props.isActive) {
 			s.backgroundColor = "#282923";
-			s.color = "#FFFFFF"
+			s.color = "#FFFFFF";
 		}
 		let closeStyle = {
 			background: this.state.xHovered ? "rgba(255,255,255,0.2)" : "",
@@ -519,6 +524,7 @@ class BrowserWindow extends React.Component {
 				makeActive={this.props.makeActive}
 				layer={this.props.layer}
 				close={this.props.close}
+				closing={this.props.closing}
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
 			>
@@ -742,6 +748,7 @@ class FileExplorerWindow extends React.Component {
 				makeActive={this.props.makeActive}
 				layer={this.props.layer}
 				close={this.props.close}
+				closing={this.props.closing}
 				toggleFold={this.props.toggleFold}
 				hide={this.props.hide}
 				height={this.props.height || "400px"}

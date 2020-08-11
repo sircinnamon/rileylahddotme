@@ -285,6 +285,7 @@ class IDEWindow extends React.Component {
 			position: "relative",
 			color: "#ddd",
 			fontSize: "12px",
+			overflowX: "auto",
 			...SANS_FONT
 		};
 		let bodyStyle = {
@@ -293,7 +294,8 @@ class IDEWindow extends React.Component {
 			height: "calc(100% - 39px)",
 			minWidth: "fit-content",
 			padding: "2px 1em",
-			color: "#999"
+			color: "#999",
+			overflowY: "auto"
 		};
 
 		return (
@@ -340,6 +342,8 @@ class IDEWindow extends React.Component {
 									float: "left",
 									display: "inline-block",
 									fontSize: "13px",
+									overflow: "hidden",
+									whiteSpace: "break-spaces",
 									...MONO_FONT
 								}}
 							>
@@ -466,10 +470,11 @@ class IDEWindowTab extends React.Component {
 			borderRadius: "5px 5px 0px 0px",
 			backgroundColor: "#42433e",
 			padding: "7px",
-			flex: 1,
-			maxWidth: "100px",
+			flex: "1 1 auto",
+			maxWidth: "200px",
 			cursor: "pointer",
-			color: "#989898"
+			color: "#989898",
+			whiteSpace: "nowrap"
 		};
 		if (this.props.isActive) {
 			s.backgroundColor = "#282923";
@@ -958,8 +963,8 @@ class FileExplorerWindowFile extends React.Component {
 		let imgUrl = isFolder
 			? "https://static.vecteezy.com/system/resources/thumbnails/000/439/792/small/Basic_Ui__28178_29.jpg"
 			: "https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
-		if (this.props.imgUrl) {
-			imgUrl = this.props.imgUrl;
+		if (this.props.file.imgUrl) {
+			imgUrl = this.props.file.imgUrl;
 		}
 		let imgStyle = {
 			maxWidth: "60px",
@@ -1029,9 +1034,16 @@ class FileExplorerWindowSidebar extends React.Component {
 		}
 		let containerStyle = {
 			minWidth: "150px",
+			maxWidth: "250px",
 			height: "100%",
 			float: "right",
 			background: "#333"
+		};
+		let descDivStyle = {
+			color: "#ccc",
+			borderTop: "1px solid #ccc",
+			borderBottom: "1px solid #ccc",
+			marginTop: "10px"
 		};
 		let tableStyle = {
 			width: "100%",
@@ -1041,7 +1053,7 @@ class FileExplorerWindowSidebar extends React.Component {
 		let trStyle = {
 			borderBottom: "1px solid #111",
 			color: "#999",
-			textAlign: "end"
+			textAlign: "start"
 		};
 		let r1Style = {
 			fontWeight: "bold"
@@ -1049,6 +1061,17 @@ class FileExplorerWindowSidebar extends React.Component {
 		let r2Style = {
 			paddingRight: "3px"
 		};
+		let description = "";
+		if (this.props.file.description) {
+			description = (
+				<div style={descDivStyle}>
+					<h3 style={{ margin: "0px", textAlign: "center" }}>Description</h3>
+					<p style={{ margin: "0px", overflow: "hidden" }}>
+						{this.props.file.description}
+					</p>
+				</div>
+			);
+		}
 		let rows = [];
 		let metadata = Object.entries({ ...this.props.file.metadata });
 		for (let i = 0; i < metadata.length; i++) {
@@ -1061,6 +1084,7 @@ class FileExplorerWindowSidebar extends React.Component {
 		}
 		return (
 			<div style={containerStyle}>
+				{description}
 				<table style={tableStyle}>
 					<tbody>{rows}</tbody>
 				</table>

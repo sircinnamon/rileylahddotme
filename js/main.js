@@ -8,6 +8,10 @@ const SANS_FONT = {
 	fontFamily: "Open Sans, sans-serif"
 };
 
+const TITLE_FONT = {
+	fontFamily: "Catamaran, sans-serif"
+};
+
 const MONOKAI_COLOURS = [
 	"#F8F8F0", //	0 ghost-white
 	"#F8F8F2", //	1 light-ghost-white

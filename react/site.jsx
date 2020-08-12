@@ -174,59 +174,9 @@ class Site extends React.Component {
 				hidden: false,
 				type: "browser",
 				props: {
-					startUrl: "helloworld.com"
+					startUrl: "rileylahd.me"
 				},
-				children: (
-					<div style={{ height: "300px", width: "600px", background: "green" }}>
-						<div
-							style={{
-								display: "flex",
-								height: "100%",
-								flexDirection: "column",
-								justifyContent: "center"
-							}}
-						>
-							<div
-								style={{
-									margin: "0px auto",
-									fontSize: "30px",
-									fontWeight: "bold",
-									color: "white",
-									letterSpacing: ".5em",
-									paddingLeft: ".5em",
-									...TITLE_FONT
-								}}
-							>
-								RILEY LAHD
-							</div>
-							<div
-								style={{
-									margin: "0px auto",
-									display: "flex",
-									flexDirection: "row",
-									justifyContent: "space-evenly",
-									minWidth: "50%"
-								}}
-							>
-								<a href="https://github.com/sircinnamon" style={{}}>
-									A
-								</a>
-								<a href="https://www.linkedin.com/in/riley-lahd/" style={{}}>
-									B
-								</a>
-								<a href="https://codepen.io/sircinnamon" style={{}}>
-									C
-								</a>
-								<a href="mailto:rileylahd@gmail.com" style={{}}>
-									D
-								</a>
-								<a href="https://keybase.io/sircinnamon" style={{}}>
-									E
-								</a>
-							</div>
-						</div>
-					</div>
-				)
+				children: (<FakeSite />)
 			};
 			// links: github, linkedin, codepen, email, keybase
 			winSet[id] = newWindow;

@@ -41,7 +41,7 @@ class Desktop extends React.Component {
 		};
 		let wpUrl =
 			this.props.wallpaper ||
-			"http://thor.sircinnamon.ca/img/wallhaven-ymojgd.jpg";
+			"/img/wallpaper.svg";
 		return (
 			<div style={containerStyle}>
 				<div style={shortcutContainerStyle}>{this.props.children}</div>

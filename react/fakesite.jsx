@@ -8,7 +8,12 @@ class FakeSite extends React.Component {
 
 	render() {
 		return (
-			<div style={{ height: "300px", width: "600px", background: "green" }}>
+			<div style={{
+				height: "300px", 
+				width: "600px", 
+				backgroundImage: "url(/img/fakesitebg.svg)",
+				backgroundSize: "cover"
+			}}>
 				<div
 					style={{
 						display: "flex",

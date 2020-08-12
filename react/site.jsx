@@ -404,7 +404,7 @@ class Site extends React.Component {
 					>
 						<DesktopShortcut
 							name="Education"
-							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							imgUrl="/img/terminalicon.svg"
 							isSelected={this.state.selectedShortcut === "EducationShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "EducationShortcut" });
@@ -413,7 +413,7 @@ class Site extends React.Component {
 						/>
 						<DesktopShortcut
 							name="Work History"
-							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							imgUrl="/img/idelogo.svg"
 							isSelected={this.state.selectedShortcut === "WorkShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "WorkShortcut" });
@@ -422,7 +422,7 @@ class Site extends React.Component {
 						/>
 						<DesktopShortcut
 							name="Skills"
-							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							imgUrl="/img/idelogo.svg"
 							isSelected={this.state.selectedShortcut === "SkillsShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "SkillsShortcut" });
@@ -431,7 +431,7 @@ class Site extends React.Component {
 						/>
 						<DesktopShortcut
 							name="Browser"
-							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							imgUrl="/img/browserlogo.svg"
 							isSelected={this.state.selectedShortcut === "BrowserShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "BrowserShortcut" });
@@ -440,7 +440,7 @@ class Site extends React.Component {
 						/>
 						<DesktopShortcut
 							name="Files"
-							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							imgUrl="/img/folderlogo.svg"
 							isSelected={this.state.selectedShortcut === "FileShortcut"}
 							setSelected={() => {
 								this.setState({ selectedShortcut: "FileShortcut" });
@@ -451,7 +451,7 @@ class Site extends React.Component {
 					<Dock>
 						<DockButton onClick={this.newWindow.bind(this)}>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/terminalicon.svg"
 								style={{
 									height: "55px"
 								}}
@@ -462,7 +462,7 @@ class Site extends React.Component {
 							isOpen={this.state.windows.edu}
 						>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/terminalicon.svg"
 								style={{
 									height: "55px"
 								}}
@@ -473,7 +473,7 @@ class Site extends React.Component {
 							isOpen={this.state.windows.ideWork}
 						>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/idelogo.svg"
 								style={{
 									height: "55px"
 								}}
@@ -484,7 +484,7 @@ class Site extends React.Component {
 							isOpen={this.state.windows.ideSkills}
 						>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/idelogo.svg"
 								style={{
 									height: "55px"
 								}}
@@ -495,7 +495,7 @@ class Site extends React.Component {
 							isOpen={this.state.windows.browser}
 						>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/browserlogo.svg"
 								style={{
 									height: "55px"
 								}}
@@ -506,7 +506,7 @@ class Site extends React.Component {
 							isOpen={this.state.windows.fileexplorer}
 						>
 							<img
-								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								src="/img/folderlogo.svg"
 								style={{
 									height: "55px"
 								}}

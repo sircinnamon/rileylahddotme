@@ -395,7 +395,7 @@ class IDEWindowSidebar extends React.Component {
 				marginRight: "2px"
 			};
 			let icon =
-				"https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
+				"/img/icons/fileicon_small.svg";
 			list.push(
 				<li
 					style={liStyle}
@@ -961,8 +961,8 @@ class FileExplorerWindowFile extends React.Component {
 			maxHeight: "110px"
 		};
 		let imgUrl = isFolder
-			? "https://static.vecteezy.com/system/resources/thumbnails/000/439/792/small/Basic_Ui__28178_29.jpg"
-			: "https://cdn.icon-icons.com/icons2/931/PNG/512/empty_file_icon-icons.com_72420.png";
+			? "/img/folderlogo.svg"
+			: "/img/icons/fileicon.svg";
 		if (this.props.file.imgUrl) {
 			imgUrl = this.props.file.imgUrl;
 		}

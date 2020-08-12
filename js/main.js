@@ -310,3 +310,111 @@ const WORK_HISTORY_IDE = {
 		]
 	}
 };
+
+const SKILLS_IDE = {
+	"README.md": {
+		bodyChunks: [
+			{ string: "README\n\n", bold: true, color: 8 },
+			{ string: "Each skill is a file, with some extra detail stored within!\n", color: 7 }
+		]
+	},
+	"linux.md": {
+		bodyChunks: [
+			{ string: "Since university I've primarily coded on Linux, specifically ", bold: false, color: 1 },
+			{ string: "Arch ", bold: true, color: 7 },
+			{ string: "though I have also used ", bold: false, color: 1 },
+			{ string: "Debian/Raspbian ", bold: true, color: 11 },
+			{ string: "a fair amount. I'm familiar with concepts like ", bold: false, color: 1 },
+			{ string: "cron, systemd, bash scripting, etc.", bold: false, color: 13 },
+		]
+	},
+	"python.md": {
+		bodyChunks: [
+			{ string: "Python is a personal favourite for rapid development and prototyping. ", bold: false, color: 1 },
+			{ string: "I've worked extensively with both Python 2 and 3, and I am a (one time) contributor to one of the largest Python libraries, ", bold: false, color: 1 },
+			{ string: "Pillow", bold: true, color: 7 },
+			{ string: ". ", bold: false, color: 1 },
+		]
+	},
+	"java.md": {
+		bodyChunks: [
+			{ string: "Java was the language of choice at the University, many classes required assignments to be written in Java 8", bold: false, color: 1 },
+			{ string: " and while it has been a while since I wrote any Java code, I still occasionally have to read and translate it in a work capacity.", bold: false, color: 1 },
+		]
+	},
+	"node_js.md": {
+		bodyChunks: [
+			{ string: "My work lately has primarily used NodeJS as the primary language and I would say it is one of my most proficient languages.", bold: false, color: 1 },
+			{ string: "I've used libraries like ", bold: false, color: 1 },
+			{ string: "Express, ", bold: true, color: 7 },
+			{ string: "Axios, ", bold: true, color: 11 },
+			{ string: "Winston, ", bold: true, color: 9 },
+			{ string: "Mocha, ", bold: true, color: 6 },
+			{ string: "and others, as well as writing reusable modules for my team.", bold: false, color: 1 },
+		]
+	},
+	"golang.md": {
+		bodyChunks: [
+			{ string: "Go has been a newer pickup for me, harder to write but excellent at making performant and space saving code. ", bold: false, color: 1 },
+			{ string: "Espescially nice when complemented with Docker to create small and highly reusable images containing a pure binary.", bold: false, color: 1 },
+		]
+	},
+	"git.md": {
+		bodyChunks: [
+			{ string: "Version control is a must and I would say no tool beats Git for that. ", bold: false, color: 1 },
+			{ string: "With my work I make daily use of that basics, as well as stash, branching, tagging, and via extension tools, pull requests and code reviews.", bold: false, color: 1 },
+		]
+	},
+	"kubernetes.md": {
+		bodyChunks: [
+			{ string: "I have been using kubernetes for container orchestration for around 2 years and I have found it to be extremely convenient ", bold: false, color: 1 },
+			{ string: "and powerful. I am familiar with both using the cluster as well as managing it as an administrator.", bold: false, color: 1 },
+		]
+	},
+	"javascript.md": {
+		bodyChunks: [
+			{ string: "I have written multiple sites using pure js/html/css which I find great for smaller, single service and unchanging pages.", bold: false, color: 1 },
+		]
+	},
+	"html+css.md": {
+		bodyChunks: [
+			{ string: "Obviously I have a working knowledge of web development, and have made simple sites using basic HTML and CSS.", bold: false, color: 1 },
+		]
+	},
+	"react.md": {
+		bodyChunks: [
+			{ string: "I've been learning React.js to make the development of complex sites simpler to manage as a more backend-oriented person, ", bold: false, color: 1 },
+			{ string: "and I've found it to be excellent, if a little complex at first. I started making this site to try and implement ", bold: false, color: 1 },
+			{ string: "some more complex ideas to further my knowledge of React!", bold: false, color: 1 },
+		]
+	},
+	"docker.md": {
+		bodyChunks: [
+			{ string: "My work has had me work daily with Docker to facilitate local runs while maintaining a safe environment, sharing run parameters etc. ", bold: false, color: 1 },
+			{ string: "After being introduced at work I really liked the idea and behaviour and adopted it into a lot of my personal projects as well!", bold: false, color: 1 },
+		]
+	},
+	"nginx.md": {
+		bodyChunks: [
+			{ string: "My work has used NGINX as the web server of choice and I quite liked it and have adopted it into my personal projects!", bold: false, color: 1 },
+		]
+	},
+	"agile.md": {
+		bodyChunks: [
+			{ string: "My work has employed mostyl agile methodology at the team level, including ", bold: false, color: 1 },
+			{ string: "sprint planning meetings, JIRA boards, and daily stand-ups. ", bold: false, color: 6 },
+			{ string: "I think this is a great working methodology when it can be applied properly!", bold: false, color: 1 },
+		]
+	},
+	"other.md": {
+		bodyChunks: [
+			{ string: "* SQL\n", bold: true, color: 13 },
+			{ string: "* Tech Support\n", bold: true, color: 13 },
+			{ string: "* Distributed Systems\n", bold: true, color: 13 },
+			{ string: "* Github\n", bold: true, color: 13 },
+			{ string: "* Hardware\n", bold: true, color: 13 },
+			{ string: "* API Design\n", bold: true, color: 13 },
+			{ string: "* Microsoft Offics\n", bold: true, color: 13 },
+		]
+	},
+};

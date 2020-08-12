@@ -99,10 +99,10 @@ class Site extends React.Component {
 			this.setState({ windows: winSet });
 		};
 
-		this.ideWindow = function () {
+		this.ideWorkHistoryWindow = function () {
 			let winSet = this.state.windows;
 			let counter = this.state.windowCounter;
-			let id = "ide";
+			let id = "ideWork";
 			if (winSet[id]) {
 				winSet[id].folded = false;
 				winSet[id].hidden = false;
@@ -123,6 +123,34 @@ class Site extends React.Component {
 			newWindow.props.windowWidth = "700px";
 			newWindow.props.defaultCurrentTab = "README.md";
 			newWindow.props.files = WORK_HISTORY_IDE;
+			winSet[id] = newWindow;
+			this.setState({ windows: winSet });
+		};
+
+		this.ideSkillsWindow = function () {
+			let winSet = this.state.windows;
+			let counter = this.state.windowCounter;
+			let id = "ideSkills";
+			if (winSet[id]) {
+				winSet[id].folded = false;
+				winSet[id].hidden = false;
+				this.setState({ windows: winSet });
+				this.makeWindowActive(new Event("dummy"), id);
+				return;
+			}
+			let newWindow = {
+				pos: { x: Math.random() * 200, y: Math.random() * 200 },
+				id: id,
+				title: "",
+				folded: false,
+				hidden: false,
+				type: "ide",
+				props: {}
+			};
+			newWindow.props.windowHeight = "500px";
+			newWindow.props.windowWidth = "700px";
+			newWindow.props.defaultCurrentTab = "README.md";
+			newWindow.props.files = SKILLS_IDE;
 			winSet[id] = newWindow;
 			this.setState({ windows: winSet });
 		};
@@ -434,13 +462,22 @@ class Site extends React.Component {
 							onDoubleClick={this.eduWindow.bind(this)}
 						/>
 						<DesktopShortcut
-							name="IDE"
+							name="Work History"
 							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
-							isSelected={this.state.selectedShortcut === "IDEShortcut"}
+							isSelected={this.state.selectedShortcut === "WorkShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "IDEShortcut" });
+								this.setState({ selectedShortcut: "WorkShortcut" });
 							}}
-							onDoubleClick={this.ideWindow.bind(this)}
+							onDoubleClick={this.ideWorkHistoryWindow.bind(this)}
+						/>
+						<DesktopShortcut
+							name="Skills"
+							imgUrl="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+							isSelected={this.state.selectedShortcut === "SkillsShortcut"}
+							setSelected={() => {
+								this.setState({ selectedShortcut: "SkillsShortcut" });
+							}}
+							onDoubleClick={this.ideSkillsWindow.bind(this)}
 						/>
 						<DesktopShortcut
 							name="Browser"
@@ -482,8 +519,19 @@ class Site extends React.Component {
 							/>
 						</DockButton>
 						<DockButton
-							onClick={this.ideWindow.bind(this)}
-							isOpen={this.state.windows.ide}
+							onClick={this.ideWorkHistoryWindow.bind(this)}
+							isOpen={this.state.windows.ideWork}
+						>
+							<img
+								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"
+								style={{
+									height: "55px"
+								}}
+							/>
+						</DockButton>
+						<DockButton
+							onClick={this.ideSkillsWindow.bind(this)}
+							isOpen={this.state.windows.ideSkills}
 						>
 							<img
 								src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/terminal-512.png"

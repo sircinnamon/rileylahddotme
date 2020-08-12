@@ -7,6 +7,11 @@ class FakeSite extends React.Component {
 	}
 
 	render() {
+		let icon_style = {
+			height: "1em",
+			filter: "invert(1)",
+			userSelect: "none"
+		}
 		return (
 			<div style={{
 				height: "300px", 
@@ -30,6 +35,7 @@ class FakeSite extends React.Component {
 							color: "white",
 							letterSpacing: ".5em",
 							paddingLeft: ".5em",
+							userSelect: "none",
 							...TITLE_FONT
 						}}
 					>
@@ -44,20 +50,20 @@ class FakeSite extends React.Component {
 							minWidth: "50%"
 						}}
 					>
-						<a href="https://github.com/sircinnamon" style={{}}>
-							<img src="/img/icons/github.svg" style={{height: "1em", filter: "invert(1)"}} />
+						<a target="_blank" rel="noopener noreferrer" href="https://github.com/sircinnamon" style={{}}>
+							<img src="/img/icons/github.svg" style={icon_style} />
 						</a>
-						<a href="https://www.linkedin.com/in/riley-lahd/" style={{}}>
-							<img src="/img/icons/linkedin.svg" style={{height: "1em", filter: "invert(1)"}} />
+						<a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/riley-lahd/" style={{}}>
+							<img src="/img/icons/linkedin.svg" style={icon_style} />
 						</a>
-						<a href="https://codepen.io/sircinnamon" style={{}}>
-							<img src="/img/icons/codepen.svg" style={{height: "1em", filter: "invert(1)"}} />
+						<a target="_blank" rel="noopener noreferrer" href="https://codepen.io/sircinnamon" style={{}}>
+							<img src="/img/icons/codepen.svg" style={icon_style} />
 						</a>
-						<a href="mailto:rileylahd@gmail.com" style={{}}>
-							<img src="/img/icons/gmail.svg" style={{height: "1em", filter: "invert(1)"}} />
+						<a target="_blank" rel="noopener noreferrer" href="mailto:rileylahd@gmail.com" style={{}}>
+							<img src="/img/icons/gmail.svg" style={icon_style} />
 						</a>
-						<a href="https://keybase.io/sircinnamon" style={{}}>
-							<img src="/img/icons/keybase.svg" style={{height: "1em", filter: "invert(1)"}} />
+						<a target="_blank" rel="noopener noreferrer" href="https://keybase.io/sircinnamon" style={{}}>
+							<img src="/img/icons/keybase.svg" style={icon_style} />
 						</a>
 					</div>
 				</div>

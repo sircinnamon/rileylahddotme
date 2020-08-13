@@ -8,7 +8,8 @@ class Site extends React.Component {
 			heldWindow: undefined,
 			windowZOrder: [],
 			activeWindow: undefined,
-			windowCounter: 0
+			windowCounter: 0,
+			booted: false
 		};
 
 		this.newWindow = function(content, minWidth=0, minHeight=0){
@@ -357,6 +358,15 @@ class Site extends React.Component {
 				return <Window {...globalProps} key={w[1].id}>{w[1].children}</Window>;
 			}
 		});
+		//Show boot sequence on first visit
+		let bootSeq = ""
+		if(!this.state.booted){
+			bootSeq = (
+				<BootSequence
+					completeBoot={()=>{this.setState({booted: true})}}
+				/>
+			)
+		}
 		return (
 			<div
 				style={{
@@ -369,7 +379,8 @@ class Site extends React.Component {
 					zIndex: 0
 				}}
 			>
-				<div>
+				{bootSeq}
+				<div hidden={this.state.booted===false}>
 					<br />
 					{windows}
 					<Desktop

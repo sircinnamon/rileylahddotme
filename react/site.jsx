@@ -365,21 +365,21 @@ class Site extends React.Component {
 				}
 			};
 			if (w[1].type === "terminal") {
-				return <TerminalWindow {...globalProps} {...w[1].props} />;
+				return <TerminalWindow {...globalProps} {...w[1].props} key={w[1].id} />;
 			} else if (w[1].type === "ide") {
-				return <IDEWindow {...globalProps} {...w[1].props} />;
+				return <IDEWindow {...globalProps} {...w[1].props} key={w[1].id} />;
 			} else if (w[1].type === "browser") {
 				return (
-					<BrowserWindow {...globalProps} {...w[1].props}>
+					<BrowserWindow {...globalProps} {...w[1].props} key={w[1].id}>
 						{w[1].children}
 					</BrowserWindow>
 				);
 			} else if (w[1].type === "fileexplorer") {
 				return (
-					<FileExplorerWindow {...globalProps} {...w[1].props}></FileExplorerWindow>
+					<FileExplorerWindow {...globalProps} {...w[1].props} key={w[1].id}></FileExplorerWindow>
 				);
 			} else {
-				return <Window {...globalProps}>{w[1].children}</Window>;
+				return <Window {...globalProps} key={w[1].id}>{w[1].children}</Window>;
 			}
 		});
 		return (

@@ -144,7 +144,7 @@ class TerminalWindow extends React.Component {
 			if (c.bold) {
 				s.fontWeight = "bold";
 			}
-			body.push(<span style={s}>{c.string}</span>);
+			body.push(<span style={s} key={`snippet${i}`} >{c.string}</span>);
 		}
 		let preStyle = {
 			backgroundColor: "rgba(0,0,0,0.8)",
@@ -270,7 +270,7 @@ class IDEWindow extends React.Component {
 				if (c.bold) {
 					s.fontWeight = "bold";
 				}
-				body.push(<span style={s}>{c.string}</span>);
+				body.push(<span style={s} key={`snippet${i}`}>{c.string}</span>);
 			}
 		} else {
 			body = "";
@@ -402,6 +402,7 @@ class IDEWindowSidebar extends React.Component {
 					onClick={() => {
 						this.props.openTab(fileList[i]);
 					}}
+					key={`file-${fileList[i]}`}
 				>
 					<span>
 						<img style={iconStyle} src={icon} />
@@ -442,6 +443,7 @@ class IDEWindowTabs extends React.Component {
 					close={() => {
 						this.props.closeTab(this.props.openTabs[i]);
 					}}
+					key={`tab-${this.props.openTabs[i]}`}
 				>
 					{this.props.openTabs[i]}
 				</IDEWindowTab>
@@ -956,9 +958,8 @@ class FileExplorerWindowFile extends React.Component {
 			this.props.file.type === "folder" || this.props.file.type === undefined;
 		let containerStyle = {
 			padding: "5px",
-			flex: "1",
-			maxWidth: "100px",
-			maxHeight: "110px"
+			flex: "0",
+			height: "fit-content"
 		};
 		let imgUrl = isFolder
 			? "/img/folderlogo.svg"
@@ -1076,7 +1077,7 @@ class FileExplorerWindowSidebar extends React.Component {
 		let metadata = Object.entries({ ...this.props.file.metadata });
 		for (let i = 0; i < metadata.length; i++) {
 			rows.push(
-				<tr style={{ ...trStyle, background: i % 2 === 0 ? "#222" : "#111" }}>
+				<tr key={`metadata-row-${metadata[i][0]}`} style={{ ...trStyle, background: i % 2 === 0 ? "#222" : "#111" }}>
 					<td style={r1Style}>{metadata[i][0]}:</td>
 					<td style={r2Style}>{metadata[i][1]}</td>
 				</tr>

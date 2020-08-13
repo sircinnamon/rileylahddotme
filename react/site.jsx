@@ -27,7 +27,7 @@ class Site extends React.Component {
 			}
 			winSet[content.id] = content;
 			this.setState({ windows: winSet, windowCounter: this.state.windowCounter + 1 });
-			this.makeWindowActive(new Event("dummy"), content.id);
+			this.makeWindowActive(undefined, content.id);
 		}
 
 		this.newTerminal = function () {
@@ -73,7 +73,7 @@ class Site extends React.Component {
 			let winSet = this.state.windows;
 			let id = "edu";
 			if (winSet[id]) {
-				this.makeWindowVisible(new Event("dummy"), id);
+				this.makeWindowVisible(undefined, id);
 				return;
 			}
 			let newWindow = {
@@ -92,7 +92,7 @@ class Site extends React.Component {
 			let winSet = this.state.windows;
 			let id = "ideWork";
 			if (winSet[id]) {
-				this.makeWindowVisible(new Event("dummy"), id);
+				this.makeWindowVisible(undefined, id);
 				return;
 			}
 			let newWindow = {
@@ -114,7 +114,7 @@ class Site extends React.Component {
 			let winSet = this.state.windows;
 			let id = "ideSkills";
 			if (winSet[id]) {
-				this.makeWindowVisible(new Event("dummy"), id);
+				this.makeWindowVisible(undefined, id);
 				return;
 			}
 			let newWindow = {
@@ -136,7 +136,7 @@ class Site extends React.Component {
 			let winSet = this.state.windows;
 			let id = "browser";
 			if (winSet[id]) {
-				this.makeWindowVisible(new Event("dummy"), id);
+				this.makeWindowVisible(undefined, id);
 				return;
 			}
 			let newWindow = {
@@ -157,7 +157,7 @@ class Site extends React.Component {
 			let winSet = this.state.windows;
 			let id = "fileexplorer";
 			if (winSet[id]) {
-				this.makeWindowVisible(new Event("dummy"), id);
+				this.makeWindowVisible(undefined, id);
 				return;
 			}
 			let newWindow = {
@@ -176,7 +176,7 @@ class Site extends React.Component {
 
 		this.grabWindow = function (ev, id) {
 			ev.preventDefault();
-			this.makeWindowActive(ev, id);
+			this.makeWindowActive(undefined, id);
 			if (ev.targetTouches) {
 				ev = ev.targetTouches[0];
 			}
@@ -199,7 +199,6 @@ class Site extends React.Component {
 			let oldPos = this.state.windows[this.state.heldWindow].pos;
 			if (ev.targetTouches) {
 				ev = ev.changedTouches[0];
-				console.log("MOVE", { x: ev.pageX, y: ev.pageX });
 				ev.movementX = ev.pageX - this.state.windowPickupPos.x;
 				ev.movementY = ev.pageY - this.state.windowPickupPos.y;
 			}
@@ -213,19 +212,19 @@ class Site extends React.Component {
 		};
 
 		this.makeWindowVisible = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			if (winSet[id]) {
 				winSet[id].folded = false;
 				winSet[id].hidden = false;
 				this.setState({ windows: winSet });
-				this.makeWindowActive(ev, id);
+				this.makeWindowActive(undefined, id);
 				return;
 			}
 		};
 
 		this.makeWindowActive = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let zOrder = this.state.windowZOrder;
 			zOrder = zOrder.filter((x) => {
 				return x !== id;
@@ -238,7 +237,7 @@ class Site extends React.Component {
 		};
 
 		this.startDeleteWindow = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			winSet[id].closing = true;
 			this.setState({
@@ -249,13 +248,13 @@ class Site extends React.Component {
 					this.deleteWindow(ev, id);
 				},
 				200,
-				ev,
+				undefined,
 				id
 			);
 		};
 
 		this.deleteWindow = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			delete winSet[id];
 			let zOrder = this.state.windowZOrder;
@@ -270,7 +269,7 @@ class Site extends React.Component {
 		};
 
 		this.toggleFoldWindow = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			winSet[id].folded = !winSet[id].folded;
 			this.setState({
@@ -279,7 +278,7 @@ class Site extends React.Component {
 		};
 
 		this.hideWindow = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			winSet[id].hidden = true;
 			this.setState({
@@ -288,7 +287,7 @@ class Site extends React.Component {
 		};
 
 		this.showWindow = function (ev, id) {
-			ev.stopPropagation();
+			if(ev){ev.stopPropagation()}
 			let winSet = this.state.windows;
 			winSet[id].hidden = false;
 			this.setState({

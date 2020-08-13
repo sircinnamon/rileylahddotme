@@ -430,7 +430,7 @@ class Site extends React.Component {
 							onDoubleClick={this.ideSkillsWindow.bind(this)}
 						/>
 						<DesktopShortcut
-							name="Browser"
+							name="Links"
 							imgUrl="/img/browserlogo.svg"
 							isSelected={this.state.selectedShortcut === "BrowserShortcut"}
 							setSelected={() => {
@@ -439,7 +439,7 @@ class Site extends React.Component {
 							onDoubleClick={this.browserWindow.bind(this)}
 						/>
 						<DesktopShortcut
-							name="Files"
+							name="About"
 							imgUrl="/img/folderlogo.svg"
 							isSelected={this.state.selectedShortcut === "FileShortcut"}
 							setSelected={() => {

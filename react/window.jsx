@@ -28,17 +28,17 @@ class Window extends React.Component {
 			...SANS_FONT
 		};
 		if (this.props.isHeld) {
-			headerStyle.backgroundColor = "rgba(255,0,0,0.7)";
+			headerStyle.backgroundColor = "rgba(30,30,30,0.9)";
 			headerStyle.cursor = "grabbing";
 		}
 		let closeButtonStyle = {
-			background: "rgba(200, 30, 30, 0.5)"
+			background: "rgb(200, 30, 30)"
 		};
 		let foldButtonStyle = {
-			background: "rgba(150, 150, 30, 0.5)"
+			background: "rgb(150, 150, 30)"
 		};
 		let hideButtonStyle = {
-			background: "rgba(30, 200, 30, 0.5)"
+			background: "rgb(30, 200, 30)"
 		};
 		let bodyStyle = {
 			maxHeight: this.props.isFolded ? "0px" : "",
@@ -80,15 +80,16 @@ class WindowHeaderBtn extends React.Component {
 
 	render() {
 		let style = {
-			height: "10px",
-			width: "10px",
+			height: "14px",
+			width: "14px",
 			float: "right",
 			padding: 0,
 			fontSize: "5px",
 			margin: "2px",
 			borderRadius: "10px",
-			background: "rgba(200, 30, 30, 0.7)",
+			background: "rgb(200, 30, 30)",
 			cursor: "pointer",
+			opacity: this.state.hovered?0.9:0.5,
 			...this.props.style
 		};
 		return (
@@ -96,6 +97,8 @@ class WindowHeaderBtn extends React.Component {
 				style={style}
 				onMouseDown={this.props.onMouseDown}
 				onTouchStart={this.props.onMouseDown}
+				onMouseEnter={()=>{this.setState({hovered: true})}}
+				onMouseLeave={()=>{this.setState({hovered: false})}}
 			/>
 		);
 	}

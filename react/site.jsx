@@ -11,82 +11,72 @@ class Site extends React.Component {
 			windowCounter: 0
 		};
 
-		this.newWindow = function () {
+		this.newWindow = function(content, minWidth=0, minHeight=0){
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
-			let id = "" + (counter + 1);
+			if(!content.id){content.id = this.state.windowCounter+1}
+			if(!content.pos){
+				content.pos = {}
+			}
+			if(!content.pos.x){
+				let bufferspace = minWidth ||( window.innerWidth	* 0.9)
+				content.pos.x = Math.random() * (window.innerWidth - (bufferspace))
+			}
+			if(!content.pos.y){
+				let bufferspace = minHeight || (window.innerHeight	* 0.9)
+				content.pos.y = Math.random() * (window.innerHeight - (bufferspace))	
+			}
+			winSet[content.id] = content;
+			this.setState({ windows: winSet, windowCounter: this.state.windowCounter + 1 });
+			this.makeWindowActive(new Event("dummy"), content.id);
+		}
+
+		this.newTerminal = function () {
 			let newWindow = {
-				pos: {
-					x: Math.random() * (window.innerWidth * 0.9),
-					y: Math.random() * (window.innerHeight - 200)
-				},
-				id: id,
-				title: counter % 2 == 0 ? "Terminal " + id : id,
+				title: "Terminal",
 				folded: false,
 				hidden: false,
-				type: counter % 2 == 0 ? "terminal" : "default",
+				type: "terminal",
 				props: {}
 			};
-			if (newWindow.type === "terminal") {
-				newWindow.props.bodyChunks = [
-					{ string: "pi@thor", bold: true, color: 0 },
-					{ string: ":" },
-					{ string: "~/rileylahddotme ", bold: true, color: 1 },
-					{ string: "python3 -m http.server\n" },
-					{
-						string: "Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n"
-					},
-					{
-						string: '10.0.0.117 - - [24/Jul/2020 15:12:40] "GET / HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/main.js HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/rileylahddotme-react.min.js HTTP/1.1" 200 -\n'
-					},
-					{
-						string:
-							"10.0.0.117 - - [24/Jul/2020 15:12:40] code 404, message File not found\n"
-					},
-					{
-						string:
-							'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /favicon.ico HTTP/1.1" 404 -\n'
-					}
-				];
-			}
-			newWindow.children = (
-				<div
-					style={{
-						backgroundColor: "rgba(0,0,0,0.5)",
-						height: "250px",
-						width: "200px",
-						color: "rgb(75,75,75)"
-					}}
-				>
-					Test
-				</div>
-			);
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet, windowCounter: counter + 1 });
-			this.makeWindowActive(new Event("dummy"), id);
+			newWindow.props.bodyChunks = [
+				{ string: "pi@thor", bold: true, color: 0 },
+				{ string: ":" },
+				{ string: "~/rileylahddotme ", bold: true, color: 1 },
+				{ string: "python3 -m http.server\n" },
+				{
+					string: "Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n"
+				},
+				{
+					string: '10.0.0.117 - - [24/Jul/2020 15:12:40] "GET / HTTP/1.1" 200 -\n'
+				},
+				{
+					string:
+						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/main.js HTTP/1.1" 200 -\n'
+				},
+				{
+					string:
+						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/rileylahddotme-react.min.js HTTP/1.1" 200 -\n'
+				},
+				{
+					string:
+						"10.0.0.117 - - [24/Jul/2020 15:12:40] code 404, message File not found\n"
+				},
+				{
+					string:
+						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /favicon.ico HTTP/1.1" 404 -\n'
+				}
+			];
+			this.newWindow(newWindow, 200, 200)
 		};
 
 		this.eduWindow = function () {
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
 			let id = "edu";
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(new Event("dummy"), id);
+				this.makeWindowVisible(new Event("dummy"), id);
 				return;
 			}
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
 				title: "",
 				folded: false,
@@ -95,23 +85,17 @@ class Site extends React.Component {
 				props: {}
 			};
 			newWindow.props.bodyChunks = EDU_HISTORY_TERMINAL;
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet });
+			this.newWindow(newWindow, 400, 200)
 		};
 
 		this.ideWorkHistoryWindow = function () {
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
 			let id = "ideWork";
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(new Event("dummy"), id);
+				this.makeWindowVisible(new Event("dummy"), id);
 				return;
 			}
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
 				title: "",
 				folded: false,
@@ -123,23 +107,17 @@ class Site extends React.Component {
 			newWindow.props.windowWidth = "700px";
 			newWindow.props.defaultCurrentTab = "README.md";
 			newWindow.props.files = WORK_HISTORY_IDE;
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet });
+			this.newWindow(newWindow, 700, 500)
 		};
 
 		this.ideSkillsWindow = function () {
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
 			let id = "ideSkills";
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(new Event("dummy"), id);
+				this.makeWindowVisible(new Event("dummy"), id);
 				return;
 			}
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
 				title: "",
 				folded: false,
@@ -151,23 +129,17 @@ class Site extends React.Component {
 			newWindow.props.windowWidth = "700px";
 			newWindow.props.defaultCurrentTab = "README.md";
 			newWindow.props.files = SKILLS_IDE;
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet });
+			this.newWindow(newWindow, 700, 500)
 		};
 
 		this.browserWindow = function () {
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
 			let id = "browser";
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(new Event("dummy"), id);
+				this.makeWindowVisible(new Event("dummy"), id);
 				return;
 			}
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
 				title: "",
 				folded: false,
@@ -178,24 +150,17 @@ class Site extends React.Component {
 				},
 				children: (<FakeSite />)
 			};
-			// links: github, linkedin, codepen, email, keybase
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet });
+			this.newWindow(newWindow, 500, 500)
 		};
 
 		this.fileExplorerWindow = function () {
 			let winSet = this.state.windows;
-			let counter = this.state.windowCounter;
 			let id = "fileexplorer";
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(new Event("dummy"), id);
+				this.makeWindowVisible(new Event("dummy"), id);
 				return;
 			}
 			let newWindow = {
-				pos: { x: Math.random() * 200, y: Math.random() * 200 },
 				id: id,
 				title: "",
 				folded: false,
@@ -206,8 +171,7 @@ class Site extends React.Component {
 					fileTree: FILE_TREE_HOBBIES
 				}
 			};
-			winSet[id] = newWindow;
-			this.setState({ windows: winSet });
+			this.newWindow(newWindow, 600, 400)
 		};
 
 		this.grabWindow = function (ev, id) {
@@ -246,6 +210,18 @@ class Site extends React.Component {
 				windows: newWindows,
 				windowPickupPos: { x: ev.pageX, y: ev.pageY }
 			});
+		};
+
+		this.makeWindowVisible = function (ev, id) {
+			ev.stopPropagation();
+			let winSet = this.state.windows;
+			if (winSet[id]) {
+				winSet[id].folded = false;
+				winSet[id].hidden = false;
+				this.setState({ windows: winSet });
+				this.makeWindowActive(ev, id);
+				return;
+			}
 		};
 
 		this.makeWindowActive = function (ev, id) {
@@ -449,7 +425,7 @@ class Site extends React.Component {
 						/>
 					</Desktop>
 					<Dock>
-						<DockButton onClick={this.newWindow.bind(this)}>
+						<DockButton onClick={this.newTerminal.bind(this)}>
 							<img
 								src="/img/terminalicon.svg"
 								style={{

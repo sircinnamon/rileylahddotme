@@ -2,7 +2,7 @@
 /* exported Site */
 class Site extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			windows: {},
 			heldWindow: undefined,
@@ -10,10 +10,10 @@ class Site extends React.Component {
 			activeWindow: undefined,
 			windowCounter: 0,
 			booted: false
-		};
+		}
 
 		this.newWindow = function(content, minWidth=0, minHeight=0){
-			let winSet = this.state.windows;
+			let winSet = this.state.windows
 			if(!content.id){content.id = this.state.windowCounter+1}
 			if(!content.pos){
 				content.pos = {}
@@ -26,9 +26,9 @@ class Site extends React.Component {
 				let bufferspace = minHeight || (window.innerHeight	* 0.9)
 				content.pos.y = Math.random() * (window.innerHeight - (bufferspace))	
 			}
-			winSet[content.id] = content;
-			this.setState({ windows: winSet, windowCounter: this.state.windowCounter + 1 });
-			this.makeWindowActive(undefined, content.id);
+			winSet[content.id] = content
+			this.setState({ windows: winSet, windowCounter: this.state.windowCounter + 1 })
+			this.makeWindowActive(undefined, content.id)
 		}
 
 		this.newTerminal = function () {
@@ -38,7 +38,7 @@ class Site extends React.Component {
 				hidden: false,
 				type: "terminal",
 				props: {}
-			};
+			}
 			newWindow.props.bodyChunks = [
 				{ string: "pi@thor", bold: true, color: 0 },
 				{ string: ":" },
@@ -48,15 +48,15 @@ class Site extends React.Component {
 					string: "Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...\n"
 				},
 				{
-					string: '10.0.0.117 - - [24/Jul/2020 15:12:40] "GET / HTTP/1.1" 200 -\n'
+					string: "10.0.0.117 - - [24/Jul/2020 15:12:40] \"GET / HTTP/1.1\" 200 -\n"
 				},
 				{
 					string:
-						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/main.js HTTP/1.1" 200 -\n'
+						"10.0.0.117 - - [24/Jul/2020 15:12:40] \"GET /js/main.js HTTP/1.1\" 200 -\n"
 				},
 				{
 					string:
-						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /js/rileylahddotme-react.min.js HTTP/1.1" 200 -\n'
+						"10.0.0.117 - - [24/Jul/2020 15:12:40] \"GET /js/rileylahddotme-react.min.js HTTP/1.1\" 200 -\n"
 				},
 				{
 					string:
@@ -64,18 +64,18 @@ class Site extends React.Component {
 				},
 				{
 					string:
-						'10.0.0.117 - - [24/Jul/2020 15:12:40] "GET /favicon.ico HTTP/1.1" 404 -\n'
+						"10.0.0.117 - - [24/Jul/2020 15:12:40] \"GET /favicon.ico HTTP/1.1\" 404 -\n"
 				}
-			];
+			]
 			this.newWindow(newWindow, 200, 200)
-		};
+		}
 
 		this.eduWindow = function () {
-			let winSet = this.state.windows;
-			let id = "edu";
+			let winSet = this.state.windows
+			let id = "edu"
 			if (winSet[id]) {
-				this.makeWindowVisible(undefined, id);
-				return;
+				this.makeWindowVisible(undefined, id)
+				return
 			}
 			let newWindow = {
 				id: id,
@@ -84,17 +84,17 @@ class Site extends React.Component {
 				hidden: false,
 				type: "terminal",
 				props: {}
-			};
-			newWindow.props.bodyChunks = EDU_HISTORY_TERMINAL;
+			}
+			newWindow.props.bodyChunks = EDU_HISTORY_TERMINAL
 			this.newWindow(newWindow, 400, 200)
-		};
+		}
 
 		this.ideWorkHistoryWindow = function () {
-			let winSet = this.state.windows;
-			let id = "ideWork";
+			let winSet = this.state.windows
+			let id = "ideWork"
 			if (winSet[id]) {
-				this.makeWindowVisible(undefined, id);
-				return;
+				this.makeWindowVisible(undefined, id)
+				return
 			}
 			let newWindow = {
 				id: id,
@@ -103,20 +103,20 @@ class Site extends React.Component {
 				hidden: false,
 				type: "ide",
 				props: {}
-			};
-			newWindow.props.windowHeight = "500px";
-			newWindow.props.windowWidth = "700px";
-			newWindow.props.defaultCurrentTab = "README.md";
-			newWindow.props.files = WORK_HISTORY_IDE;
+			}
+			newWindow.props.windowHeight = "500px"
+			newWindow.props.windowWidth = "700px"
+			newWindow.props.defaultCurrentTab = "README.md"
+			newWindow.props.files = WORK_HISTORY_IDE
 			this.newWindow(newWindow, 700, 500)
-		};
+		}
 
 		this.ideSkillsWindow = function () {
-			let winSet = this.state.windows;
-			let id = "ideSkills";
+			let winSet = this.state.windows
+			let id = "ideSkills"
 			if (winSet[id]) {
-				this.makeWindowVisible(undefined, id);
-				return;
+				this.makeWindowVisible(undefined, id)
+				return
 			}
 			let newWindow = {
 				id: id,
@@ -125,20 +125,20 @@ class Site extends React.Component {
 				hidden: false,
 				type: "ide",
 				props: {}
-			};
-			newWindow.props.windowHeight = "500px";
-			newWindow.props.windowWidth = "700px";
-			newWindow.props.defaultCurrentTab = "README.md";
-			newWindow.props.files = SKILLS_IDE;
+			}
+			newWindow.props.windowHeight = "500px"
+			newWindow.props.windowWidth = "700px"
+			newWindow.props.defaultCurrentTab = "README.md"
+			newWindow.props.files = SKILLS_IDE
 			this.newWindow(newWindow, 700, 500)
-		};
+		}
 
 		this.browserWindow = function () {
-			let winSet = this.state.windows;
-			let id = "browser";
+			let winSet = this.state.windows
+			let id = "browser"
 			if (winSet[id]) {
-				this.makeWindowVisible(undefined, id);
-				return;
+				this.makeWindowVisible(undefined, id)
+				return
 			}
 			let newWindow = {
 				id: id,
@@ -150,16 +150,16 @@ class Site extends React.Component {
 					startUrl: "rileylahd.me"
 				},
 				children: (<FakeSite />)
-			};
+			}
 			this.newWindow(newWindow, 500, 500)
-		};
+		}
 
 		this.fileExplorerWindow = function () {
-			let winSet = this.state.windows;
-			let id = "fileexplorer";
+			let winSet = this.state.windows
+			let id = "fileexplorer"
 			if (winSet[id]) {
-				this.makeWindowVisible(undefined, id);
-				return;
+				this.makeWindowVisible(undefined, id)
+				return
 			}
 			let newWindow = {
 				id: id,
@@ -171,130 +171,130 @@ class Site extends React.Component {
 					startPath: "/home/rlahd",
 					fileTree: FILE_TREE_HOBBIES
 				}
-			};
+			}
 			this.newWindow(newWindow, 600, 400)
-		};
+		}
 
 		this.grabWindow = function (ev, id) {
-			ev.preventDefault();
-			this.makeWindowActive(undefined, id);
+			ev.preventDefault()
+			this.makeWindowActive(undefined, id)
 			if (ev.targetTouches) {
-				ev = ev.targetTouches[0];
+				ev = ev.targetTouches[0]
 			}
 			this.setState({
 				heldWindow: id,
 				windowPickupPos: { x: ev.pageX, y: ev.pageY }
-			});
-		};
+			})
+		}
 
 		this.releaseWindow = function () {
-			this.setState({ heldWindow: undefined });
-		};
+			this.setState({ heldWindow: undefined })
+		}
 
 		this.moveWindow = function (ev) {
-			ev.preventDefault();
+			ev.preventDefault()
 			if (!this.state.windows[this.state.heldWindow]) {
-				this.releaseWindow();
-				return;
+				this.releaseWindow()
+				return
 			}
-			let oldPos = this.state.windows[this.state.heldWindow].pos;
+			let oldPos = this.state.windows[this.state.heldWindow].pos
 			if (ev.targetTouches) {
-				ev = ev.changedTouches[0];
-				ev.movementX = ev.pageX - this.state.windowPickupPos.x;
-				ev.movementY = ev.pageY - this.state.windowPickupPos.y;
+				ev = ev.changedTouches[0]
+				ev.movementX = ev.pageX - this.state.windowPickupPos.x
+				ev.movementY = ev.pageY - this.state.windowPickupPos.y
 			}
-			let newPos = { x: oldPos.x + ev.movementX, y: oldPos.y + ev.movementY };
-			let newWindows = { ...this.state.windows };
-			newWindows[this.state.heldWindow].pos = newPos;
+			let newPos = { x: oldPos.x + ev.movementX, y: oldPos.y + ev.movementY }
+			let newWindows = { ...this.state.windows }
+			newWindows[this.state.heldWindow].pos = newPos
 			this.setState({
 				windows: newWindows,
 				windowPickupPos: { x: ev.pageX, y: ev.pageY }
-			});
-		};
+			})
+		}
 
 		this.makeWindowVisible = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
+			let winSet = this.state.windows
 			if (winSet[id]) {
-				winSet[id].folded = false;
-				winSet[id].hidden = false;
-				this.setState({ windows: winSet });
-				this.makeWindowActive(undefined, id);
-				return;
+				winSet[id].folded = false
+				winSet[id].hidden = false
+				this.setState({ windows: winSet })
+				this.makeWindowActive(undefined, id)
+				return
 			}
-		};
+		}
 
 		this.makeWindowActive = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let zOrder = this.state.windowZOrder;
+			let zOrder = this.state.windowZOrder
 			zOrder = zOrder.filter((x) => {
-				return x !== id;
-			});
-			zOrder = [...zOrder, id];
+				return x !== id
+			})
+			zOrder = [...zOrder, id]
 			this.setState({
 				windowZOrder: zOrder,
 				activeWindow: id
-			});
-		};
+			})
+		}
 
 		this.startDeleteWindow = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
-			winSet[id].closing = true;
+			let winSet = this.state.windows
+			winSet[id].closing = true
 			this.setState({
 				windows: winSet
-			});
+			})
 			setTimeout(
 				(ev, id) => {
-					this.deleteWindow(ev, id);
+					this.deleteWindow(ev, id)
 				},
 				200,
 				undefined,
 				id
-			);
-		};
+			)
+		}
 
 		this.deleteWindow = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
-			delete winSet[id];
-			let zOrder = this.state.windowZOrder;
+			let winSet = this.state.windows
+			delete winSet[id]
+			let zOrder = this.state.windowZOrder
 			zOrder = zOrder.filter((x) => {
-				return x !== id;
-			});
+				return x !== id
+			})
 			this.setState({
 				windows: winSet,
 				heldWindow: undefined,
 				windowZOrder: zOrder
-			});
-		};
+			})
+		}
 
 		this.toggleFoldWindow = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
-			winSet[id].folded = !winSet[id].folded;
+			let winSet = this.state.windows
+			winSet[id].folded = !winSet[id].folded
 			this.setState({
 				windows: winSet
-			});
-		};
+			})
+		}
 
 		this.hideWindow = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
-			winSet[id].hidden = true;
+			let winSet = this.state.windows
+			winSet[id].hidden = true
 			this.setState({
 				windows: winSet
-			});
-		};
+			})
+		}
 
 		this.showWindow = function (ev, id) {
 			if(ev){ev.stopPropagation()}
-			let winSet = this.state.windows;
-			winSet[id].hidden = false;
+			let winSet = this.state.windows
+			winSet[id].hidden = false
 			this.setState({
 				windows: winSet
-			});
-		};
+			})
+		}
 
 		this.completeBoot = function() {
 			this.setState({booted: true, bootFaded: false})
@@ -302,7 +302,7 @@ class Site extends React.Component {
 		}
 
 		this.checkBootCookie = function() {
-			if (document.cookie.split(';').some((item) => item.includes('bifr0st_booted=true'))) {
+			if (document.cookie.split(";").some((item) => item.includes("bifr0st_booted=true"))) {
 				return true
 			}
 			return false
@@ -319,17 +319,17 @@ class Site extends React.Component {
 			this.setState({booted: true, bootFaded: true})
 		}
 		let releaseWindow = function () {
-			this.releaseWindow();
-		}.bind(this);
-		window.addEventListener("mouseup", releaseWindow);
-		window.addEventListener("touchend", releaseWindow);
+			this.releaseWindow()
+		}.bind(this)
+		window.addEventListener("mouseup", releaseWindow)
+		window.addEventListener("touchend", releaseWindow)
 		let mvWindow = function (ev) {
 			if (this.state.heldWindow !== undefined) {
-				this.moveWindow(ev);
+				this.moveWindow(ev)
 			}
-		}.bind(this);
-		window.addEventListener("mousemove", mvWindow);
-		window.addEventListener("touchmove", mvWindow);
+		}.bind(this)
+		window.addEventListener("mousemove", mvWindow)
+		window.addEventListener("touchmove", mvWindow)
 	}
 
 	render() {
@@ -339,45 +339,45 @@ class Site extends React.Component {
 				topPos: w[1].pos.y,
 				leftPos: w[1].pos.x,
 				grabWindow: (ev) => {
-					this.grabWindow(ev, w[1].id);
+					this.grabWindow(ev, w[1].id)
 				},
 				isHeld: w[1].id === this.state.heldWindow,
 				isHidden: w[1].hidden,
 				isFolded: w[1].folded,
 				makeActive: (ev) => {
-					this.makeWindowActive(ev, w[1].id);
+					this.makeWindowActive(ev, w[1].id)
 				},
 				isActive: w[1].id === this.state.activeWindow,
 				layer: this.state.windowZOrder.indexOf(w[1].id),
 				closing: w[1].closing,
 				close: (ev) => {
-					this.startDeleteWindow(ev, w[1].id);
+					this.startDeleteWindow(ev, w[1].id)
 				},
 				toggleFold: (ev) => {
-					this.toggleFoldWindow(ev, w[1].id);
+					this.toggleFoldWindow(ev, w[1].id)
 				},
 				hide: (ev) => {
-					this.hideWindow(ev, w[1].id);
+					this.hideWindow(ev, w[1].id)
 				}
-			};
+			}
 			if (w[1].type === "terminal") {
-				return <TerminalWindow {...globalProps} {...w[1].props} key={w[1].id} />;
+				return <TerminalWindow {...globalProps} {...w[1].props} key={w[1].id} />
 			} else if (w[1].type === "ide") {
-				return <IDEWindow {...globalProps} {...w[1].props} key={w[1].id} />;
+				return <IDEWindow {...globalProps} {...w[1].props} key={w[1].id} />
 			} else if (w[1].type === "browser") {
 				return (
 					<BrowserWindow {...globalProps} {...w[1].props} key={w[1].id}>
 						{w[1].children}
 					</BrowserWindow>
-				);
+				)
 			} else if (w[1].type === "fileexplorer") {
 				return (
 					<FileExplorerWindow {...globalProps} {...w[1].props} key={w[1].id}></FileExplorerWindow>
-				);
+				)
 			} else {
-				return <Window {...globalProps} key={w[1].id}>{w[1].children}</Window>;
+				return <Window {...globalProps} key={w[1].id}>{w[1].children}</Window>
 			}
-		});
+		})
 		//Show boot sequence on first visit
 		let bootSeq = ""
 		if(!this.state.booted || !this.state.bootFaded){
@@ -406,7 +406,7 @@ class Site extends React.Component {
 					{windows}
 					<Desktop
 						clearSelected={() => {
-							this.setState({ selectedShortcut: undefined });
+							this.setState({ selectedShortcut: undefined })
 						}}
 					>
 						<DesktopShortcut
@@ -414,7 +414,7 @@ class Site extends React.Component {
 							imgUrl="/img/terminalicon.svg"
 							isSelected={this.state.selectedShortcut === "EducationShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "EducationShortcut" });
+								this.setState({ selectedShortcut: "EducationShortcut" })
 							}}
 							onDoubleClick={this.eduWindow.bind(this)}
 						/>
@@ -423,7 +423,7 @@ class Site extends React.Component {
 							imgUrl="/img/idelogo.svg"
 							isSelected={this.state.selectedShortcut === "WorkShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "WorkShortcut" });
+								this.setState({ selectedShortcut: "WorkShortcut" })
 							}}
 							onDoubleClick={this.ideWorkHistoryWindow.bind(this)}
 						/>
@@ -432,7 +432,7 @@ class Site extends React.Component {
 							imgUrl="/img/idelogo.svg"
 							isSelected={this.state.selectedShortcut === "SkillsShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "SkillsShortcut" });
+								this.setState({ selectedShortcut: "SkillsShortcut" })
 							}}
 							onDoubleClick={this.ideSkillsWindow.bind(this)}
 						/>
@@ -441,7 +441,7 @@ class Site extends React.Component {
 							imgUrl="/img/browserlogo.svg"
 							isSelected={this.state.selectedShortcut === "BrowserShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "BrowserShortcut" });
+								this.setState({ selectedShortcut: "BrowserShortcut" })
 							}}
 							onDoubleClick={this.browserWindow.bind(this)}
 						/>
@@ -450,7 +450,7 @@ class Site extends React.Component {
 							imgUrl="/img/folderlogo.svg"
 							isSelected={this.state.selectedShortcut === "FileShortcut"}
 							setSelected={() => {
-								this.setState({ selectedShortcut: "FileShortcut" });
+								this.setState({ selectedShortcut: "FileShortcut" })
 							}}
 							onDoubleClick={this.fileExplorerWindow.bind(this)}
 						/>
@@ -522,6 +522,6 @@ class Site extends React.Component {
 					</Dock>
 				</div>
 			</div>
-		);
+		)
 	}
 }

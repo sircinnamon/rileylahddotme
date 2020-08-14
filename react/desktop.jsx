@@ -1,9 +1,9 @@
 class Desktop extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			selectedShortcut: undefined
-		};
+		}
 	}
 
 	render() {
@@ -15,7 +15,7 @@ class Desktop extends React.Component {
 			left: 0,
 			userSelect: "none",
 			pointerEvents: "none"
-		};
+		}
 		let shortcutContainerStyle = {
 			marginTop: "15px",
 			marginLeft: "15px",
@@ -23,7 +23,7 @@ class Desktop extends React.Component {
 			display: "inline-block",
 			pointerEvents: "all",
 			position: "relative"
-		};
+		}
 		let wallpaperStyle = {
 			width: "100%",
 			height: "100%",
@@ -33,16 +33,16 @@ class Desktop extends React.Component {
 			zIndex: -5,
 			overflow: "hidden",
 			pointerEvents: "all"
-		};
+		}
 		let wallpaperImgStyle = {
 			height: "100%",
 			width: "100%",
 			overflow: "hidden",
 			objectFit: "cover"
-		};
+		}
 		let wpUrl =
 			this.props.wallpaper ||
-			"/img/wallpaper.svg";
+			"/img/wallpaper.svg"
 		return (
 			<div style={containerStyle}>
 				<div style={shortcutContainerStyle}>{this.props.children}</div>
@@ -50,22 +50,22 @@ class Desktop extends React.Component {
 					<img style={wallpaperImgStyle} src={wpUrl} />
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
 class DesktopShortcut extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			isHovered: false
-		};
+		}
 	}
 
 	render() {
 		let containerStyle = {
 			padding: "5px"
-		};
+		}
 		let imgStyle = {
 			maxWidth: "60px",
 			maxHeight: "60px",
@@ -75,7 +75,7 @@ class DesktopShortcut extends React.Component {
 			margin: "auto",
 			display: "block",
 			userSelect: "none"
-		};
+		}
 		let nameStyle = {
 			color: "rgb(200,200,200)",
 			background: "rgba(10,10,10,0.5)",
@@ -83,28 +83,28 @@ class DesktopShortcut extends React.Component {
 			display: "inline-block",
 			marginTop: "4px",
 			userSelect: "none"
-		};
+		}
 		if (this.state.isHovered) {
-			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)";
-			containerStyle.background = "rgba(100, 126, 140, 0.3)";
-			containerStyle.padding = "4px";
+			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)"
+			containerStyle.background = "rgba(100, 126, 140, 0.3)"
+			containerStyle.padding = "4px"
 		}
 		if (this.props.isSelected) {
-			containerStyle.border = "1px solid rgba(166, 203, 255, 0.9)";
-			containerStyle.background = "rgba(166, 224, 255, 0.3)";
-			containerStyle.padding = "4px";
+			containerStyle.border = "1px solid rgba(166, 203, 255, 0.9)"
+			containerStyle.background = "rgba(166, 224, 255, 0.3)"
+			containerStyle.padding = "4px"
 		}
 		return (
 			<div
 				style={containerStyle}
 				onMouseEnter={() => {
-					this.setState({ isHovered: true });
+					this.setState({ isHovered: true })
 				}}
 				onMouseLeave={() => {
-					this.setState({ isHovered: false });
+					this.setState({ isHovered: false })
 				}}
 				onClick={() => {
-					this.props.setSelected();
+					this.props.setSelected()
 				}}
 				onDoubleClick={this.props.onDoubleClick}
 				onTouchStart={this.props.onDoubleClick}
@@ -116,6 +116,6 @@ class DesktopShortcut extends React.Component {
 					<span style={nameStyle}>{this.props.name}</span>
 				</div>
 			</div>
-		);
+		)
 	}
 }

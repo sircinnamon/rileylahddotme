@@ -1,7 +1,7 @@
 class Window extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
@@ -17,7 +17,7 @@ class Window extends React.Component {
 			transition: "transform .2s linear, opacity .2s linear",
 			transform: `scale(${this.props.closing ? "0.3" : "1"})`,
 			opacity: `${this.props.closing ? "0" : "1"}`
-		};
+		}
 		let headerStyle = {
 			backgroundColor: "rgba(0,0,0,0.9)",
 			userSelect: "none",
@@ -26,26 +26,26 @@ class Window extends React.Component {
 			borderRadius: "5px 5px 0px 0px",
 			height: "20px",
 			...SANS_FONT
-		};
+		}
 		if (this.props.isHeld) {
-			headerStyle.backgroundColor = "rgba(30,30,30,0.9)";
-			headerStyle.cursor = "grabbing";
+			headerStyle.backgroundColor = "rgba(30,30,30,0.9)"
+			headerStyle.cursor = "grabbing"
 		}
 		let closeButtonStyle = {
 			background: "rgb(200, 30, 30)"
-		};
+		}
 		let foldButtonStyle = {
 			background: "rgb(150, 150, 30)"
-		};
+		}
 		let hideButtonStyle = {
 			background: "rgb(30, 200, 30)"
-		};
+		}
 		let bodyStyle = {
 			maxHeight: this.props.isFolded ? "0px" : "",
 			overflow: this.props.isFolded ? "hidden" : "",
 			height: this.props.height || "",
 			width: this.props.width || ""
-		};
+		}
 		return (
 			<div
 				style={windowStyle}
@@ -68,14 +68,14 @@ class Window extends React.Component {
 				</div>
 				<div style={bodyStyle}>{this.props.children}</div>
 			</div>
-		);
+		)
 	}
 }
 
 class WindowHeaderBtn extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
@@ -91,7 +91,7 @@ class WindowHeaderBtn extends React.Component {
 			cursor: "pointer",
 			opacity: this.state.hovered?0.9:0.5,
 			...this.props.style
-		};
+		}
 		return (
 			<div
 				style={style}
@@ -100,54 +100,54 @@ class WindowHeaderBtn extends React.Component {
 				onMouseEnter={()=>{this.setState({hovered: true})}}
 				onMouseLeave={()=>{this.setState({hovered: false})}}
 			/>
-		);
+		)
 	}
 }
 
 class TerminalWindow extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			input: ""
-		};
+		}
 
 		this.keyPress = function (ev) {
 			if (ev.which == 13 || ev.keyCode == 13) {
-				this.submitInput();
+				this.submitInput()
 			}
-		};
+		}
 		this.submitInput = function () {
-			let input = this.state.input;
+			let input = this.state.input
 			if (this.props.updateBody) {
-				let newBody = this.props.bodyChunks;
-				newBody.push({ string: " $ ", bold: true, color: 2 });
-				newBody.push({ string: this.state.input + "\n" });
-				this.props.updateBody(newBody);
+				let newBody = this.props.bodyChunks
+				newBody.push({ string: " $ ", bold: true, color: 2 })
+				newBody.push({ string: this.state.input + "\n" })
+				this.props.updateBody(newBody)
 			}
-			this.setState({ input: "" });
-		};
+			this.setState({ input: "" })
+		}
 	}
 
 	componentDidUpdate(prevProps) {
 		if (this.props.isActive && document.activeElement !== this.termInput) {
-			this.termInput.focus({ preventScroll: true });
+			this.termInput.focus({ preventScroll: true })
 		}
 	}
 
 	render() {
-		let colors = [...TERMINAL_COLOURS];
-		let prompt = ">>> $ ";
-		let body = [];
+		let colors = [...TERMINAL_COLOURS]
+		let prompt = ">>> $ "
+		let body = []
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
-			let s = {};
-			let c = this.props.bodyChunks[i];
+			let s = {}
+			let c = this.props.bodyChunks[i]
 			if (c.color !== undefined) {
-				s.color = colors[c.color];
+				s.color = colors[c.color]
 			}
 			if (c.bold) {
-				s.fontWeight = "bold";
+				s.fontWeight = "bold"
 			}
-			body.push(<span style={s} key={`snippet${i}`} >{c.string}</span>);
+			body.push(<span style={s} key={`snippet${i}`} >{c.string}</span>)
 		}
 		let preStyle = {
 			backgroundColor: "rgba(0,0,0,0.8)",
@@ -156,15 +156,15 @@ class TerminalWindow extends React.Component {
 			padding: "0 .5em",
 			fontSize: "13px",
 			...MONO_FONT
-		};
+		}
 		let promptStyle = {
 			color: colors[2],
 			fontWeight: "bold"
-		};
+		}
 		let inputStyle = {
 			color: "rgb(200,200,200)",
 			...MONO_FONT
-		};
+		}
 		let textboxStyle = {
 			display: "block",
 			position: "absolute",
@@ -172,7 +172,7 @@ class TerminalWindow extends React.Component {
 			left: 0,
 			opacity: 0,
 			pointerEvents: "none"
-		};
+		}
 		return (
 			<Window
 				title={this.props.title}
@@ -197,91 +197,91 @@ class TerminalWindow extends React.Component {
 						type="text"
 						value={this.state.input}
 						onChange={(ev) => {
-							this.setState({ input: ev.target.value });
+							this.setState({ input: ev.target.value })
 						}}
 						style={textboxStyle}
 						ref={(input) => {
-							this.termInput = input;
+							this.termInput = input
 						}}
 						onKeyPress={this.keyPress.bind(this)}
 					/>
 				</pre>
 			</Window>
-		);
+		)
 	}
 }
 
 class IDEWindow extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			openTabs: [],
 			currentTab: undefined
-		};
+		}
 
 		if (this.props.defaultOpenTabs) {
-			this.state.openTabs = [...this.props.defaultOpenTabs];
+			this.state.openTabs = [...this.props.defaultOpenTabs]
 		}
 
 		if (this.props.defaultCurrentTab) {
-			this.state.currentTab = this.props.defaultCurrentTab;
+			this.state.currentTab = this.props.defaultCurrentTab
 			if (this.state.openTabs.indexOf(this.props.defaultCurrentTab) === -1) {
-				this.state.openTabs.push(this.props.defaultCurrentTab);
+				this.state.openTabs.push(this.props.defaultCurrentTab)
 			}
 		}
 
 		this.clickTab = function (tabId) {
-			this.setState({ currentTab: tabId });
-		};
+			this.setState({ currentTab: tabId })
+		}
 		this.closeTab = function (tabId) {
-			let tabs = this.state.openTabs;
-			let curr = this.state.currentTab;
-			let ind = tabs.indexOf(curr);
+			let tabs = this.state.openTabs
+			let curr = this.state.currentTab
+			let ind = tabs.indexOf(curr)
 			tabs = tabs.filter((x) => {
-				return x !== tabId;
-			});
+				return x !== tabId
+			})
 			if (tabId === curr && tabs.length > 0) {
-				curr = tabs[Math.max(ind - 1, 0)];
+				curr = tabs[Math.max(ind - 1, 0)]
 			}
 			if (tabs.length === 0) {
-				curr = undefined;
+				curr = undefined
 			}
-			this.setState({ currentTab: curr, openTabs: tabs });
-		};
+			this.setState({ currentTab: curr, openTabs: tabs })
+		}
 		this.openTab = function (filename) {
 			if (this.state.openTabs.indexOf(filename) !== -1) {
-				this.clickTab(filename);
-				return;
+				this.clickTab(filename)
+				return
 			}
-			let tabs = this.state.openTabs;
-			tabs.push(filename);
-			this.setState({ currentTab: filename, openTabs: tabs });
-		};
+			let tabs = this.state.openTabs
+			tabs.push(filename)
+			this.setState({ currentTab: filename, openTabs: tabs })
+		}
 	}
 
 	render() {
-		let colors = [...MONOKAI_COLOURS];
-		let body = [];
+		let colors = [...MONOKAI_COLOURS]
+		let body = []
 		if (this.state.currentTab) {
-			let openFile = this.props.files[this.state.currentTab];
+			let openFile = this.props.files[this.state.currentTab]
 			for (let i = 0; i < openFile.bodyChunks.length; i++) {
-				let s = {};
-				let c = openFile.bodyChunks[i];
+				let s = {}
+				let c = openFile.bodyChunks[i]
 				if (c.color !== undefined) {
-					s.color = colors[c.color];
+					s.color = colors[c.color]
 				}
 				if (c.bold) {
-					s.fontWeight = "bold";
+					s.fontWeight = "bold"
 				}
-				body.push(<span style={s} key={`snippet${i}`}>{c.string}</span>);
+				body.push(<span style={s} key={`snippet${i}`}>{c.string}</span>)
 			}
 		} else {
-			body = "";
+			body = ""
 		}
 		let bodyContainerStyle = {
 			flex: "1 0 60px",
 			minWidth: "500px"
-		};
+		}
 		let tabBarStyle = {
 			backgroundColor: "#6d6e6a",
 			height: "35px",
@@ -290,7 +290,7 @@ class IDEWindow extends React.Component {
 			fontSize: "12px",
 			overflowX: "auto",
 			...SANS_FONT
-		};
+		}
 		let bodyStyle = {
 			backgroundColor: "#282923",
 			minHeight: "30px",
@@ -299,7 +299,7 @@ class IDEWindow extends React.Component {
 			padding: "2px 1em",
 			color: "#999",
 			overflowY: "auto"
-		};
+		}
 
 		return (
 			<Window
@@ -356,14 +356,14 @@ class IDEWindow extends React.Component {
 					</div>
 				</div>
 			</Window>
-		);
+		)
 	}
 }
 
 class IDEWindowSidebar extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
@@ -375,15 +375,15 @@ class IDEWindowSidebar extends React.Component {
 			overflow: "hidden",
 			fontSize: "12px",
 			...SANS_FONT
-		};
+		}
 		let headStyle = {
 			margin: "0.5em",
 			fontSize: "14px",
 			fontWeight: "bold",
 			color: "#333"
-		};
-		let list = [];
-		let fileList = Object.keys(this.props.files);
+		}
+		let list = []
+		let fileList = Object.keys(this.props.files)
 		for (let i = 0; i < fileList.length; i++) {
 			let liStyle = {
 				backgroundColor:
@@ -391,19 +391,19 @@ class IDEWindowSidebar extends React.Component {
 				padding: "3px",
 				userSelect: "none",
 				cursor: "pointer"
-			};
+			}
 			let iconStyle = {
 				height: "1em",
 				verticalAlign: "middle",
 				marginRight: "2px"
-			};
+			}
 			let icon =
-				"/img/icons/fileicon_small.svg";
+				"/img/icons/fileicon_small.svg"
 			list.push(
 				<li
 					style={liStyle}
 					onClick={() => {
-						this.props.openTab(fileList[i]);
+						this.props.openTab(fileList[i])
 					}}
 					key={`file-${fileList[i]}`}
 				>
@@ -412,62 +412,62 @@ class IDEWindowSidebar extends React.Component {
 					</span>
 					<span>{fileList[i]}</span>
 				</li>
-			);
+			)
 		}
 		let listStyle = {
 			listStyleType: "none",
 			padding: "1px",
 			marginTop: "5px"
-		};
+		}
 		return (
 			<div style={containerStyle}>
 				<h1 style={headStyle}>FILES</h1>
 				<ul style={listStyle}>{list}</ul>
 			</div>
-		);
+		)
 	}
 }
 
 class IDEWindowTabs extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
-		let tabs = [];
+		let tabs = []
 		for (let i = 0; i < this.props.openTabs.length; i++) {
 			tabs.push(
 				<IDEWindowTab
 					onClick={() => {
-						this.props.clickTab(this.props.openTabs[i]);
+						this.props.clickTab(this.props.openTabs[i])
 					}}
 					isActive={this.props.openTabs[i] == this.props.currentTab}
 					close={() => {
-						this.props.closeTab(this.props.openTabs[i]);
+						this.props.closeTab(this.props.openTabs[i])
 					}}
 					key={`tab-${this.props.openTabs[i]}`}
 				>
 					{this.props.openTabs[i]}
 				</IDEWindowTab>
-			);
+			)
 		}
 		let rowStyle = {
 			display: "flex",
 			justifyContent: "flex-start",
 			position: "absolute",
 			bottom: 0
-		};
-		return <div style={rowStyle}>{tabs}</div>;
+		}
+		return <div style={rowStyle}>{tabs}</div>
 	}
 }
 
 class IDEWindowTab extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			xHovered: false
-		};
+		}
 	}
 
 	render() {
@@ -480,45 +480,45 @@ class IDEWindowTab extends React.Component {
 			cursor: "pointer",
 			color: "#989898",
 			whiteSpace: "nowrap"
-		};
+		}
 		if (this.props.isActive) {
-			s.backgroundColor = "#282923";
-			s.color = "#FFFFFF";
+			s.backgroundColor = "#282923"
+			s.color = "#FFFFFF"
 		}
 		let closeStyle = {
 			background: this.state.xHovered ? "rgba(255,255,255,0.2)" : "",
 			borderRadius: "10px"
-		};
+		}
 		return (
 			<div style={s} onClick={this.props.onClick}>
 				<span>{this.props.children}&nbsp;</span>
 				<span
 					onClick={(ev) => {
-						ev.stopPropagation();
-						this.props.close();
+						ev.stopPropagation()
+						this.props.close()
 					}}
 					style={closeStyle}
 					onMouseEnter={() => {
-						this.setState({ xHovered: true });
+						this.setState({ xHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ xHovered: false });
+						this.setState({ xHovered: false })
 					}}
 				>
 					×
 				</span>
 			</div>
-		);
+		)
 	}
 }
 
 class BrowserWindow extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			currentUrl: this.props.startUrl,
 			history: [this.props.startUrl]
-		};
+		}
 	}
 
 	render() {
@@ -541,31 +541,31 @@ class BrowserWindow extends React.Component {
 				<BrowserWindowHeader
 					currentUrl={this.state.currentUrl}
 					updateUrl={(v) => {
-						this.setState({ currentUrl: v });
+						this.setState({ currentUrl: v })
 					}}
 				/>
 				{this.props.children}
 			</Window>
-		);
+		)
 	}
 }
 
 class BrowserWindowHeader extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			backArrowHovered: false,
 			forwardArrowHovered: false,
 			refreshArrowHovered: false,
 			homeArrowHovered: false
-		};
+		}
 	}
 
 	render() {
 		let containerStyle = {
 			backgroundColor: "#eee",
 			display: "flex"
-		};
+		}
 		let headerBtnStyle = {
 			transition: "background-color 0.75s",
 			display: "inline-block",
@@ -576,31 +576,31 @@ class BrowserWindowHeader extends React.Component {
 			padding: "2px",
 			marginRight: "2px",
 			color: "#666"
-		};
+		}
 		let backArrowStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.backArrowHovered ? "#ccc" : "",
 			padding: "1px 2px 3px 2px"
-		};
+		}
 		let forwardArrowStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.forwardArrowHovered ? "#ccc" : "",
 			padding: "1px 2px 3px 2px"
-		};
+		}
 		let refreshStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.refreshArrowHovered ? "#ccc" : "",
 			fontSize: "19px",
 			padding: "2px 1px 2px 3px",
 			lineHeight: "19px"
-		};
+		}
 		let homeStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.homeArrowHovered ? "#ccc" : "",
 			fontSize: "23px",
 			padding: "0px 0px 4px 4px",
 			lineHeight: "23px"
-		};
+		}
 		let urlBarDivStyle = {
 			display: "block",
 			background: "#ccc",
@@ -610,23 +610,23 @@ class BrowserWindowHeader extends React.Component {
 			paddingLeft: "20px",
 			marginTop: "2px",
 			marginRight: "3px"
-		};
+		}
 		let urlBarStyle = {
 			background: "none",
 			border: "none",
 			width: "90%",
 			outline: "none",
 			...SANS_FONT
-		};
+		}
 		return (
 			<div style={containerStyle}>
 				<div
 					style={backArrowStyle}
 					onMouseEnter={() => {
-						this.setState({ backArrowHovered: true });
+						this.setState({ backArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ backArrowHovered: false });
+						this.setState({ backArrowHovered: false })
 					}}
 				>
 					{"🡠"}
@@ -634,10 +634,10 @@ class BrowserWindowHeader extends React.Component {
 				<div
 					style={forwardArrowStyle}
 					onMouseEnter={() => {
-						this.setState({ forwardArrowHovered: true });
+						this.setState({ forwardArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ forwardArrowHovered: false });
+						this.setState({ forwardArrowHovered: false })
 					}}
 				>
 					{"🡢"}
@@ -645,10 +645,10 @@ class BrowserWindowHeader extends React.Component {
 				<div
 					style={refreshStyle}
 					onMouseEnter={() => {
-						this.setState({ refreshArrowHovered: true });
+						this.setState({ refreshArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ refreshArrowHovered: false });
+						this.setState({ refreshArrowHovered: false })
 					}}
 				>
 					{"↻"}
@@ -656,10 +656,10 @@ class BrowserWindowHeader extends React.Component {
 				<div
 					style={homeStyle}
 					onMouseEnter={() => {
-						this.setState({ homeArrowHovered: true });
+						this.setState({ homeArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ homeArrowHovered: false });
+						this.setState({ homeArrowHovered: false })
 					}}
 				>
 					{"⌂"}
@@ -669,46 +669,46 @@ class BrowserWindowHeader extends React.Component {
 						style={urlBarStyle}
 						value={this.props.currentUrl}
 						onChange={(ev) => {
-							this.props.updateUrl(ev.target.value);
+							this.props.updateUrl(ev.target.value)
 						}}
 					/>
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
 class FileExplorerWindow extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			currentPath: this.props.startPath,
 			barText: this.props.startPath,
 			selectedFile: undefined
-		};
+		}
 
 		this.getCurrentFiles = function (path, fileTree) {
-			let keys = path.split("/").filter((x) => x !== "");
-			let finalPath = "";
+			let keys = path.split("/").filter((x) => x !== "")
+			let finalPath = ""
 			if (path === "") {
-				this.setState({ currentPath: "/", barText: "/" });
+				this.setState({ currentPath: "/", barText: "/" })
 			}
 			while (keys.length >= 1) {
-				let k = keys.shift();
-				finalPath = finalPath + "/" + k;
+				let k = keys.shift()
+				finalPath = finalPath + "/" + k
 				if (fileTree[k]) {
-					fileTree = fileTree[k];
+					fileTree = fileTree[k]
 				} else {
 					if (finalPath === "") {
-						finalPath = "/";
+						finalPath = "/"
 					}
-					finalPath = finalPath.replace(/\/+/g, "/");
-					this.setState({ currentPath: finalPath, barText: finalPath });
-					return fileTree;
+					finalPath = finalPath.replace(/\/+/g, "/")
+					this.setState({ currentPath: finalPath, barText: finalPath })
+					return fileTree
 				}
 			}
-			return fileTree;
-		};
+			return fileTree
+		}
 	}
 
 	render() {
@@ -718,15 +718,15 @@ class FileExplorerWindow extends React.Component {
 			flexWrap: "wrap",
 			flex: "1",
 			padding: "5px"
-		};
+		}
 		let currentFiles = this.getCurrentFiles(
 			this.state.currentPath,
 			this.props.fileTree
-		);
-		let files = [];
+		)
+		let files = []
 		for (let i = 0; i < Object.keys(currentFiles).length; i++) {
-			let k = Object.keys(currentFiles)[i];
-			let f = currentFiles[k];
+			let k = Object.keys(currentFiles)[i]
+			let f = currentFiles[k]
 			files.push(
 				<FileExplorerWindowFile
 					key={k}
@@ -734,17 +734,17 @@ class FileExplorerWindow extends React.Component {
 					file={f}
 					isSelected={this.state.selectedFile === k}
 					setSelected={() => {
-						this.setState({ selectedFile: k });
+						this.setState({ selectedFile: k })
 					}}
 					enterFolder={(np) => {
 						this.setState({
 							selectedFile: undefined,
 							currentPath: (this.state.currentPath + "/" + np).replace(/\/+/g, "/"),
 							barText: (this.state.currentPath + "/" + np).replace(/\/+/g, "/")
-						});
+						})
 					}}
 				/>
-			);
+			)
 		}
 		return (
 			<Window
@@ -767,10 +767,10 @@ class FileExplorerWindow extends React.Component {
 				<FileExplorerWindowHeader
 					currentUrl={this.state.currentPath}
 					updateUrl={(v) => {
-						this.setState({ currentPath: v, barText: v });
+						this.setState({ currentPath: v, barText: v })
 					}}
 					updateBarText={(v) => {
-						this.setState({ barText: v });
+						this.setState({ barText: v })
 					}}
 					barText={this.state.barText}
 				/>
@@ -779,32 +779,32 @@ class FileExplorerWindow extends React.Component {
 					<FileExplorerWindowSidebar file={currentFiles[this.state.selectedFile]} />
 				</div>
 			</Window>
-		);
+		)
 	}
 }
 
 class FileExplorerWindowHeader extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			backArrowHovered: false,
 			forwardArrowHovered: false,
 			upArrowHovered: false,
 			searchHovered: false
-		};
+		}
 
 		this.keyPress = function (ev) {
 			if (ev.which == 13 || ev.keyCode == 13) {
-				this.props.updateUrl(ev.target.value);
+				this.props.updateUrl(ev.target.value)
 			}
-		};
+		}
 	}
 
 	render() {
 		let containerStyle = {
 			backgroundColor: "#222",
 			display: "flex"
-		};
+		}
 		let headerBtnStyle = {
 			transition: "background-color 0.75s",
 			display: "inline-block",
@@ -819,7 +819,7 @@ class FileExplorerWindowHeader extends React.Component {
 			color: "#999",
 			border: "1px solid #555",
 			userSelect: "none"
-		};
+		}
 		let backArrowStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.backArrowHovered ? "#333" : "#111",
@@ -829,14 +829,14 @@ class FileExplorerWindowHeader extends React.Component {
 			borderBottomRightRadius: "0px",
 			borderRight: "0px",
 			marginLeft: "3px"
-		};
+		}
 		let forwardArrowStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.forwardArrowHovered ? "#333" : "#111",
 			padding: "1px 2px 3px 2px",
 			borderRadius: "0px",
 			marginRight: "0px"
-		};
+		}
 		let upArrowStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.upArrowHovered ? "#333" : "#111",
@@ -846,7 +846,7 @@ class FileExplorerWindowHeader extends React.Component {
 			borderTopLeftRadius: "0px",
 			borderBottomLeftRadius: "0px",
 			borderLeft: "0px"
-		};
+		}
 		let urlBarDivStyle = {
 			display: "block",
 			background: "#333",
@@ -859,7 +859,7 @@ class FileExplorerWindowHeader extends React.Component {
 			marginRight: "3px",
 			color: "#999",
 			border: "1px solid #555"
-		};
+		}
 		let urlBarStyle = {
 			background: "none",
 			border: "none",
@@ -867,23 +867,23 @@ class FileExplorerWindowHeader extends React.Component {
 			outline: "none",
 			color: "#999",
 			...SANS_FONT
-		};
+		}
 		let searchStyle = {
 			...headerBtnStyle,
 			backgroundColor: this.state.searchHovered ? "#333" : "#111",
 			fontSize: "15px",
 			padding: "4px 2px 0px 2px",
 			lineHeight: "15px"
-		};
+		}
 		return (
 			<div style={containerStyle}>
 				<div
 					style={backArrowStyle}
 					onMouseEnter={() => {
-						this.setState({ backArrowHovered: true });
+						this.setState({ backArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ backArrowHovered: false });
+						this.setState({ backArrowHovered: false })
 					}}
 				>
 					{"🡠"}
@@ -891,10 +891,10 @@ class FileExplorerWindowHeader extends React.Component {
 				<div
 					style={forwardArrowStyle}
 					onMouseEnter={() => {
-						this.setState({ forwardArrowHovered: true });
+						this.setState({ forwardArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ forwardArrowHovered: false });
+						this.setState({ forwardArrowHovered: false })
 					}}
 				>
 					{"🡢"}
@@ -902,13 +902,13 @@ class FileExplorerWindowHeader extends React.Component {
 				<div
 					style={upArrowStyle}
 					onMouseEnter={() => {
-						this.setState({ upArrowHovered: true });
+						this.setState({ upArrowHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ upArrowHovered: false });
+						this.setState({ upArrowHovered: false })
 					}}
 					onClick={() => {
-						this.props.updateUrl(this.props.currentUrl.replace(/\/[^/]*$/, ""));
+						this.props.updateUrl(this.props.currentUrl.replace(/\/[^/]*$/, ""))
 					}}
 				>
 					{"🡡"}
@@ -918,7 +918,7 @@ class FileExplorerWindowHeader extends React.Component {
 						style={urlBarStyle}
 						value={this.props.barText}
 						onChange={(ev) => {
-							this.props.updateBarText(ev.target.value);
+							this.props.updateBarText(ev.target.value)
 						}}
 						onKeyDown={this.keyPress.bind(this)}
 					/>
@@ -926,49 +926,49 @@ class FileExplorerWindowHeader extends React.Component {
 				<div
 					style={searchStyle}
 					onMouseEnter={() => {
-						this.setState({ searchHovered: true });
+						this.setState({ searchHovered: true })
 					}}
 					onMouseLeave={() => {
-						this.setState({ searchHovered: false });
+						this.setState({ searchHovered: false })
 					}}
 				>
 					{"🔍"}
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
 class FileExplorerWindowFile extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 
 		this.onDoubleClick = function (ev) {
 			if (this.props.file.onDoubleClick) {
-				this.props.file.onDoubleClick(ev);
+				this.props.file.onDoubleClick(ev)
 			} else if (
 				this.props.file.type === "folder" ||
 				this.props.file.type === undefined
 			) {
-				this.props.enterFolder(this.props.name);
+				this.props.enterFolder(this.props.name)
 			}
-		};
+		}
 	}
 
 	render() {
 		let isFolder =
-			this.props.file.type === "folder" || this.props.file.type === undefined;
+			this.props.file.type === "folder" || this.props.file.type === undefined
 		let containerStyle = {
 			padding: "5px",
 			flex: "0",
 			height: "fit-content"
-		};
+		}
 		let imgUrl = isFolder
 			? "/img/folderlogo.svg"
-			: "/img/icons/fileicon.svg";
+			: "/img/icons/fileicon.svg"
 		if (this.props.file.imgUrl) {
-			imgUrl = this.props.file.imgUrl;
+			imgUrl = this.props.file.imgUrl
 		}
 		let imgStyle = {
 			maxWidth: "60px",
@@ -979,7 +979,7 @@ class FileExplorerWindowFile extends React.Component {
 			margin: "auto",
 			display: "block",
 			userSelect: "none"
-		};
+		}
 		let nameStyle = {
 			color: "rgb(200,200,200)",
 			background: "rgba(10,10,10,0.5)",
@@ -989,28 +989,28 @@ class FileExplorerWindowFile extends React.Component {
 			userSelect: "none",
 			fontSize: "14px",
 			...SANS_FONT
-		};
+		}
 		if (this.state.isHovered) {
-			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)";
-			containerStyle.background = "rgba(100, 126, 140, 0.3)";
-			containerStyle.padding = "4px";
+			containerStyle.border = "1px solid rgba(100, 126, 140, 0.9)"
+			containerStyle.background = "rgba(100, 126, 140, 0.3)"
+			containerStyle.padding = "4px"
 		}
 		if (this.props.isSelected) {
-			containerStyle.border = "1px solid rgba(166, 203, 255, 0.9)";
-			containerStyle.background = "rgba(166, 224, 255, 0.3)";
-			containerStyle.padding = "4px";
+			containerStyle.border = "1px solid rgba(166, 203, 255, 0.9)"
+			containerStyle.background = "rgba(166, 224, 255, 0.3)"
+			containerStyle.padding = "4px"
 		}
 		return (
 			<div
 				style={containerStyle}
 				onMouseEnter={() => {
-					this.setState({ isHovered: true });
+					this.setState({ isHovered: true })
 				}}
 				onMouseLeave={() => {
-					this.setState({ isHovered: false });
+					this.setState({ isHovered: false })
 				}}
 				onClick={() => {
-					this.props.setSelected();
+					this.props.setSelected()
 				}}
 				onDoubleClick={this.onDoubleClick.bind(this)}
 				onTouchStart={this.onDoubleClick.bind(this)}
@@ -1022,19 +1022,19 @@ class FileExplorerWindowFile extends React.Component {
 					<span style={nameStyle}>{this.props.name}</span>
 				</div>
 			</div>
-		);
+		)
 	}
 }
 
 class FileExplorerWindowSidebar extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
 		if (!this.props.file || !(this.props.file.type === "file")) {
-			return "";
+			return ""
 		}
 		let containerStyle = {
 			minWidth: "150px",
@@ -1042,30 +1042,30 @@ class FileExplorerWindowSidebar extends React.Component {
 			height: "100%",
 			float: "right",
 			background: "#333"
-		};
+		}
 		let descDivStyle = {
 			color: "#ccc",
 			borderTop: "1px solid #ccc",
 			borderBottom: "1px solid #ccc",
 			marginTop: "10px"
-		};
+		}
 		let tableStyle = {
 			width: "100%",
 			borderCollapse: "collapse",
 			marginTop: "10px"
-		};
+		}
 		let trStyle = {
 			borderBottom: "1px solid #111",
 			color: "#999",
 			textAlign: "start"
-		};
+		}
 		let r1Style = {
 			fontWeight: "bold"
-		};
+		}
 		let r2Style = {
 			paddingRight: "3px"
-		};
-		let description = "";
+		}
+		let description = ""
 		if (this.props.file.description) {
 			description = (
 				<div style={descDivStyle}>
@@ -1074,17 +1074,17 @@ class FileExplorerWindowSidebar extends React.Component {
 						{this.props.file.description}
 					</p>
 				</div>
-			);
+			)
 		}
-		let rows = [];
-		let metadata = Object.entries({ ...this.props.file.metadata });
+		let rows = []
+		let metadata = Object.entries({ ...this.props.file.metadata })
 		for (let i = 0; i < metadata.length; i++) {
 			rows.push(
 				<tr key={`metadata-row-${metadata[i][0]}`} style={{ ...trStyle, background: i % 2 === 0 ? "#222" : "#111" }}>
 					<td style={r1Style}>{metadata[i][0]}:</td>
 					<td style={r2Style}>{metadata[i][1]}</td>
 				</tr>
-			);
+			)
 		}
 		return (
 			<div style={containerStyle}>
@@ -1093,6 +1093,6 @@ class FileExplorerWindowSidebar extends React.Component {
 					<tbody>{rows}</tbody>
 				</table>
 			</div>
-		);
+		)
 	}
 }

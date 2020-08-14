@@ -1,30 +1,30 @@
 class BootSequence extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			bootStage: 0
-		};
+		}
 
 		this.logoOpacity = function(){
 			switch(this.state.bootStage){
 				case 0:
-					return 0;
+					return 0
 				case 1:
-					return 1;
+					return 1
 				case 7:
-					return 0;
+					return 0
 				case 8:
-					return 0;
+					return 0
 				default:
-					return 0.3;
+					return 0.3
 			}
 		}
 
 		this.keyCapture = function(ev){
 			if(ev.which === 27 || ev.keycode === 27){
-				this.setState({bootStage: 8});
-				this.props.completeBoot();
-				this.props.completeBootFade();
+				this.setState({bootStage: 8})
+				this.props.completeBoot()
+				this.props.completeBootFade()
 				for (let i = 0; i < this.timers.length; i++) {
 					clearTimeout(this.timers[i])
 				}
@@ -39,7 +39,7 @@ class BootSequence extends React.Component {
 		boottext_script.async = true
 		document.body.appendChild(boottext_script)
 
-		window.addEventListener("keyup", this.keyCapture.bind(this));
+		window.addEventListener("keyup", this.keyCapture.bind(this))
 
 		this.timers = []
 		// 500 ms
@@ -157,10 +157,10 @@ class BootSequence extends React.Component {
 
 class RandomSkew extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			tick: 0
-		};
+		}
 
 		this.skew = function(){
 			if(this.state.tick===0){return 0}
@@ -212,11 +212,11 @@ class RandomSkew extends React.Component {
 }
 class BootSequenceText extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			tick: 0,
 			scrambleTick: 0
-		};
+		}
 
 		this.logText = function(){
 			if(typeof(BOOT_TEXT) == "undefined"){return ""}
@@ -241,13 +241,11 @@ class BootSequenceText extends React.Component {
 
 		this.scramble = function(text){
 			if(this.state.scrambleTick==0){return text}
-			let scramble = '█+÷~.–<>/\\{}'.split('');
-			let cursors = '___█'.split('');
-			let cursor = '+';
+			let scramble = "█+÷~.–<>/\\{}".split("")
 			let output = []
 			let scrambleCenter = Math.round(text.length*this.state.scrambleTick/100)
 			for (let i = 0, n = text.length; i < n; i++) {
-				output[i] = text[i];
+				output[i] = text[i]
 			}
 			for (let i = 0, n = scrambleCenter+(text.length*0.1); i < n; i++) {
 				if(text[i]==="\n") {
@@ -255,12 +253,12 @@ class BootSequenceText extends React.Component {
 				} else if(i<(scrambleCenter-(text.length*0.1))){
 					output[i]=text[i]
 				} else if(i>text.length){
-					output[i]=''
+					output[i]=""
 				} else {
 					output[i]=scramble[Math.floor(Math.random()*scramble.length)]
 				}
 			}
-			return output.join('')
+			return output.join("")
 		}
 
 		this.textShowing = function(){
@@ -299,11 +297,11 @@ class BootSequenceText extends React.Component {
 }
 class BootSequenceBar extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			tick: 0,
 			scrambleTick: 0
-		};
+		}
 
 		this.barText = function(){
 			if(this.props.bootStage<4){return ""}
@@ -315,11 +313,11 @@ class BootSequenceBar extends React.Component {
 
 		this.scramble = function(text){
 			if(this.state.scrambleTick==0){return text}
-			let scramble = '█+÷~.–<>/\\{}'.split('');
+			let scramble = "█+÷~.–<>/\\{}".split("")
 			let output = []
 			let scrambleCenter = Math.round(text.length*this.state.scrambleTick/100)
 			for (let i = 0, n = text.length; i < n; i++) {
-				output[i] = text[i];
+				output[i] = text[i]
 			}
 			for (let i = 0, n = scrambleCenter+(text.length*0.1); i < n; i++) {
 				if(text[i]==="\n") {
@@ -327,12 +325,12 @@ class BootSequenceBar extends React.Component {
 				} else if(i<(scrambleCenter-(text.length*0.1))){
 					output[i]=text[i]
 				} else if(i>text.length){
-					output[i]=''
+					output[i]=""
 				} else {
 					output[i]=scramble[Math.floor(Math.random()*scramble.length)]
 				}
 			}
-			return output.join('')
+			return output.join("")
 		}
 
 		this.textShowing = function(){

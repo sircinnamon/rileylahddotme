@@ -2,8 +2,8 @@
 /* exported FakeSite */
 class FakeSite extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
@@ -68,6 +68,6 @@ class FakeSite extends React.Component {
 					</div>
 				</div>
 			</div>
-		);
+		)
 	}
 }

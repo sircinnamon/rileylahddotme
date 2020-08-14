@@ -2,8 +2,8 @@
 /* exported Dock */
 class Dock extends React.Component {
 	constructor(props) {
-		super(props);
-		this.state = {};
+		super(props)
+		this.state = {}
 	}
 
 	render() {
@@ -13,7 +13,7 @@ class Dock extends React.Component {
 			width: "100%",
 			height: this.props.height || "60px",
 			zIndex: -1
-		};
+		}
 		let frameStyle = {
 			margin: "auto",
 			height: "100%",
@@ -23,21 +23,21 @@ class Dock extends React.Component {
 			background: "rgba(20, 20, 20, 0.5)",
 			display: "flex",
 			justifyContent: "space-evenly"
-		};
+		}
 		return (
 			<div style={containerStyle}>
 				<div style={frameStyle}>{this.props.children}</div>
 			</div>
-		);
+		)
 	}
 }
 
 class DockButton extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
 			isHovered: false
-		};
+		}
 	}
 
 	render() {
@@ -46,18 +46,18 @@ class DockButton extends React.Component {
 			padding: "5px",
 			paddingBottom: this.props.isOpen ? "0px" : "5px",
 			display: "inline-block"
-		};
+		}
 		if (this.state.isHovered) {
-			buttonStyle.background = "rgba(255, 255, 255, 0.1)";
+			buttonStyle.background = "rgba(255, 255, 255, 0.1)"
 		}
 		return (
 			<div
 				style={buttonStyle}
 				onMouseEnter={() => {
-					this.setState({ isHovered: true });
+					this.setState({ isHovered: true })
 				}}
 				onMouseLeave={() => {
-					this.setState({ isHovered: false });
+					this.setState({ isHovered: false })
 				}}
 				onClick={this.props.onClick}
 			>
@@ -77,7 +77,7 @@ class DockButton extends React.Component {
 					{this.props.children}
 				</div>
 			</div>
-		);
+		)
 	}
 }
 Dock.propTypes = {

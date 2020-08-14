@@ -1,3 +1,5 @@
+/* global React */
+/* exported OSLogo */
 class OSLogo extends React.Component {
 	constructor(props) {
 		super(props)

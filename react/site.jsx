@@ -1,4 +1,5 @@
-/* global React, Dock */
+/* global React, Dock, TerminalWindow, IDEWindow, BrowserWindow, FileExplorerWindow, BaseWindow, BootSequence, Desktop, DesktopShortcut, DockButton, FakeSite */
+/* global FILE_TREE_HOBBIES, EDU_HISTORY_TERMINAL, WORK_HISTORY_IDE, SKILLS_IDE */
 /* exported Site */
 class Site extends React.Component {
 	constructor(props) {
@@ -375,7 +376,7 @@ class Site extends React.Component {
 					<FileExplorerWindow {...globalProps} {...w[1].props} key={w[1].id}></FileExplorerWindow>
 				)
 			} else {
-				return <Window {...globalProps} key={w[1].id}>{w[1].children}</Window>
+				return <BaseWindow {...globalProps} key={w[1].id}>{w[1].children}</BaseWindow>
 			}
 		})
 		//Show boot sequence on first visit

@@ -1,4 +1,7 @@
-class Window extends React.Component {
+/* global React */
+/* global MONO_FONT, SANS_FONT, MONOKAI_COLOURS, TERMINAL_COLOURS */
+/* exported BaseWindow, TerminalWindow, IDEWindow, BrowserWindow, FileExplorerWindow */
+class BaseWindow extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
@@ -121,14 +124,14 @@ class TerminalWindow extends React.Component {
 			if (this.props.updateBody) {
 				let newBody = this.props.bodyChunks
 				newBody.push({ string: " $ ", bold: true, color: 2 })
-				newBody.push({ string: this.state.input + "\n" })
+				newBody.push({ string: input + "\n" })
 				this.props.updateBody(newBody)
 			}
 			this.setState({ input: "" })
 		}
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate() {
 		if (this.props.isActive && document.activeElement !== this.termInput) {
 			this.termInput.focus({ preventScroll: true })
 		}
@@ -174,7 +177,7 @@ class TerminalWindow extends React.Component {
 			pointerEvents: "none"
 		}
 		return (
-			<Window
+			<BaseWindow
 				title={this.props.title}
 				topPos={this.props.topPos}
 				leftPos={this.props.leftPos}
@@ -206,7 +209,7 @@ class TerminalWindow extends React.Component {
 						onKeyPress={this.keyPress.bind(this)}
 					/>
 				</pre>
-			</Window>
+			</BaseWindow>
 		)
 	}
 }
@@ -302,7 +305,7 @@ class IDEWindow extends React.Component {
 		}
 
 		return (
-			<Window
+			<BaseWindow
 				title={this.props.title}
 				topPos={this.props.topPos}
 				leftPos={this.props.leftPos}
@@ -355,7 +358,7 @@ class IDEWindow extends React.Component {
 						</div>
 					</div>
 				</div>
-			</Window>
+			</BaseWindow>
 		)
 	}
 }
@@ -523,7 +526,7 @@ class BrowserWindow extends React.Component {
 
 	render() {
 		return (
-			<Window
+			<BaseWindow
 				title={this.props.title}
 				topPos={this.props.topPos}
 				leftPos={this.props.leftPos}
@@ -545,7 +548,7 @@ class BrowserWindow extends React.Component {
 					}}
 				/>
 				{this.props.children}
-			</Window>
+			</BaseWindow>
 		)
 	}
 }
@@ -747,7 +750,7 @@ class FileExplorerWindow extends React.Component {
 			)
 		}
 		return (
-			<Window
+			<BaseWindow
 				title={this.props.title}
 				topPos={this.props.topPos}
 				leftPos={this.props.leftPos}
@@ -778,7 +781,7 @@ class FileExplorerWindow extends React.Component {
 					<div style={bodyStyle}>{files}</div>
 					<FileExplorerWindowSidebar file={currentFiles[this.state.selectedFile]} />
 				</div>
-			</Window>
+			</BaseWindow>
 		)
 	}
 }

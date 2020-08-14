@@ -1,3 +1,5 @@
+/* global React, OSLogo, BOOT_TEXT, MONO_FONT */
+/* exported BootSequence */
 class BootSequence extends React.Component {
 	constructor(props) {
 		super(props)

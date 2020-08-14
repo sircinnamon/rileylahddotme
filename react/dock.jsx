@@ -1,5 +1,5 @@
 /* global React */
-/* exported Dock */
+/* exported Dock, DockButton */
 class Dock extends React.Component {
 	constructor(props) {
 		super(props)

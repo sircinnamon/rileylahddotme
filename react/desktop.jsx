@@ -1,3 +1,5 @@
+/* global React */
+/* exported Desktop, DesktopShortcut */
 class Desktop extends React.Component {
 	constructor(props) {
 		super(props)

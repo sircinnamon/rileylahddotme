@@ -1,4 +1,4 @@
-/* global React */
+/* global React, TITLE_FONT */
 /* exported FakeSite */
 class FakeSite extends React.Component {
 	constructor(props) {

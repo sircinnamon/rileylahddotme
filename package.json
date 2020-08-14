@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint react/**",
+    "lintfix": "eslint react/** --fix",
     "build": "babel react -d babel && uglifyjs babel/* -o js/rileylahddotme-react.min.js"
   },
   "repository": {

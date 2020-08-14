@@ -295,9 +295,29 @@ class Site extends React.Component {
 				windows: winSet
 			});
 		};
+
+		this.completeBoot = function() {
+			this.setState({booted: true, bootFaded: false})
+			document.cookie = "bifr0st_booted=true;max-age=86400;"
+		}
+
+		this.checkBootCookie = function() {
+			if (document.cookie.split(';').some((item) => item.includes('bifr0st_booted=true'))) {
+				return true
+			}
+			return false
+		}
+
+		this.clearBootCookie = function() {
+			document.cookie = "bifr0st_booted=;"
+		}
 	}
 
 	componentDidMount() {
+		if(this.checkBootCookie()){
+			console.log("SKIP BOOT")
+			this.setState({booted: true, bootFaded: true})
+		}
 		let releaseWindow = function () {
 			this.releaseWindow();
 		}.bind(this);
@@ -363,7 +383,7 @@ class Site extends React.Component {
 		if(!this.state.booted || !this.state.bootFaded){
 			bootSeq = (
 				<BootSequence
-					completeBoot={()=>{this.setState({booted: true, bootFaded: false})}}
+					completeBoot={this.completeBoot.bind(this)}
 					completeBootFade={()=>{this.setState({bootFaded: true})}}
 				/>
 			)

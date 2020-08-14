@@ -27,43 +27,51 @@ class BootSequence extends React.Component {
 		boottext_script.src = "/js/boottext.js"
 		boottext_script.async = true
 		document.body.appendChild(boottext_script)
+
+		this.timers = []
 		// 500 ms
-		setTimeout(()=>{
+		this.timers[0] = setTimeout(()=>{
 			this.setState({bootStage: 1})
 		}, 500)
 		// 3s
-		setTimeout(()=>{
+		this.timers[1] = setTimeout(()=>{
 			this.setState({bootStage: 2})
 		}, 3000)
 		// 3.5s
-		setTimeout(()=>{
+		this.timers[2] = setTimeout(()=>{
 			this.setState({bootStage: 3})
 		}, 3500)
 		// 10s
-		setTimeout(()=>{
+		this.timers[3] = setTimeout(()=>{
 			this.setState({bootStage: 4})
 		}, 10000)
 		//12s
-		setTimeout(()=>{
+		this.timers[4] = setTimeout(()=>{
 			this.setState({bootStage: 5})
 		}, 12000)
 		//14s
-		setTimeout(()=>{
+		this.timers[5] = setTimeout(()=>{
 			this.setState({bootStage: 6})
 		}, 14000)
 		//16s
-		setTimeout(()=>{
+		this.timers[6] = setTimeout(()=>{
 			this.setState({bootStage: 7})
 			this.props.completeBoot()
 		}, 16000)
 		//17s
-		setTimeout(()=>{
+		this.timers[7] = setTimeout(()=>{
 			this.setState({bootStage: 8})
 		}, 17000)
 		// 19s
-		setTimeout(()=>{
+		this.timers[8] = setTimeout(()=>{
 			this.props.completeBootFade()
 		}, 19000)
+	}
+
+	componentWillUnmount(){
+		for (var i = 0; i < this.timers.length; i++) {
+			clearTimeout(this.timers[i])
+		}
 	}
 
 	render() {

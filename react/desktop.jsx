@@ -21,7 +21,8 @@ class Desktop extends React.Component {
 			marginLeft: "15px",
 			zIndex: 2,
 			display: "inline-block",
-			pointerEvents: "all"
+			pointerEvents: "all",
+			position: "relative"
 		};
 		let wallpaperStyle = {
 			width: "100%",

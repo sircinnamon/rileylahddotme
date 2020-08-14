@@ -360,10 +360,11 @@ class Site extends React.Component {
 		});
 		//Show boot sequence on first visit
 		let bootSeq = ""
-		if(!this.state.booted){
+		if(!this.state.booted || !this.state.bootFaded){
 			bootSeq = (
 				<BootSequence
-					completeBoot={()=>{this.setState({booted: true})}}
+					completeBoot={()=>{this.setState({booted: true, bootFaded: false})}}
+					completeBootFade={()=>{this.setState({bootFaded: true})}}
 				/>
 			)
 		}

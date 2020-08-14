@@ -56,6 +56,16 @@ class Desktop extends React.Component {
 	}
 }
 
+Desktop.propTypes = {
+	wallpaper: window.PropTypes.string,
+	children: window.PropTypes.node,
+	clearSelected: window.PropTypes.func
+}
+
+Desktop.defaultProps = {
+	wallpaper: "/img/wallpaper.svg"
+}
+
 class DesktopShortcut extends React.Component {
 	constructor(props) {
 		super(props)
@@ -120,4 +130,12 @@ class DesktopShortcut extends React.Component {
 			</div>
 		)
 	}
+}
+
+DesktopShortcut.propTypes = {
+	isSelected: window.PropTypes.bool,
+	setSelected: window.PropTypes.func,
+	onDoubleClick: window.PropTypes.func,
+	imgUrl: window.PropTypes.string,
+	name: window.PropTypes.string
 }

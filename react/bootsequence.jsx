@@ -157,6 +157,11 @@ class BootSequence extends React.Component {
 	}
 }
 
+BootSequence.propTypes = {
+	completeBoot: window.PropTypes.func.isRequired,
+	completeBootFade: window.PropTypes.func.isRequired
+}
+
 class RandomSkew extends React.Component {
 	constructor(props) {
 		super(props)
@@ -212,6 +217,12 @@ class RandomSkew extends React.Component {
 		)
 	}
 }
+
+RandomSkew.propTypes = {
+	enabled: window.PropTypes.bool,
+	children: window.PropTypes.node
+}
+
 class BootSequenceText extends React.Component {
 	constructor(props) {
 		super(props)
@@ -297,6 +308,11 @@ class BootSequenceText extends React.Component {
 		)
 	}
 }
+
+BootSequenceText.propTypes = {
+	bootStage: window.PropTypes.int.isRequired
+}
+
 class BootSequenceBar extends React.Component {
 	constructor(props) {
 		super(props)
@@ -382,4 +398,13 @@ class BootSequenceBar extends React.Component {
 			</pre>
 		)
 	}
+}
+
+BootSequenceBar.propTypes = {
+	bootStage: window.PropTypes.int.isRequired,
+	width: window.PropTypes.int
+}
+
+BootSequenceBar.defaultProps = {
+	width: 80
 }

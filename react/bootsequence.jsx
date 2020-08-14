@@ -19,6 +19,17 @@ class BootSequence extends React.Component {
 					return 0.3;
 			}
 		}
+
+		this.keyCapture = function(ev){
+			if(ev.which === 27 || ev.keycode === 27){
+				this.setState({bootStage: 8});
+				this.props.completeBoot();
+				this.props.completeBootFade();
+				for (let i = 0; i < this.timers.length; i++) {
+					clearTimeout(this.timers[i])
+				}
+			}
+		}
 	}
 
 	componentDidMount(){
@@ -27,6 +38,8 @@ class BootSequence extends React.Component {
 		boottext_script.src = "/js/boottext.js"
 		boottext_script.async = true
 		document.body.appendChild(boottext_script)
+
+		window.addEventListener("keyup", this.keyCapture.bind(this));
 
 		this.timers = []
 		// 500 ms
@@ -69,7 +82,7 @@ class BootSequence extends React.Component {
 	}
 
 	componentWillUnmount(){
-		for (var i = 0; i < this.timers.length; i++) {
+		for (let i = 0; i < this.timers.length; i++) {
 			clearTimeout(this.timers[i])
 		}
 	}

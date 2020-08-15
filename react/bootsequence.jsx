@@ -310,7 +310,7 @@ class BootSequenceText extends React.Component {
 }
 
 BootSequenceText.propTypes = {
-	bootStage: window.PropTypes.int.isRequired
+	bootStage: window.PropTypes.number.isRequired
 }
 
 class BootSequenceBar extends React.Component {
@@ -401,8 +401,8 @@ class BootSequenceBar extends React.Component {
 }
 
 BootSequenceBar.propTypes = {
-	bootStage: window.PropTypes.int.isRequired,
-	width: window.PropTypes.int
+	bootStage: window.PropTypes.number.isRequired,
+	width: window.PropTypes.number
 }
 
 BootSequenceBar.defaultProps = {

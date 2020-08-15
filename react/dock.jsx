@@ -32,6 +32,15 @@ class Dock extends React.Component {
 	}
 }
 
+Dock.propTypes = {
+	children: window.PropTypes.node,
+	height: window.PropTypes.string,
+}
+
+Dock.defaultProps = {
+	height: "60px"
+}
+
 class DockButton extends React.Component {
 	constructor(props) {
 		super(props)
@@ -80,5 +89,9 @@ class DockButton extends React.Component {
 		)
 	}
 }
-Dock.propTypes = {
+
+DockButton.propTypes = {
+	children: window.PropTypes.node,
+	isOpen: window.PropTypes.bool,
+	onClick: window.PropTypes.func
 }

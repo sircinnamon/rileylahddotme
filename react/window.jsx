@@ -1183,7 +1183,7 @@ FileExplorerWindowFile.propTypes = {
 		type: window.PropTypes.string,
 		imgUrl: window.PropTypes.string,
 		onDoubleClick: window.PropTypes.func
-	}),
+	}).isRequired,
 	isSelected: window.PropTypes.bool,
 	setSelected: window.PropTypes.func,
 	enterFolder: window.PropTypes.func,
@@ -1266,5 +1266,5 @@ FileExplorerWindowSidebar.propTypes = {
 		type: window.PropTypes.string,
 		description: window.PropTypes.string,
 		metadata: window.PropTypes.objectOf(window.PropTypes.string)
-	}).isRequired
+	})
 }

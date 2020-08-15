@@ -207,11 +207,23 @@ class TerminalWindow extends React.Component {
 			this.setState({hiddenLines: this.state.hiddenLines.concat(moveToHistory)})
 			return output
 		}
+
+		this.focusInput = function() {
+			if (document.activeElement !== this.termInput) {
+				this.termInput.focus({ preventScroll: true })
+			}
+		}
+	}
+
+	componentDidMount() {
+		if (this.props.isActive) {
+			this.focusInput()
+		}
 	}
 
 	componentDidUpdate() {
-		if (this.props.isActive && document.activeElement !== this.termInput) {
-			this.termInput.focus({ preventScroll: true })
+		if (this.props.isActive) {
+			this.focusInput()
 		}
 	}
 

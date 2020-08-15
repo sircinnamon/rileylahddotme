@@ -75,6 +75,26 @@ class BaseWindow extends React.Component {
 	}
 }
 
+BaseWindow.propTypes = {
+	children: window.PropTypes.node,
+	isHidden: window.PropTypes.bool,
+	isHeld: window.PropTypes.bool,
+	isFolded: window.PropTypes.bool,
+	closing: window.PropTypes.bool,
+	topPos: window.PropTypes.number,
+	leftPos: window.PropTypes.number,
+	layer: window.PropTypes.number,
+	height: window.PropTypes.number,
+	width: window.PropTypes.number,
+	title: window.PropTypes.string,
+	makeActive: window.PropTypes.func,
+	onKeyDown: window.PropTypes.func,
+	grabWindow: window.PropTypes.func,
+	close: window.PropTypes.func,
+	toggleFold: window.PropTypes.func,
+	hide: window.PropTypes.func
+}
+
 class WindowHeaderBtn extends React.Component {
 	constructor(props) {
 		super(props)
@@ -105,6 +125,11 @@ class WindowHeaderBtn extends React.Component {
 			/>
 		)
 	}
+}
+
+WindowHeaderBtn.propTypes = {
+	style: window.PropTypes.object,
+	onMouseDown: window.PropTypes.func
 }
 
 class TerminalWindow extends React.Component {
@@ -212,6 +237,29 @@ class TerminalWindow extends React.Component {
 			</BaseWindow>
 		)
 	}
+}
+
+TerminalWindow.propTypes = {
+	isActive: window.PropTypes.bool,
+	updateBody: window.PropTypes.func,
+	bodyChunks: window.PropTypes.arrayOf(window.PropTypes.shape({
+		color: window.PropTypes.number,
+		bold: window.PropTypes.bool,
+		string: window.PropTypes.string
+	})),
+	isHidden: window.PropTypes.bool,
+	isHeld: window.PropTypes.bool,
+	isFolded: window.PropTypes.bool,
+	closing: window.PropTypes.bool,
+	topPos: window.PropTypes.number,
+	leftPos: window.PropTypes.number,
+	layer: window.PropTypes.number,
+	title: window.PropTypes.string,
+	makeActive: window.PropTypes.func,
+	grabWindow: window.PropTypes.func,
+	close: window.PropTypes.func,
+	toggleFold: window.PropTypes.func,
+	hide: window.PropTypes.func
 }
 
 class IDEWindow extends React.Component {
@@ -363,6 +411,33 @@ class IDEWindow extends React.Component {
 	}
 }
 
+IDEWindow.propTypes = {
+	files: window.PropTypes.arrayOf(window.PropTypes.shape({
+		bodyChunks: window.PropTypes.arrayOf(window.PropTypes.shape({
+			color: window.PropTypes.number,
+			bold: window.PropTypes.bool,
+			string: window.PropTypes.string
+		}))
+	})),
+	windowHeight: window.PropTypes.number,
+	windowWidth: window.PropTypes.number,
+	defaultCurrentTab: window.PropTypes.string,
+	defaultOpenTabs: window.PropTypes.arrayOf(window.PropTypes.string),
+	isHidden: window.PropTypes.bool,
+	isHeld: window.PropTypes.bool,
+	isFolded: window.PropTypes.bool,
+	closing: window.PropTypes.bool,
+	topPos: window.PropTypes.number,
+	leftPos: window.PropTypes.number,
+	layer: window.PropTypes.number,
+	title: window.PropTypes.string,
+	makeActive: window.PropTypes.func,
+	grabWindow: window.PropTypes.func,
+	close: window.PropTypes.func,
+	toggleFold: window.PropTypes.func,
+	hide: window.PropTypes.func
+}
+
 class IDEWindowSidebar extends React.Component {
 	constructor(props) {
 		super(props)
@@ -431,6 +506,12 @@ class IDEWindowSidebar extends React.Component {
 	}
 }
 
+IDEWindowSidebar.propTypes = {
+	files: window.PropTypes.object,
+	currentTab: window.PropTypes.string,
+	openTab: window.PropTypes.func
+}
+
 class IDEWindowTabs extends React.Component {
 	constructor(props) {
 		super(props)
@@ -463,6 +544,13 @@ class IDEWindowTabs extends React.Component {
 		}
 		return <div style={rowStyle}>{tabs}</div>
 	}
+}
+
+IDEWindowTabs.propTypes = {
+	openTabs: window.PropTypes.arrayOf(window.PropTypes.string),
+	currentTab: window.PropTypes.string,
+	closeTab: window.PropTypes.func,
+	clickTab: window.PropTypes.func
 }
 
 class IDEWindowTab extends React.Component {
@@ -515,6 +603,13 @@ class IDEWindowTab extends React.Component {
 	}
 }
 
+IDEWindowTab.propTypes = {
+	children: window.PropTypes.node,
+	close: window.PropTypes.func,
+	onClick: window.PropTypes.func,
+	isActive: window.PropTypes.bool,
+}
+
 class BrowserWindow extends React.Component {
 	constructor(props) {
 		super(props)
@@ -551,6 +646,24 @@ class BrowserWindow extends React.Component {
 			</BaseWindow>
 		)
 	}
+}
+
+BrowserWindow.propTypes = {
+	children: window.PropTypes.node,
+	startUrl: window.PropTypes.string,
+	isHidden: window.PropTypes.bool,
+	isHeld: window.PropTypes.bool,
+	isFolded: window.PropTypes.bool,
+	closing: window.PropTypes.bool,
+	topPos: window.PropTypes.number,
+	leftPos: window.PropTypes.number,
+	layer: window.PropTypes.number,
+	title: window.PropTypes.string,
+	makeActive: window.PropTypes.func,
+	grabWindow: window.PropTypes.func,
+	close: window.PropTypes.func,
+	toggleFold: window.PropTypes.func,
+	hide: window.PropTypes.func
 }
 
 class BrowserWindowHeader extends React.Component {
@@ -681,6 +794,11 @@ class BrowserWindowHeader extends React.Component {
 	}
 }
 
+BrowserWindowHeader.propTypes = {
+	currentUrl: window.PropTypes.string,
+	updateUrl: window.PropTypes.func
+}
+
 class FileExplorerWindow extends React.Component {
 	constructor(props) {
 		super(props)
@@ -786,6 +904,26 @@ class FileExplorerWindow extends React.Component {
 	}
 }
 
+FileExplorerWindow.propTypes = {
+	fileTree: window.PropTypes.object,
+	startPath: window.PropTypes.string,
+	height: window.PropTypes.number,
+	width: window.PropTypes.number,
+	isHidden: window.PropTypes.bool,
+	isHeld: window.PropTypes.bool,
+	isFolded: window.PropTypes.bool,
+	closing: window.PropTypes.bool,
+	topPos: window.PropTypes.number,
+	leftPos: window.PropTypes.number,
+	layer: window.PropTypes.number,
+	title: window.PropTypes.string,
+	makeActive: window.PropTypes.func,
+	grabWindow: window.PropTypes.func,
+	close: window.PropTypes.func,
+	toggleFold: window.PropTypes.func,
+	hide: window.PropTypes.func
+}
+
 class FileExplorerWindowHeader extends React.Component {
 	constructor(props) {
 		super(props)
@@ -857,7 +995,6 @@ class FileExplorerWindowHeader extends React.Component {
 			flex: "1 1 10%",
 			borderRadius: "5px",
 			paddingLeft: "5px",
-			marginTop: "4px",
 			marginTop: "4px",
 			marginRight: "3px",
 			color: "#999",
@@ -940,6 +1077,13 @@ class FileExplorerWindowHeader extends React.Component {
 			</div>
 		)
 	}
+}
+
+FileExplorerWindowHeader.propTypes = {
+	barText: window.PropTypes.string,
+	updateBarText: window.PropTypes.func,
+	currentUrl: window.PropTypes.string,
+	updateUrl: window.PropTypes.func
 }
 
 class FileExplorerWindowFile extends React.Component {
@@ -1029,6 +1173,18 @@ class FileExplorerWindowFile extends React.Component {
 	}
 }
 
+FileExplorerWindowFile.propTypes = {
+	file: window.PropTypes.shape({
+		type: window.PropTypes.string,
+		imgUrl: window.PropTypes.string,
+		onDoubleClick: window.PropTypes.func
+	}).isRequired,
+	isSelected: window.PropTypes.bool,
+	setSelected: window.PropTypes.func,
+	enterFolder: window.PropTypes.func,
+	name: window.PropTypes.string
+}
+
 class FileExplorerWindowSidebar extends React.Component {
 	constructor(props) {
 		super(props)
@@ -1098,4 +1254,12 @@ class FileExplorerWindowSidebar extends React.Component {
 			</div>
 		)
 	}
+}
+
+FileExplorerWindowSidebar.propTypes = {
+	file: window.PropTypes.shape({
+		type: window.PropTypes.string,
+		description: window.PropTypes.string,
+		metadata: window.PropTypes.objectOf(window.PropTypes.string)
+	}).isRequired
 }

@@ -137,7 +137,9 @@ class TerminalWindow extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			input: ""
+			input: "",
+			prompt: { string: ">>> $ ", bold: true, color: 2 },
+			hiddenLines: []
 		}
 
 		this.keyPress = function (ev) {
@@ -147,13 +149,63 @@ class TerminalWindow extends React.Component {
 		}
 		this.submitInput = function () {
 			let input = this.state.input
+			let output = []
+			if (this.props.handleInput) {
+				output = [...this.props.handleInput(input)]
+			}
 			if (this.props.updateBody) {
 				let newBody = this.props.bodyChunks
-				newBody.push({ string: " $ ", bold: true, color: 2 })
+				newBody.push(this.state.prompt)
 				newBody.push({ string: input + "\n" })
+				newBody = newBody.concat(output)
+				newBody = this.clampLines(newBody, this.props.lineLimit)
 				this.props.updateBody(newBody)
 			}
 			this.setState({ input: "" })
+		}
+
+		this.splitByLine = function(bodyChunks){
+			let lines = []
+			let currentLine = 0
+			for (let i = 0; i < bodyChunks.length; i++) {
+				let curr = bodyChunks[i]
+				let linesInString = (curr.string.match(/\n/g)||[]).length
+				if(linesInString === 0){
+					if(!lines[currentLine]){lines[currentLine]=[]}
+					lines[currentLine].push(curr)
+				} else {
+					let currSub = curr.string.split("\n").map(x=>{return {...curr, string: x}})
+					for (var j = 0; j < currSub.length-1; j++) {
+						currSub[j].string = currSub[j].string+"\n"
+						if(!lines[currentLine]){lines[currentLine]=[]}
+						lines[currentLine].push(currSub[j])
+						currentLine++
+					}
+					if(currSub.string!=""){
+						if(!lines[currentLine]){lines[currentLine]=[]}
+						lines[currentLine].push(currSub[currSub.length-1])
+					}
+				}
+			}
+			return lines
+		}
+
+		this.clampLines = function (bodyChunks, maxLineCount){
+			let output = []
+			let moveToHistory = []
+			// let linesStored = 0
+			let lines = this.splitByLine(bodyChunks)
+			// console.log(lines)
+			for (var i = lines.length-1; i >= 0 ; i--) {
+				if((lines.length-i) < maxLineCount){
+					output=[...lines[i], ...output]
+				} else {
+					moveToHistory=[...lines[i], ...moveToHistory]
+				}
+			}
+
+			this.setState({hiddenLines: this.state.hiddenLines.concat(moveToHistory)})
+			return output
 		}
 	}
 
@@ -165,7 +217,6 @@ class TerminalWindow extends React.Component {
 
 	render() {
 		let colors = [...TERMINAL_COLOURS]
-		let prompt = ">>> $ "
 		let body = []
 		for (let i = 0; i < this.props.bodyChunks.length; i++) {
 			let s = {}
@@ -184,11 +235,15 @@ class TerminalWindow extends React.Component {
 			margin: 0,
 			padding: "0 .5em",
 			fontSize: "13px",
+			height: this.props.height,
+			width: this.props.width,
+			overflow: "hidden",
+			textOverflow: "ellipsis",
 			...MONO_FONT
 		}
 		let promptStyle = {
-			color: colors[2],
-			fontWeight: "bold"
+			color: colors[this.state.prompt.color],
+			fontWeight: this.state.prompt.bold?"bold":""
 		}
 		let inputStyle = {
 			color: "rgb(200,200,200)",
@@ -220,7 +275,7 @@ class TerminalWindow extends React.Component {
 			>
 				<pre style={preStyle}>
 					{body}
-					<span style={promptStyle}>{prompt}</span>
+					<span style={promptStyle}>{this.state.prompt.string}</span>
 					<span style={inputStyle}>{this.state.input}</span>
 					<input
 						type="text"
@@ -242,12 +297,16 @@ class TerminalWindow extends React.Component {
 
 TerminalWindow.propTypes = {
 	isActive: window.PropTypes.bool,
+	handleInput: window.PropTypes.func,
 	updateBody: window.PropTypes.func,
 	bodyChunks: window.PropTypes.arrayOf(window.PropTypes.shape({
 		color: window.PropTypes.number,
 		bold: window.PropTypes.bool,
 		string: window.PropTypes.string
 	})),
+	lineLimit: window.PropTypes.number,
+	height: window.PropTypes.string,
+	width: window.PropTypes.string,
 	isHidden: window.PropTypes.bool,
 	isHeld: window.PropTypes.bool,
 	isFolded: window.PropTypes.bool,
@@ -261,6 +320,12 @@ TerminalWindow.propTypes = {
 	close: window.PropTypes.func,
 	toggleFold: window.PropTypes.func,
 	hide: window.PropTypes.func
+}
+
+TerminalWindow.defaultProps = {
+	height: "22em",
+	width: "35em",
+	lineLimit: 20
 }
 
 class IDEWindow extends React.Component {

@@ -102,7 +102,8 @@ class BootSequence extends React.Component {
 			opacity: (this.state.bootStage<8)?"1":"0",
 			filter: (this.state.bootStage<7)?"":"brightness(0)",
 			zIndex: 200,
-			position: "relative"
+			position: "relative",
+			fontSize: "1.5vw" //Fallback in case max+min are unsupported
 		}
 		// These effects courtesy of http://aleclownes.com/2017/02/01/crt-display.html
 		let scanlineStyle = {

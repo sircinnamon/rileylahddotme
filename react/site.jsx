@@ -33,12 +33,19 @@ class Site extends React.Component {
 		}
 
 		this.newTerminal = function () {
+			let id = this.state.windowCounter+1
+			this.setState({ windowCounter: this.state.windowCounter + 1 })
 			let newWindow = {
 				title: "Terminal",
 				folded: false,
 				hidden: false,
 				type: "terminal",
-				props: {}
+				props: {
+					height: "11em",
+					width: "55em",
+					lineLimit: 10
+				},
+				id: id
 			}
 			newWindow.props.bodyChunks = [
 				{ string: "pi@thor", bold: true, color: 0 },
@@ -68,6 +75,8 @@ class Site extends React.Component {
 						"10.0.0.117 - - [24/Jul/2020 15:12:40] \"GET /favicon.ico HTTP/1.1\" 404 -\n"
 				}
 			]
+			newWindow.props.handleInput = this.globalTerminalInputHandler.bind(this)
+			newWindow.props.updateBody = ((newBody) => { this.simpleTerminalBodyUpdate(id, newBody) }).bind(this)
 			this.newWindow(newWindow, 200, 200)
 		}
 
@@ -84,9 +93,15 @@ class Site extends React.Component {
 				folded: false,
 				hidden: false,
 				type: "terminal",
-				props: {}
+				props: {
+					height: "22em",
+					width: "40em",
+					lineLimit: 20
+				}
 			}
-			newWindow.props.bodyChunks = EDU_HISTORY_TERMINAL
+			newWindow.props.bodyChunks = [...EDU_HISTORY_TERMINAL]
+			newWindow.props.handleInput = this.globalTerminalInputHandler.bind(this)
+			newWindow.props.updateBody = ((newBody) => { this.simpleTerminalBodyUpdate(id, newBody) }).bind(this)
 			this.newWindow(newWindow, 400, 200)
 		}
 
@@ -311,6 +326,35 @@ class Site extends React.Component {
 
 		this.clearBootCookie = function() {
 			document.cookie = "bifr0st_booted=;"
+		}
+
+		this.globalTerminalInputHandler = function(cmd) {
+			if(cmd === "reboot"){
+				this.clearBootCookie()
+				setTimeout(()=>{location.reload()}, 5000)
+				return [
+					{ string: "Rebooting in 5s...\n"}
+				]
+			}
+			if(cmd === "ls"){
+				return [
+					{ string: "Work\tDev\tDocuments\tPictures\n"}
+				]
+			}
+			if(cmd === "test"){
+				return [
+					{ string: "A\nB\nC\nD\n---\n"}
+				]
+			}
+			return []
+		}
+
+		this.simpleTerminalBodyUpdate = function(id, newBody) {
+			let winSet = this.state.windows
+			if (winSet[id]) {
+				winSet[id].props.bodyChunks = newBody
+				this.setState({windows: winSet})
+			}
 		}
 	}
 

@@ -24,10 +24,11 @@ class BaseWindow extends React.Component {
 		let headerStyle = {
 			backgroundColor: "rgba(0,0,0,0.9)",
 			userSelect: "none",
-			color: "rgb(75,75,75)",
+			color: "rgb(175,175,175)",
 			padding: "4px 4px 0px",
 			borderRadius: "5px 5px 0px 0px",
 			height: "20px",
+			lineHeight: "100%",
 			...SANS_FONT
 		}
 		if (this.props.isHeld) {
@@ -354,7 +355,7 @@ class IDEWindow extends React.Component {
 
 		return (
 			<BaseWindow
-				title={this.props.title}
+				title={this.props.title || this.state.currentTab || ""}
 				topPos={this.props.topPos}
 				leftPos={this.props.leftPos}
 				grabWindow={this.props.grabWindow}
@@ -472,8 +473,7 @@ class IDEWindowSidebar extends React.Component {
 			}
 			let iconStyle = {
 				height: "1em",
-				verticalAlign: "middle",
-				marginRight: "2px"
+				verticalAlign: "middle"
 			}
 			let icon =
 				"/img/icons/fileicon_small.svg"
@@ -485,7 +485,7 @@ class IDEWindowSidebar extends React.Component {
 					}}
 					key={`file-${fileList[i]}`}
 				>
-					<span>
+					<span style={{width: iconStyle.height, marginRight: "2px"}}>
 						<img style={iconStyle} src={icon} />
 					</span>
 					<span>{fileList[i]}</span>

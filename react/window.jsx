@@ -540,7 +540,8 @@ class IDEWindowTabs extends React.Component {
 			display: "flex",
 			justifyContent: "flex-start",
 			position: "absolute",
-			bottom: 0
+			bottom: 0,
+			maxWidth: "100%"
 		}
 		return <div style={rowStyle}>{tabs}</div>
 	}
@@ -566,15 +567,19 @@ class IDEWindowTab extends React.Component {
 			borderRadius: "5px 5px 0px 0px",
 			backgroundColor: "#42433e",
 			padding: "7px",
-			flex: "1 1 auto",
-			maxWidth: "200px",
+			flex: "0 100 auto",
+			minWidth: "10px",
 			cursor: "pointer",
 			color: "#989898",
-			whiteSpace: "nowrap"
+			whiteSpace: "nowrap",
+			overflow: "hidden",
+			textOverflow: "ellipsis"
 		}
 		if (this.props.isActive) {
 			s.backgroundColor = "#282923"
 			s.color = "#FFFFFF"
+			s.flex = "0 0 auto"
+			s.zIndex = 10
 		}
 		let closeStyle = {
 			background: this.state.xHovered ? "rgba(255,255,255,0.2)" : "",

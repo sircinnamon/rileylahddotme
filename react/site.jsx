@@ -467,7 +467,7 @@ class Site extends React.Component {
 						</DockButton>
 						<DockButton
 							onClick={this.eduWindow.bind(this)}
-							isOpen={this.state.windows.edu}
+							isOpen={!!this.state.windows.edu}
 						>
 							<img
 								src="/img/terminalicon.svg"
@@ -478,7 +478,7 @@ class Site extends React.Component {
 						</DockButton>
 						<DockButton
 							onClick={this.ideWorkHistoryWindow.bind(this)}
-							isOpen={this.state.windows.ideWork}
+							isOpen={!!this.state.windows.ideWork}
 						>
 							<img
 								src="/img/idelogo.svg"
@@ -489,7 +489,7 @@ class Site extends React.Component {
 						</DockButton>
 						<DockButton
 							onClick={this.ideSkillsWindow.bind(this)}
-							isOpen={this.state.windows.ideSkills}
+							isOpen={!!this.state.windows.ideSkills}
 						>
 							<img
 								src="/img/idelogo.svg"
@@ -500,7 +500,7 @@ class Site extends React.Component {
 						</DockButton>
 						<DockButton
 							onClick={this.browserWindow.bind(this)}
-							isOpen={this.state.windows.browser}
+							isOpen={!!this.state.windows.browser}
 						>
 							<img
 								src="/img/browserlogo.svg"
@@ -511,7 +511,7 @@ class Site extends React.Component {
 						</DockButton>
 						<DockButton
 							onClick={this.fileExplorerWindow.bind(this)}
-							isOpen={this.state.windows.fileexplorer}
+							isOpen={!!this.state.windows.fileexplorer}
 						>
 							<img
 								src="/img/folderlogo.svg"

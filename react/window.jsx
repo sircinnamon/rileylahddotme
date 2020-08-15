@@ -84,8 +84,8 @@ BaseWindow.propTypes = {
 	topPos: window.PropTypes.number,
 	leftPos: window.PropTypes.number,
 	layer: window.PropTypes.number,
-	height: window.PropTypes.number,
-	width: window.PropTypes.number,
+	height: window.PropTypes.string,
+	width: window.PropTypes.string,
 	title: window.PropTypes.string,
 	makeActive: window.PropTypes.func,
 	onKeyDown: window.PropTypes.func,
@@ -412,15 +412,15 @@ class IDEWindow extends React.Component {
 }
 
 IDEWindow.propTypes = {
-	files: window.PropTypes.arrayOf(window.PropTypes.shape({
+	files: window.PropTypes.objectOf(window.PropTypes.shape({
 		bodyChunks: window.PropTypes.arrayOf(window.PropTypes.shape({
 			color: window.PropTypes.number,
 			bold: window.PropTypes.bool,
 			string: window.PropTypes.string
 		}))
 	})),
-	windowHeight: window.PropTypes.number,
-	windowWidth: window.PropTypes.number,
+	windowHeight: window.PropTypes.string,
+	windowWidth: window.PropTypes.string,
 	defaultCurrentTab: window.PropTypes.string,
 	defaultOpenTabs: window.PropTypes.arrayOf(window.PropTypes.string),
 	isHidden: window.PropTypes.bool,
@@ -907,8 +907,8 @@ class FileExplorerWindow extends React.Component {
 FileExplorerWindow.propTypes = {
 	fileTree: window.PropTypes.object,
 	startPath: window.PropTypes.string,
-	height: window.PropTypes.number,
-	width: window.PropTypes.number,
+	height: window.PropTypes.string,
+	width: window.PropTypes.string,
 	isHidden: window.PropTypes.bool,
 	isHeld: window.PropTypes.bool,
 	isFolded: window.PropTypes.bool,
@@ -1178,7 +1178,7 @@ FileExplorerWindowFile.propTypes = {
 		type: window.PropTypes.string,
 		imgUrl: window.PropTypes.string,
 		onDoubleClick: window.PropTypes.func
-	}).isRequired,
+	}),
 	isSelected: window.PropTypes.bool,
 	setSelected: window.PropTypes.func,
 	enterFolder: window.PropTypes.func,

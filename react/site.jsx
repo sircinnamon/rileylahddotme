@@ -359,7 +359,10 @@ class Site extends React.Component {
 	}
 
 	componentDidMount() {
-		if(this.checkBootCookie()){
+		let forceBoot = (new URLSearchParams(window.location.search).get("b")!==null)
+		if(forceBoot){
+			this.clearBootCookie()
+		} else if(this.checkBootCookie()){
 			console.log("SKIP BOOT")
 			this.setState({booted: true, bootFaded: true})
 		}

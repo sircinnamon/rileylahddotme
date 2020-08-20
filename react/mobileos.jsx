@@ -1,0 +1,69 @@
+/* global React, Desktop, BootSequence */
+/* exported MobileOS */
+class MobileOS extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			booted: false
+		}
+
+		this.completeBoot = function() {
+			this.setState({booted: true, bootFaded: false})
+			document.cookie = "bifr0st_booted=true;max-age=86400;"
+		}
+
+		this.checkBootCookie = function() {
+			if (document.cookie.split(";").some((item) => item.includes("bifr0st_booted=true"))) {
+				return true
+			}
+			return false
+		}
+
+		this.clearBootCookie = function() {
+			document.cookie = "bifr0st_booted=;"
+		}
+	}
+
+	componentDidMount() {
+		let forceBoot = (new URLSearchParams(window.location.search).get("b")!==null)
+		if(forceBoot){
+			this.clearBootCookie()
+		} else if(this.checkBootCookie()){
+			console.log("SKIP BOOT")
+			this.setState({booted: true, bootFaded: true})
+		}
+	}
+
+	render() {
+		//Show boot sequence on first visit
+		let bootSeq = ""
+		if(!this.state.booted || !this.state.bootFaded){
+			bootSeq = (
+				<BootSequence
+					completeBoot={this.completeBoot.bind(this)}
+					completeBootFade={()=>{this.setState({bootFaded: true})}}
+				/>
+			)
+		}
+		return (
+			<div
+				style={{
+					width: "100vw",
+					height: "100vh",
+					overflow: "hidden",
+					position: "absolute",
+					top: 0,
+					left: 0,
+					zIndex: 0
+				}}
+			>
+				{bootSeq}
+				<div hidden={this.state.booted===false}>
+					<br />
+					<Desktop>
+					</Desktop>
+				</div>
+			</div>
+		)
+	}
+}

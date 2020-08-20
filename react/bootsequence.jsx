@@ -36,10 +36,12 @@ class BootSequence extends React.Component {
 
 	componentDidMount(){
 		// <script language="JavaScript" type="text/javascript" src="./js/boottext.js"></script>
-		const boottext_script = document.createElement("script")
-		boottext_script.src = "/js/boottext.js"
-		boottext_script.async = true
-		document.body.appendChild(boottext_script)
+		if(typeof BOOT_TEXT === "undefined"){
+			const boottext_script = document.createElement("script")
+			boottext_script.src = "/js/boottext.js"
+			boottext_script.async = true
+			document.body.appendChild(boottext_script)
+		}
 
 		window.addEventListener("keyup", this.keyCapture.bind(this))
 

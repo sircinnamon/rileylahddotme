@@ -70,7 +70,7 @@ const FILE_TREE_HOBBIES = {
 					},
 					metadata: {
 						Created: "2019",
-						Printer: "Ender 3",
+						Printer: "AnyCubic i3 Mega",
 						Fun: "High",
 						Price: "High :("
 					},
@@ -207,7 +207,7 @@ const EDU_HISTORY_TERMINAL = [
 	{ string: "[2008-2012]\n", bold: false, color: undefined },
 	{ string: "\t[Red Deer, AB]\n", bold: false, color: undefined },
 	{ string: "\tGraduated 2012\n", bold: false, color: 6 },
-	{ string: "\tHonor Roll\n\n", bold: true, color: 7 }
+	{ string: "\tHonour Roll\n\n", bold: true, color: 7 }
 ]
 
 const WORK_HISTORY_IDE = {

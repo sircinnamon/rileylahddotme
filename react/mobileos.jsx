@@ -59,9 +59,11 @@ class MobileOS extends React.Component {
 			>
 				{bootSeq}
 				<div hidden={this.state.booted===false}>
-					<br />
-					<Desktop>
-					</Desktop>
+					<div style={{display: "flex", flexDirection: "column", height: "100%"}}>
+						<MobileHome />
+						<MobileHomeBar />
+					</div>
+					<Desktop />
 				</div>
 			</div>
 		)

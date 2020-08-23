@@ -1,4 +1,4 @@
-/* global React, Desktop, BootSequence */
+/* global React, Desktop, BootSequence, MobileHome, MobileHomeBar */
 /* exported MobileOS */
 class MobileOS extends React.Component {
 	constructor(props) {

@@ -13,8 +13,8 @@ class MobileHome extends React.Component {
 			display: "grid",
 			width: "100%",
 			background: "rgba(0,0,0,0.2)",
-			gridTemplateRows: "10px auto auto auto auto auto auto auto 10px",
-			gridTemplateColumns: "10px auto auto auto auto auto 10px"
+			gridTemplateRows: "5vh 11.25vh 11.25vh 11.25vh 11.25vh 11.25vh 11.25vh 5vh",
+			gridTemplateColumns: "5vw 18vw 18vw 18vw 18vw 18vw 5vw"
 		}
 		let icons = []
 		let iconDivStyle = {
@@ -32,7 +32,7 @@ class MobileHome extends React.Component {
 			let gridX = i%5 + 2
 			let gridY = Math.floor(i/5) + 2
 			icons = icons.concat([(
-				<div style={{...iconDivStyle, gridColumnStart: gridX, gridRowStart: gridY}}>
+				<div key={i} style={{...iconDivStyle, gridColumnStart: gridX, gridRowStart: gridY}}>
 					<img style={imgStyle} src={"/img/terminalicon.svg"} draggable="false" />
 				</div>
 			)])

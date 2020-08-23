@@ -73,6 +73,7 @@ class MobileHomeBarButton extends React.Component {
 			fontSize: "30px",
 			lineHeight: "100%",
 			textAlign: "center",
+			userSelect: "none"
 		}
 		let bgDiv = {
 			width: "40%",
@@ -99,4 +100,17 @@ class MobileHomeBarButton extends React.Component {
 			</div>
 		)
 	}
+}
+
+MobileHomeBarButton.propTypes = {
+	isHeld: window.PropTypes.bool,
+	onTouchStart: window.PropTypes.func,
+	onTouchEnd: window.PropTypes.func,
+	children: window.PropTypes.node
+}
+
+MobileHomeBarButton.defaultProps = {
+	isHeld: false,
+	onTouchStart: ()=>{},
+	onTouchEnd: ()=>{}
 }

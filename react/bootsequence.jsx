@@ -22,14 +22,23 @@ class BootSequence extends React.Component {
 			}
 		}
 
+		this.endBoot = function(){
+			this.setState({bootStage: 8})
+			this.props.completeBoot()
+			this.props.completeBootFade()
+			for (let i = 0; i < this.timers.length; i++) {
+				clearTimeout(this.timers[i])
+			}
+		}
+
 		this.keyCapture = function(ev){
 			if(ev.which === 27 || ev.keycode === 27){
-				this.setState({bootStage: 8})
-				this.props.completeBoot()
-				this.props.completeBootFade()
-				for (let i = 0; i < this.timers.length; i++) {
-					clearTimeout(this.timers[i])
-				}
+				this.endBoot()
+			}
+		}
+		this.touchCapture = function(ev){
+			if(ev.touches.length >= 3){
+				this.endBoot()
 			}
 		}
 	}
@@ -44,6 +53,7 @@ class BootSequence extends React.Component {
 		}
 
 		window.addEventListener("keyup", this.keyCapture.bind(this))
+		window.addEventListener("touchstart", this.touchCapture.bind(this))
 
 		this.timers = []
 		// 500 ms

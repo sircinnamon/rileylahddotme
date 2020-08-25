@@ -10,7 +10,7 @@ class MobileHome extends React.Component {
 	render() {
 		let containerStyle = {
 			flex: "1 1 auto",
-			display: "grid",
+			display: (this.props.open)?"grid":"none",
 			width: "100%",
 			background: "rgba(0,0,0,0.2)",
 			gridTemplateRows: "5vh 11.25vh 11.25vh 11.25vh 11.25vh 11.25vh 11.25vh 5vh",
@@ -38,6 +38,10 @@ class MobileHome extends React.Component {
 	}
 }
 
+MobileHome.propTypes = {
+	open: window.PropTypes.bool
+}
+
 class AppIcon extends React.Component {
 	constructor(props) {
 		super(props)
@@ -51,7 +55,9 @@ class AppIcon extends React.Component {
 
 		this.release = function(){
 			this.setState({held: false})
-			setTimeout(()=>{this.props.onClick()}, 200)
+			if(this.props.onClick){
+				setTimeout(()=>{this.props.onClick()}, 200)
+			}
 		}
 	}
 
@@ -92,4 +98,17 @@ class AppIcon extends React.Component {
 			</div>
 		)
 	}
+}
+
+AppIcon.propTypes = {
+	onClick: window.PropTypes.func,
+	gridX: window.PropTypes.number,
+	gridY: window.PropTypes.number,
+	imgUrl: window.PropTypes.string,
+	name: window.PropTypes.string
+}
+
+AppIcon.defaultProps = {
+	imgUrl: "/img/terminalicon.svg",
+	name: "App"
 }

@@ -4,7 +4,8 @@ class MobileOS extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			booted: false
+			booted: false,
+			view: "home"
 		}
 
 		this.completeBoot = function() {
@@ -45,6 +46,13 @@ class MobileOS extends React.Component {
 				/>
 			)
 		}
+
+		let apps = []
+		apps = apps.concat([
+			<div key="dummyapp" style={{display: (this.state.view!="home")?"":"none", background: "white", flex: "1 1 auto"}}>
+				APP
+			</div>
+		])
 		return (
 			<div
 				style={{
@@ -60,7 +68,10 @@ class MobileOS extends React.Component {
 				{bootSeq}
 				<div hidden={this.state.booted===false}>
 					<div style={{display: "flex", flexDirection: "column", height: "100%"}}>
-						<MobileHome />
+						<MobileHome
+							open={this.state.view==="home"}
+						/>
+						{apps}
 						<MobileHomeBar />
 					</div>
 					<Desktop />

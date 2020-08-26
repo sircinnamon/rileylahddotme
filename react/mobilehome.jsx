@@ -17,7 +17,22 @@ class MobileHome extends React.Component {
 			gridTemplateColumns: "5vw 18vw 18vw 18vw 18vw 18vw 5vw"
 		}
 		let icons = []
-		for (let i = 0; i < 30; i++) {
+		for (let i = 0; i < this.props.icons.length; i++) {
+			let icon = this.props.icons[i]
+			let gridX = i%5 + 2
+			let gridY = Math.floor(i/5) + 2
+			icons = icons.concat([(
+				<AppIcon
+					key={icon.key}
+					gridX={gridX}
+					gridY={gridY}
+					name={icon.name}
+					imgUrl={icon.image}
+					onClick={icon.open}
+				/>
+			)])
+		}
+		for (let i = icons.length; i < 30; i++) {
 			let gridX = i%5 + 2
 			let gridY = Math.floor(i/5) + 2
 			icons = icons.concat([(
@@ -39,7 +54,19 @@ class MobileHome extends React.Component {
 }
 
 MobileHome.propTypes = {
-	open: window.PropTypes.bool
+	open: window.PropTypes.bool,
+	icons: window.PropTypes.arrayOf(
+		window.PropTypes.shape({
+			key: window.PropTypes.string.isRequired,
+			name: window.PropTypes.string.isRequired,
+			image: window.PropTypes.string.isRequired,
+			open: window.PropTypes.func.isRequired
+		})
+	)
+}
+
+MobileHome.defaultProps = {
+	icons: []
 }
 
 class AppIcon extends React.Component {

@@ -1,5 +1,5 @@
 /* global React, TITLE_FONT */
-/* exported FakeSite */
+/* exported FakeSite, FakeSiteMobile */
 class FakeSite extends React.Component {
 	constructor(props) {
 		super(props)
@@ -8,14 +8,14 @@ class FakeSite extends React.Component {
 
 	render() {
 		let icon_style = {
-			height: "1em",
+			height: (this.props.mobile)?"2em":"1em",
 			filter: "invert(1)",
 			userSelect: "none"
 		}
 		return (
 			<div style={{
-				height: "300px", 
-				width: "600px", 
+				height: (this.props.mobile)?"100%":"300px", 
+				width: (this.props.mobile)?"":"600px", 
 				backgroundImage: "url(/img/fakesitebg.svg)",
 				backgroundSize: "cover"
 			}}>
@@ -47,7 +47,7 @@ class FakeSite extends React.Component {
 							display: "flex",
 							flexDirection: "row",
 							justifyContent: "space-evenly",
-							minWidth: "50%"
+							minWidth: (this.props.mobile)?"75%":"50%", 
 						}}
 					>
 						<a target="_blank" rel="noopener noreferrer" href="https://github.com/sircinnamon" style={{}}>
@@ -70,4 +70,12 @@ class FakeSite extends React.Component {
 			</div>
 		)
 	}
+}
+
+FakeSite.propTypes = {
+	mobile: window.PropTypes.bool
+}
+
+FakeSite.defaultProps = {
+	mobile: false
 }

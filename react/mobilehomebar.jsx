@@ -12,6 +12,7 @@ class MobileHomeBar extends React.Component {
 		}
 		this.circlePress = function(){
 			console.log("C")
+			this.props.setView("home")
 		}
 		this.squarePress = function(){
 			console.log("S")
@@ -58,6 +59,10 @@ class MobileHomeBar extends React.Component {
 			</div>
 		)
 	}
+}
+
+MobileHomeBar.propTypes = {
+	setView: window.PropTypes.func
 }
 
 class MobileHomeBarButton extends React.Component {

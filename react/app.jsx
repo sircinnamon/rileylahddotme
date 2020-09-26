@@ -63,10 +63,10 @@ class BrowserAppHeader extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			backArrowHovered: false,
-			forwardArrowHovered: false,
-			refreshArrowHovered: false,
-			homeArrowHovered: false
+			backArrowGlow: false,
+			forwardArrowGlow: false,
+			refreshArrowGlow: false,
+			homeArrowGlow: false
 		}
 	}
 
@@ -76,102 +76,130 @@ class BrowserAppHeader extends React.Component {
 			display: "flex"
 		}
 		let headerBtnStyle = {
-			transition: "background-color 0.75s",
 			display: "inline-block",
 			borderRadius: "50%",
 			cursor: "pointer",
-			width: "20px",
-			height: "20px",
-			padding: "2px",
-			marginRight: "2px",
-			color: "#666"
+			width: "40px",
+			height: "40px",
+			padding: "4px",
+			marginRight: "4px",
+			color: "#666",
+			transition: "background-color 0.8s",
+			WebkitTapHighlightColor: "rgba(0,0,0,0)"
 		}
 		let backArrowStyle = {
 			...headerBtnStyle,
-			backgroundColor: this.state.backArrowHovered ? "#ccc" : "",
-			padding: "1px 2px 3px 2px"
+			backgroundColor: this.state.backArrowGlow ? "#ccc" : "",
+			transform: "rotate(180deg)"
 		}
 		let forwardArrowStyle = {
 			...headerBtnStyle,
-			backgroundColor: this.state.forwardArrowHovered ? "#ccc" : "",
-			padding: "1px 2px 3px 2px"
+			backgroundColor: this.state.forwardArrowGlow ? "#ccc" : "",
 		}
 		let refreshStyle = {
 			...headerBtnStyle,
-			backgroundColor: this.state.refreshArrowHovered ? "#ccc" : "",
-			fontSize: "19px",
-			padding: "2px 1px 2px 3px",
-			lineHeight: "19px"
+			backgroundColor: this.state.refreshArrowGlow ? "#ccc" : "",
 		}
 		let homeStyle = {
 			...headerBtnStyle,
-			backgroundColor: this.state.homeArrowHovered ? "#ccc" : "",
-			fontSize: "23px",
-			padding: "0px 0px 4px 4px",
-			lineHeight: "23px"
+			backgroundColor: this.state.homeArrowGlow ? "#ccc" : "",
 		}
 		let urlBarDivStyle = {
 			display: "block",
 			background: "#ccc",
-			height: "20px",
+			height: "40px",
 			flex: "1 1 10%",
-			borderRadius: "10px",
-			paddingLeft: "20px",
-			marginTop: "2px",
-			marginRight: "3px"
+			borderRadius: "20px",
+			paddingLeft: "30px",
+			marginTop: "4px",
+			marginRight: "6px"
 		}
 		let urlBarStyle = {
 			background: "none",
 			border: "none",
 			width: "90%",
 			outline: "none",
+			fontSize: "20px",
+			lineHeight: "40px",
 			...SANS_FONT
 		}
 		return (
 			<div style={containerStyle}>
 				<div
 					style={backArrowStyle}
-					onMouseEnter={() => {
-						this.setState({ backArrowHovered: true })
+					onTouchStart={() => {
+						this.setState({ backArrowGlow: true })
 					}}
-					onMouseLeave={() => {
-						this.setState({ backArrowHovered: false })
+					onTouchEnd={() => {
+						this.setState({ backArrowGlow: false })
 					}}
 				>
-					{"🡠"}
+					<img
+						style={{
+							height: "100%",
+							width: "100%",
+							objectFit: "contain",
+							opacity: 0.75
+						}}
+						src="/img/icons/arrow.svg"
+					/>
 				</div>
 				<div
 					style={forwardArrowStyle}
-					onMouseEnter={() => {
-						this.setState({ forwardArrowHovered: true })
+					onTouchStart={() => {
+						this.setState({ forwardArrowGlow: true })
 					}}
-					onMouseLeave={() => {
-						this.setState({ forwardArrowHovered: false })
+					onTouchEnd={() => {
+						this.setState({ forwardArrowGlow: false })
 					}}
 				>
-					{"🡢"}
+					<img
+						style={{
+							height: "100%",
+							width: "100%",
+							objectFit: "contain",
+							opacity: 0.75
+						}}
+						src="/img/icons/arrow.svg"
+					/>
 				</div>
 				<div
 					style={refreshStyle}
-					onMouseEnter={() => {
-						this.setState({ refreshArrowHovered: true })
+					onTouchStart={() => {
+						this.setState({ refreshArrowGlow: true })
 					}}
-					onMouseLeave={() => {
-						this.setState({ refreshArrowHovered: false })
+					onTouchEnd={() => {
+						this.setState({ refreshArrowGlow: false })
 					}}
 				>
-					{"↻"}
+					<img
+						style={{
+							height: "100%",
+							width: "100%",
+							objectFit: "contain",
+							opacity: 0.75
+						}}
+						src="/img/icons/refresh.svg"
+					/>
 				</div>
 				<div
 					style={homeStyle}
-					onMouseEnter={() => {
-						this.setState({ homeArrowHovered: true })
+					onTouchStart={() => {
+						this.setState({ homeArrowGlow: true })
 					}}
-					onMouseLeave={() => {
-						this.setState({ homeArrowHovered: false })
+					onTouchEnd={() => {
+						this.setState({ homeArrowGlow: false })
 					}}
 				>
-					{"⌂"}
+					<img
+						style={{
+							height: "100%",
+							width: "100%",
+							objectFit: "contain",
+							opacity: 0.75
+						}}
+						src="/img/icons/home.svg"
+					/>
 				</div>
 				<div style={urlBarDivStyle}>
 					<input

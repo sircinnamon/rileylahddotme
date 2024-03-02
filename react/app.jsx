@@ -219,3 +219,90 @@ BrowserAppHeader.propTypes = {
 	updateUrl: window.PropTypes.func,
 	currentUrl: window.PropTypes.string
 }
+
+class EmailApp extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			currentEmail: undefined
+		}
+	}
+
+	render() {
+		let emailPreviews = this.props.emails.map((e, i) => {
+			return (
+				<EmailPreview
+					open={(()=>{this.setState({currentEmail: i})}).bind(this)}
+					email={{...e, id: i}}
+					key={`emailPreview${i}`}
+				/>
+			)
+		})
+		return (
+			<BaseApp
+				isHidden={this.props.isHidden}
+			>
+				<div 
+					style={{
+						background: "rgba(30,30,30,255)",
+						height: "100%",
+						display: "flex",
+						flexDirection: "column",
+						overflow: "scroll",
+					}}
+				>
+					{emailPreviews}
+				</div>
+			</BaseApp>
+		)
+	}
+}
+
+EmailApp.propTypes = {
+	isHidden: window.PropTypes.bool,
+	emails: window.PropTypes.arrayOf(
+		window.PropTypes.shape({
+			id: window.PropTypes.number.isRequired,
+			sender: window.PropTypes.string.isRequired,
+			senderName: window.PropTypes.string,
+			subject: window.PropTypes.string,
+			body: window.PropTypes.string,
+			unread: window.PropTypes.bool
+		})
+	)
+}
+
+class EmailPreview extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
+
+	render() {
+		return (
+			<div 
+				style={{
+					flex: "0 0 11%",
+					color: this.props.email.unread?"rgb(200,200,200)":"rgb(150,150,150)"
+				}}
+				onClick={this.props.open}
+				onTouchEnd={this.props.open}
+			>
+				{this.props.email.sender}
+				<br/>
+				{this.props.email.subject}
+			</div>
+		)
+	}
+}
+
+EmailPreview.propTypes = {
+	open: window.PropTypes.func,
+	email: window.PropTypes.shape({
+		id: window.PropTypes.number.isRequired,
+		sender: window.PropTypes.string.isRequired,
+		subject: window.PropTypes.string,
+		body: window.PropTypes.string,
+		unread: window.PropTypes.bool
+	})
+}

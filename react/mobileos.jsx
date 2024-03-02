@@ -1,4 +1,4 @@
-/* global React, Desktop, BootSequence, MobileHome, MobileHomeBar, FakeSite, BrowserApp */
+/* global React, Desktop, BootSequence, MobileHome, MobileHomeBar, FakeSite, BrowserApp, EmailApp */
 /* exported MobileOS */
 class MobileOS extends React.Component {
 	constructor(props) {
@@ -30,6 +30,25 @@ class MobileOS extends React.Component {
 					startUrl: "rileylahd.me"
 				},
 				children: (<FakeSite mobile={true} />)
+			}
+			this.newApp(newApp)
+		}
+
+		this.emailApp = function () {
+			let appSet = this.state.appList
+			let id = "email"
+			if (appSet[id]) {
+				this.setState({view: id})
+				return
+			}
+			let newApp = {
+				id: id,
+				type: "email",
+				props: {
+					emails: [
+						{ sender: "rileylahd@gmail.com", subject: "Test Email", body: "This is a test"}
+					]
+				}
 			}
 			this.newApp(newApp)
 		}
@@ -80,6 +99,12 @@ class MobileOS extends React.Component {
 						{a[1].children}
 					</BrowserApp>
 				)
+			} else if(a[1].type === "email"){
+				return (
+					<EmailApp {...globalProps} {...a[1].props} key={a[1].id} isHidden={this.state.view!=a[1].id}>
+						{a[1].children}
+					</EmailApp>
+				)
 			}
 		})
 		apps = apps.concat([
@@ -88,7 +113,8 @@ class MobileOS extends React.Component {
 			</div>
 		])
 		let iconset = [
-			{key: "browser", name: "Browser", image: "/img/browserlogo.svg", open: this.browserApp.bind(this)}
+			{key: "browser", name: "Browser", image: "/img/browserlogo.svg", open: this.browserApp.bind(this)},
+			{key: "email", name: "Mail", image: "/img/folderlogo.svg", open: this.emailApp.bind(this)}
 		]
 		// console.log(apps)
 		return (

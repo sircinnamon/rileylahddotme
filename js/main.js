@@ -414,7 +414,7 @@ const SKILLS_IDE = {
 			{ string: "* Github\n", bold: true, color: 13 },
 			{ string: "* Hardware\n", bold: true, color: 13 },
 			{ string: "* API Design\n", bold: true, color: 13 },
-			{ string: "* Microsoft Offics\n", bold: true, color: 13 },
+			{ string: "* Microsoft Office\n", bold: true, color: 13 },
 		]
 	},
 };

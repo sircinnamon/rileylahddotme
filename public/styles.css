@@ -1,5 +1,29 @@
+/*"black": "#1a1a1a",*/
+/*"red": "#f4005f",*/
+/*"green": "#98e024",*/
+/*"yellow": "#fd971f",*/
+/*"purple": "#9d65ff",*/
+/*"magenta": "#f4005f",*/
+/*"cyan": "#58d1eb",*/
+/*"white": "#c4c5b5",*/
+
 body {
 	background: #2a2a2c;
 	color: #FFFFFF;
 	font-family: Roboto;
+	box-sizing: border-box;
+}
+
+#profile_pic {
+	height: 200px;
+	width: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: 0% 100%;
+	border: 8px solid #9d65ff;
+}
+
+#main_title {
+	font-size: 65px;
+	user-select: none;
 }

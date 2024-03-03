@@ -8,10 +8,11 @@
 /*"white": "#c4c5b5",*/
 
 body {
-	background: #2a2a2c;
+	background: #1a1a1a;
 	color: #FFFFFF;
-	font-family: Roboto;
+	font-family: "Montserrat", sans-serif;
 	box-sizing: border-box;
+	font-weight: 200;
 }
 
 #profile_pic {
@@ -26,4 +27,26 @@ body {
 #main_title {
 	font-size: 65px;
 	user-select: none;
+	font-weight: 200;
+	margin-bottom: 0.3em;
+	letter-spacing: 0.3em;
+}
+
+.montserrat-font {
+	font-family: "Montserrat", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: light;
+	font-style: normal;
+}
+
+.blurb {
+	margin-left: 0.5em;
+	padding-left: 0.5em;
+	border-left: 2px solid white;
+}
+
+.section-header {
+	font-weight: 200;
+	letter-spacing: 0.3em;
+	font-size: 32px;
 }

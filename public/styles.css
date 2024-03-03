@@ -15,6 +15,15 @@ body {
 	font-weight: 200;
 }
 
+a {
+	color: #58d1eb;
+	font-weight: bold;
+}
+
+a:visited {
+	color: #9d65ff;
+}
+
 #profile_pic {
 	height: 200px;
 	width: 200px;
@@ -22,13 +31,14 @@ body {
 	object-fit: cover;
 	object-position: 0% 100%;
 	border: 8px solid #9d65ff;
+	user-select: none;
 }
 
 #main_title {
 	font-size: 65px;
 	user-select: none;
 	font-weight: 200;
-	margin-bottom: 0.3em;
+	margin-bottom: 0.1em;
 	letter-spacing: 0.3em;
 }
 
@@ -39,10 +49,20 @@ body {
 	font-style: normal;
 }
 
+.subtitle {
+	font-size: 35px;
+	user-select: none;
+	font-weight: 600;
+	margin-bottom: 0.3em;
+	margin-top: 0.1em;
+}
+
 .blurb {
 	margin-left: 0.5em;
 	padding-left: 0.5em;
 	border-left: 2px solid white;
+	min-width: 400px;
+	width: 60vw;
 }
 
 .section-header {

@@ -34,7 +34,7 @@ const HomeView = () => {
 					padding: "1em",
 					justifyContent: "center",
 					alignItems: "center",
-					gap: "3em"
+					gap: "3vw"
 				}}
 			>
 				<div>

@@ -19,7 +19,7 @@ module.exports = {
 				}
 			},
 			{
-				test: /\.(css|ico|pdf|jpe?g)$/,
+				test: /\.(css|ico|pdf|jpe?g|png|svg)$/,
 				loader: "file-loader",
 				options: {
 					name: "[path][name].[ext]",

@@ -2,6 +2,9 @@ import React from "react"
 import {useState} from "react"
 import profile from "../public/img/profile.jpg"
 import cinder from "../public/img/cinder.jpg"
+import github from "../public/img/github.svg"
+import linkedin from "../public/img/linkedin.png"
+import envelope from "../public/img/mail.png"
 
 const HomeView = () => {
 
@@ -96,7 +99,6 @@ const HomeView = () => {
 					<i>Reznet Tech Support [Sep 2013 - Jun 2014, 10 mos]</i>
 					<br/>
 					This student assistance role involved diagnosing issues with residence wifi, university tools, and other issues that students on campus reported.
-					
 				</p>
 
 			</div>
@@ -120,7 +122,17 @@ const HomeView = () => {
 					<br/>
 					During COVID it became harder to get together for board games with friends, so I took one of my group's favourites and created a browser-based version entirely in React and NodeJS!
 				</p>
-
+			</div>
+			<div
+				style={{
+					borderTop:"1px solid #FFFFFF",
+					marginTop: "2em",
+					padding: "1em 5em",
+				}}
+			>
+				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="https://github.com/sircinnamon"><img className="footer-icon" src={github}/></a>
+				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/riley-lahd/"><img className="footer-icon" src={linkedin}/></a>
+				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="mailto:rileylahd@gmail.com"><img className="footer-icon" src={envelope}/></a>
 			</div>
 		</div>
 	)

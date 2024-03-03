@@ -70,3 +70,17 @@ a:visited {
 	letter-spacing: 0.3em;
 	font-size: 32px;
 }
+
+.footer-icon {
+	height: 1em;
+	cursor: pointer;
+}
+.footer-link {
+	border-right: 1px solid white;
+	padding: 0em 1em;
+	cursor: pointer;
+}
+
+.footer-link:last-child {
+	border: none;
+}

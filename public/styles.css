@@ -25,8 +25,10 @@ a:visited {
 }
 
 #profile_pic {
-	height: 200px;
-	width: 200px;
+	height: 30vw;
+	width: 30vw;
+	max-height: 200px;
+	max-width: 200px;
 	border-radius: 50%;
 	object-fit: cover;
 	object-position: 0% 100%;
@@ -35,7 +37,7 @@ a:visited {
 }
 
 #main_title {
-	font-size: 65px;
+	font-size: min(65px, 10vw);
 	user-select: none;
 	font-weight: 200;
 	margin-bottom: 0.1em;
@@ -50,7 +52,7 @@ a:visited {
 }
 
 .subtitle {
-	font-size: 35px;
+	font-size: min(35px, 4vw);
 	user-select: none;
 	font-weight: 600;
 	margin-bottom: 0.3em;
@@ -61,7 +63,8 @@ a:visited {
 	margin-left: 0.5em;
 	padding-left: 0.5em;
 	border-left: 2px solid white;
-	min-width: 400px;
+	min-width: 300px;
+	max-width: 750px;
 	width: 60vw;
 }
 

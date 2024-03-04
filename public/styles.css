@@ -24,6 +24,10 @@ a:visited {
 	color: #9d65ff;
 }
 
+i {
+	font-weight: bolder;
+}
+
 #profile_pic {
 	height: 30vw;
 	width: 30vw;

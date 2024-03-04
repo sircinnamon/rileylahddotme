@@ -113,7 +113,7 @@ const HomeView = () => {
 					<br/>
 					<a rel="noopener noreferrer" target="_blank" href="https://github.com/sircinnamon/runescape-text">Runescape Text</a>
 					<br/>
-					{"This project caused me to notice a bug in the popular Python image library \"Pillow\", which I was able to open a pull request for and fix, earning me the <b>Mars 2020 Contributor</b> badge as the library went on to be used in NASA's 2020 Marse Helicopter mission. This python script simply generates GIFs of moving text in the style of a specific video game."}
+					{"This project caused me to notice a bug in the popular Python image library \"Pillow\", which I was able to open a pull request for and fix, earning me the "}<b>Mars 2020 Contributor</b>{" badge as the library went on to be used in NASA's 2020 Mars Helicopter mission. This python script simply generates GIFs of moving text in the style of a specific video game."}
 					<br/>
 					<br/>
 					<a rel="noopener noreferrer" target="_blank" href="https://sircinnamon.ca/ll/">Love Letter</a>

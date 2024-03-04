@@ -29,3 +29,10 @@ jobs:
     - run: npm ci
     - run: npm run-script lint
     - run: npm run-script build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: rileylahddotme-dist
+        path: dist
+        if-no-files-found: error
+        retention-days: 3
+        overwrite: true

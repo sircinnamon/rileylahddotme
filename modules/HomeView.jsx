@@ -1,9 +1,14 @@
 import React, { useState } from "react"
 import profile from "../public/img/profile.jpg"
 import cinder from "../public/img/cinder.jpg"
-import github from "../public/img/github.svg"
-import linkedin from "../public/img/linkedin.png"
-import envelope from "../public/img/mail.png"
+import ContactLinks from "./ContactLinks"
+import {
+	CaretRightIcon,
+	InfoIcon,
+	GraduationCapIcon,
+	BriefcaseIcon,
+	CodeIcon,
+} from "@phosphor-icons/react"
 
 const HomeView = () => {
 	const [imgSrc, setImgSrc] = useState(profile)
@@ -40,11 +45,22 @@ const HomeView = () => {
 				</div>
 				<div>
 					<h1 id="main_title">RILEY LAHD</h1>
-					<p className="subtitle" style={{ color: "#9d65ff" }}> &gt; Full-Stack Developer</p>
+					<p
+						className="subtitle google-sans-code-font"
+						style={{
+							color: "#9d65ff",
+							display: "flex",
+							alignItems: "center",
+							gap: "0.25em"
+						}}
+					>
+						<CaretRightIcon weight="bold" />
+						Full-Stack Developer
+					</p>
 				</div>
 			</div>
 			<div>
-				<h2 className="section-header">ABOUT</h2>
+				<h2 className="section-header"><InfoIcon weight="light" color="#58d1eb" /> ABOUT</h2>
 				<p className="blurb" style={{ borderColor: "#58d1eb" }}>
 					{"Hello! I'm Riley, a Software Developer from Calgary, Alberta. I'm passionate about coding but my other hobbies include gaming (tabletop, video, and board games), scuba diving, movies, and more. I consider myself a fast-learner, detail oriented, and able to communicate and collaborate effectively with project managers and stakeholders."}
 					<br/>
@@ -54,7 +70,7 @@ const HomeView = () => {
 
 			</div>
 			<div>
-				<h2 className="section-header">EDUCATION</h2>
+				<h2 className="section-header"><GraduationCapIcon weight="light" color="#98e024" /> EDUCATION</h2>
 				<p className="blurb" style={{ borderColor: "#98e024" }}>
 					<b>Bachelor of Science in Computer Science - University of Calgary</b>
 					<br/>
@@ -65,15 +81,22 @@ const HomeView = () => {
 					<br/>
 					<b>Master of Information Security and Privacy - University of Calgary</b>
 					<br/>
-					<i>2023-Ongoing (Expected completion: August 2024)</i>
+					<i>2023-2024</i>
 					<br/>
-					This masters program has allowed me to expand my knowledge into the security space, giving me deeper knowledge on topics i was aware of, like cryptography and penetration testing, as well as introducing me to new tools and skills with hands on experience.
+					This masters program allowed me to expand my knowledge into the security space, giving me deeper knowledge on topics I was aware of, like cryptography and penetration testing, as well as introducing me to new tools and skills with hands on experience. I intend to incorporate these skills into developing hardened, secure services resistant to malicious use.
 				</p>
 
 			</div>
 			<div>
-				<h2 className="section-header">EXPERIENCE</h2>
+				<h2 className="section-header"><BriefcaseIcon weight="light" color="#fd971f" /> EXPERIENCE</h2>
 				<p className="blurb" style={{ borderColor: "#fd971f" }}>
+					<b>Absorb LMS</b>
+					<br/>
+					<i>Developer [Jul 2025 - Present]</i>
+					<br/>
+					This position on the Marketing Technology team exposed me to new toolsets and workflows for modern metric collection and information processing, and allowed me to work with several content management systems like Contentful and Webflow, to enable dynamic authoring and input from design teams.
+					<br/>
+					<br/>
 					<b>Shaw Communications / Rogers Communications</b>
 					<br/>
 					<i>Senior Software Developer [Jul 2019 - Feb 2024, 2 yrs 8 mos]</i>
@@ -101,7 +124,7 @@ const HomeView = () => {
 
 			</div>
 			<div>
-				<h2 className="section-header">PORTFOLIO</h2>
+				<h2 className="section-header"><CodeIcon weight="light" color="#f4005f" /> PORTFOLIO</h2>
 				<p className="blurb" style={{ borderColor: "#f4005f" }}>
 					Many of my personal projects are available on my <a rel="noopener noreferrer" target="_blank" href="https://github.com/sircinnamon">GitHub</a>. Some of these highlights may be relevant:
 					<br/>
@@ -121,17 +144,7 @@ const HomeView = () => {
 					{"During COVID it became harder to get together for board games with friends, so I took one of my group's favourites and created a browser-based version entirely in React and NodeJS!"}
 				</p>
 			</div>
-			<div
-				style={{
-					borderTop: "1px solid #FFFFFF",
-					marginTop: "2em",
-					padding: "1em 5em"
-				}}
-			>
-				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="https://github.com/sircinnamon"><img className="footer-icon" src={github}/></a>
-				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/riley-lahd/"><img className="footer-icon" src={linkedin}/></a>
-				<a className="footer-link" rel="noopener noreferrer" target="_blank" href="mailto:rileylahd@gmail.com"><img className="footer-icon" src={envelope}/></a>
-			</div>
+			<ContactLinks />
 		</div>
 	)
 }
